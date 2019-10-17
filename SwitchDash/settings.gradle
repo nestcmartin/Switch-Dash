@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':PCEngine'
 rootProject.name='Switch Dash'
