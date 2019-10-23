@@ -1,2 +1,2 @@
-include ':AndroidApplication', ':Engine'
+include ':AndroidApplication', ':Engine', ':AndroidEngine'
 rootProject.name='Switch Dash'
