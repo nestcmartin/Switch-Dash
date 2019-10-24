@@ -8,8 +8,8 @@ import es.ucm.vdm.engine.Input;
 
 public class AndroidInput implements Input {
 
-    KeyboardHandler keyHandler_;
-    TouchHandler touchHandler_;
+    private KeyboardHandler keyHandler_;
+    private TouchHandler touchHandler_;
 
     public AndroidInput(View view, float scaleX, float scaleY) {
         keyHandler_ = new KeyboardHandler(view);

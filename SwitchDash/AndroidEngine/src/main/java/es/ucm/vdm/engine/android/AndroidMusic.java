@@ -9,8 +9,8 @@ import es.ucm.vdm.engine.Music;
 
 public class AndroidMusic implements Music, MediaPlayer.OnCompletionListener {
 
-    MediaPlayer mediaPlayer_;
-    boolean isPrepared_;
+    private MediaPlayer mediaPlayer_;
+    private boolean isPrepared_;
 
     public AndroidMusic(AssetFileDescriptor assetDescriptor) {
         mediaPlayer_ = new MediaPlayer();

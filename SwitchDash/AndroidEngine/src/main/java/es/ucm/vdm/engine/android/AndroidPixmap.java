@@ -7,12 +7,18 @@ import es.ucm.vdm.engine.Pixmap;
 
 public class AndroidPixmap implements Pixmap {
 
-    Bitmap bitmap_;
-    Graphics.PixmapFormat format_;
+    private Bitmap bitmap_;
 
-    public AndroidPixmap(Bitmap bitmap, Graphics.PixmapFormat format) {
+    public Bitmap getBitmap() {
+        return bitmap_;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
         this.bitmap_ = bitmap;
-        this.format_ = format;
+    }
+
+    public AndroidPixmap(Bitmap bitmap) {
+        this.bitmap_ = bitmap;
     }
 
     public int getWidth() {
@@ -23,9 +29,6 @@ public class AndroidPixmap implements Pixmap {
         return bitmap_.getHeight();
     }
 
-    public Graphics.PixmapFormat getFormat() {
-        return format_;
-    }
 
     public void dispose() {
         bitmap_.recycle();

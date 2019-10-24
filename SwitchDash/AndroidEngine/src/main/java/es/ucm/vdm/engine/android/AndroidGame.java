@@ -16,12 +16,12 @@ import es.ucm.vdm.engine.Screen;
 
 public class AndroidGame extends Activity implements Game {
 
-    AndroidFastRenderView renderView_;
-    Graphics graphics_;
-    Audio audio_;
-    Input input_;
-    FileIO fileIO_;
-    Screen screen_;
+    private AndroidFastRenderView renderView_;
+    private Graphics graphics_;
+    private Audio audio_;
+    private Input input_;
+    private FileIO fileIO_;
+    private Screen screen_;
 
     @Override
     public void onCreate(Bundle savedInstance) {

@@ -12,14 +12,14 @@ import es.ucm.vdm.engine.PoolObjectFactory;
 
 public class SingleTouchHandler implements TouchHandler {
 
-    boolean isTouched_;
-    int touchX_;
-    int touchY_;
-    Pool<Input.TouchEvent> touchEventPool_;
-    List<Input.TouchEvent> touchEvents_ = new ArrayList<Input.TouchEvent>();
-    List<Input.TouchEvent> touchEventsBuffer_ = new ArrayList<Input.TouchEvent>();
-    float scaleX_;
-    float scaleY_;
+    private boolean isTouched_;
+    private int touchX_;
+    private int touchY_;
+    private Pool<Input.TouchEvent> touchEventPool_;
+    private List<Input.TouchEvent> touchEvents_ = new ArrayList<Input.TouchEvent>();
+    private List<Input.TouchEvent> touchEventsBuffer_ = new ArrayList<Input.TouchEvent>();
+    private float scaleX_;
+    private float scaleY_;
 
     public SingleTouchHandler(View view, float scaleX, float scaleY) {
         PoolObjectFactory<Input.TouchEvent> factory = new PoolObjectFactory<Input.TouchEvent>() {

@@ -14,8 +14,8 @@ import es.ucm.vdm.engine.Sound;
 
 public class AndroidAudio implements Audio {
 
-    AssetManager assets_;
-    SoundPool soundPool_;
+    private AssetManager assets_;
+    private SoundPool soundPool_;
 
     public AndroidAudio(Activity activity) {
         activity.setVolumeControlStream((AudioManager.STREAM_MUSIC));

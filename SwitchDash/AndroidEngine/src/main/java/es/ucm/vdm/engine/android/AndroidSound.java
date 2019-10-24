@@ -6,8 +6,8 @@ import es.ucm.vdm.engine.Sound;
 
 public class AndroidSound implements Sound {
 
-    int soundId_;
-    SoundPool soundPool_;
+    private int soundId_;
+    private SoundPool soundPool_;
 
     public AndroidSound(SoundPool soundPool, int soundId) {
         this.soundId_ = soundId;

@@ -12,10 +12,10 @@ import es.ucm.vdm.engine.PoolObjectFactory;
 
 public class KeyboardHandler implements View.OnKeyListener {
 
-    boolean[] pressedKeys_ = new boolean[128];
-    Pool<Input.KeyEvent> keyEventPool_;
-    List<Input.KeyEvent> keyEventsBuffer_ = new ArrayList<Input.KeyEvent>();
-    List<Input.KeyEvent> keyEvents_ = new ArrayList<Input.KeyEvent>();
+    private boolean[] pressedKeys_ = new boolean[128];
+    private Pool<Input.KeyEvent> keyEventPool_;
+    private List<Input.KeyEvent> keyEventsBuffer_ = new ArrayList<Input.KeyEvent>();
+    private List<Input.KeyEvent> keyEvents_ = new ArrayList<Input.KeyEvent>();
 
     public KeyboardHandler(View view) {
         PoolObjectFactory<Input.KeyEvent> factory = new PoolObjectFactory<Input.KeyEvent>() {

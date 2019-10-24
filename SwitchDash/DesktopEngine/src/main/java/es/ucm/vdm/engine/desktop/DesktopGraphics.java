@@ -5,25 +5,13 @@ import es.ucm.vdm.engine.Pixmap;
 
 public class DesktopGraphics implements Graphics {
 
-    java.awt.Graphics graphics_;
+    private java.awt.Graphics graphics_;
 
-    public Pixmap newPixmap(String fileName, PixmapFormat format) {
+    public Pixmap newPixmap(String fileName) {
         return null;
     }
 
     public void clear(int color) {
-
-    }
-
-    public void drawPixel(int x, int y, int color) {
-
-    }
-
-    public void drawLine(int x, int y, int x2, int y2, int color) {
-
-    }
-
-    public void drawRect(int x, int y, int width, int height, int color) {
 
     }
 

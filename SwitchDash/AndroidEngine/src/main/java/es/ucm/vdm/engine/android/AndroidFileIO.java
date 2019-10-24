@@ -20,9 +20,9 @@ import es.ucm.vdm.engine.FileIO;
 
 public class AndroidFileIO implements FileIO {
 
-    Context context_;
-    AssetManager assets_;
-    String externalStoragePath_;
+    private Context context_;
+    private AssetManager assets_;
+    private String externalStoragePath_;
 
     public AndroidFileIO(Context context) {
         this.context_ = context;
