@@ -7,6 +7,10 @@ public class DesktopPixmap implements Pixmap {
 
     private Image image_;
 
+    public Image getImage() {
+        return image_;
+    }
+
     public DesktopPixmap(Image image) {
         this.image_ = image;
     }

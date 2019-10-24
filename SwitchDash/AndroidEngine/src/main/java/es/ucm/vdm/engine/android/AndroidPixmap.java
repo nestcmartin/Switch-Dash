@@ -29,7 +29,6 @@ public class AndroidPixmap implements Pixmap {
         return bitmap_.getHeight();
     }
 
-
     public void dispose() {
         bitmap_.recycle();
     }

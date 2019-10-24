@@ -7,7 +7,6 @@ public interface Graphics {
 
     public void clear(int color);
 
-    public void drawPixmap(Pixmap pixmap, int x, int y, int srcX, int srcY, int srcW, int srcH);
     public void drawPixmap(Pixmap pixmap, int x, int y);
 
     public int getWidth();
