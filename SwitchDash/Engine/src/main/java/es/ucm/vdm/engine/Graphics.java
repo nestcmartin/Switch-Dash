@@ -9,6 +9,10 @@ public interface Graphics {
 
     public void drawPixmap(Pixmap pixmap, int x, int y);
 
+    public void drawPixmap(Pixmap pixmap, Rect src, int x, int y);
+
+    public void drawPixmap(Pixmap pixmap, Rect src, Rect dst);
+
     public int getWidth();
     public int getHeight();
 
