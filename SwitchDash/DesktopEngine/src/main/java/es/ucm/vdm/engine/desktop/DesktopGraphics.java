@@ -2,10 +2,12 @@ package es.ucm.vdm.engine.desktop;
 
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Pixmap;
+import es.ucm.vdm.engine.Rect;
+
 import java.awt.*;
 import java.io.IOException;
 
-public class DesktopGraphics implements Graphics{
+public class DesktopGraphics implements Graphics {
 
     private java.awt.Graphics graphics_;
 
@@ -27,6 +29,20 @@ public class DesktopGraphics implements Graphics{
 
     public void drawPixmap(Pixmap pixmap, int x, int y) {
         graphics_.drawImage(((DesktopPixmap)pixmap).getImage(), x, y, null);
+    }
+
+    public void drawPixmap(Pixmap pixmap, Rect src, int x, int y) {
+        graphics_.drawImage(((DesktopPixmap)pixmap).getImage(),
+                x, y, x + src.width(), y + src.height(),
+                src.x1, src.y1, src.x2, src.y2,
+                null);
+    }
+
+    public void drawPixmap(Pixmap pixmap, Rect src, Rect dst) {
+        graphics_.drawImage(((DesktopPixmap)pixmap).getImage(),
+                dst.x1, dst.y1, dst.x2, dst.y2,
+                src.x1, src.y1, src.x2, src.y2,
+                null);
     }
 
     public int getWidth() {

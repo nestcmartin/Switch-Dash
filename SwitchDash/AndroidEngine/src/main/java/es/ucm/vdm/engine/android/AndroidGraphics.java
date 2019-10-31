@@ -63,6 +63,18 @@ public class AndroidGraphics implements Graphics {
         canvas_.drawBitmap(((AndroidPixmap)pixmap).getBitmap(), x, y, null);
     }
 
+    public void drawPixmap(Pixmap pixmap, es.ucm.vdm.engine.Rect src, int x, int y) {
+        Rect source = new Rect(src.x1, src.y1, src.x2, src.y2);
+        Rect destiny = new Rect(x, y, x + src.width(), y + src.height());
+        canvas_.drawBitmap(((AndroidPixmap)pixmap).getBitmap(), source, destiny, null);
+    }
+
+    public void drawPixmap(Pixmap pixmap, es.ucm.vdm.engine.Rect src, es.ucm.vdm.engine.Rect dst) {
+        Rect source = new Rect(src.x1, src.y1, src.x2, src.y2);
+        Rect destiny = new Rect(dst.x1, dst.y1, dst.x2, dst.y2);
+        canvas_.drawBitmap(((AndroidPixmap)pixmap).getBitmap(), source, destiny, null);
+    }
+
     public int getWidth() {
         return frameBuffer_.getWidth();
     }
