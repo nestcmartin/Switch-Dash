@@ -14,12 +14,12 @@ import es.ucm.vdm.engine.State;
 
 public class AndroidGame extends Activity implements Game {
 
-    private AndroidFastRenderView renderView_;
+    private RenderView renderView_;
     private Graphics graphics_;
-    //private Audio audio_;
     private Input input_;
-    //private FileIO fileIO_;
     private State state_;
+    //private Audio audio_;
+    //private FileIO fileIO_;
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -34,7 +34,7 @@ public class AndroidGame extends Activity implements Game {
         Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth, frameBufferHeight, Bitmap.Config.RGB_565);
         float scaleX = (float)frameBufferWidth / getWindowManager().getDefaultDisplay().getWidth();
         float scaleY = (float)frameBufferHeight / getWindowManager().getDefaultDisplay().getHeight();
-        renderView_ = new AndroidFastRenderView(this, frameBuffer);
+        renderView_ = new RenderView(this, frameBuffer);
         graphics_ = new AndroidGraphics(getAssets(), frameBuffer);
         //fileIO_ = new AndroidFileIO(this);
         //audio_ = new AndroidAudio(this);

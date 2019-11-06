@@ -7,9 +7,16 @@ import es.ucm.vdm.engine.State;
 
 public class DesktopGame implements Game {
 
+    private DesktopWindow window_;
     private Graphics graphics_;
     private Input input_;
     private State state_;
+
+    public void startGame(String windowName, int width, int height){
+        state_ = getStartState();
+        window_ = new DesktopWindow(this, windowName, width, height);
+        window_.run();
+    }
 
     public Input getInput() {
         return input_;
