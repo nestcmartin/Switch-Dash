@@ -4,7 +4,6 @@ import es.ucm.vdm.engine.utilities.Rect;
 
 public interface Graphics {
 
-
     public Pixmap newPixmap(String fileName);
 
     public void clear(int color);

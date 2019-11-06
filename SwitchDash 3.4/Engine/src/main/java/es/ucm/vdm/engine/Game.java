@@ -7,8 +7,8 @@ public interface Game {
     public Graphics getGraphics();
     //public Audio getAudio();
 
-    public void setScreen(State screen);
-    public State getCurrentScreen();
-    public State getStartScreen();
+    public void setState(State state);
+    public State getCurrentState();
+    public State getStartState();
 
 }
