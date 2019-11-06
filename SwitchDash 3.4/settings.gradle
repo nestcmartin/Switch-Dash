@@ -1,1 +1,1 @@
-include ':AndroidApplication', ':DesktopApplication', ':Engine', ':AndroidEngine', ':DesktopEngine'
+include ':AndroidApplication', ':DesktopApplication', ':Engine', ':AndroidEngine', ':DesktopEngine', ':Logic'

@@ -5,13 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Pixmap;
+import es.ucm.vdm.engine.utilities.Rect;
 
 public class AndroidGraphics implements Graphics {
 
@@ -19,8 +19,8 @@ public class AndroidGraphics implements Graphics {
     private Bitmap frameBuffer_;
     private Canvas canvas_;
     private Paint paint_;
-    private Rect srcRect_ = new Rect();
-    private Rect dstRect_ = new Rect();
+    private android.graphics.Rect srcRect_ = new android.graphics.Rect();
+    private android.graphics.Rect dstRect_ = new android.graphics.Rect();
 
 
     public AndroidGraphics(AssetManager assets, Bitmap frameBuffer) {
@@ -63,15 +63,15 @@ public class AndroidGraphics implements Graphics {
         canvas_.drawBitmap(((AndroidPixmap)pixmap).getBitmap(), x, y, null);
     }
 
-    public void drawPixmap(Pixmap pixmap, es.ucm.vdm.engine.Rect src, int x, int y) {
-        Rect source = new Rect(src.x1, src.y1, src.x2, src.y2);
-        Rect destiny = new Rect(x, y, x + src.width(), y + src.height());
+    public void drawPixmap(Pixmap pixmap, Rect src, int x, int y) {
+        android.graphics.Rect source = new android.graphics.Rect(src.x1, src.y1, src.x2, src.y2);
+        android.graphics.Rect destiny = new android.graphics.Rect(x, y, x + src.width(), y + src.height());
         canvas_.drawBitmap(((AndroidPixmap)pixmap).getBitmap(), source, destiny, null);
     }
 
-    public void drawPixmap(Pixmap pixmap, es.ucm.vdm.engine.Rect src, es.ucm.vdm.engine.Rect dst) {
-        Rect source = new Rect(src.x1, src.y1, src.x2, src.y2);
-        Rect destiny = new Rect(dst.x1, dst.y1, dst.x2, dst.y2);
+    public void drawPixmap(Pixmap pixmap, Rect src, Rect dst) {
+        android.graphics.Rect source = new android.graphics.Rect(src.x1, src.y1, src.x2, src.y2);
+        android.graphics.Rect destiny = new android.graphics.Rect(dst.x1, dst.y1, dst.x2, dst.y2);
         canvas_.drawBitmap(((AndroidPixmap)pixmap).getBitmap(), source, destiny, null);
     }
 

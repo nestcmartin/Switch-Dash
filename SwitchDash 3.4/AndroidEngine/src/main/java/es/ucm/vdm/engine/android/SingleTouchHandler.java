@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.ucm.vdm.engine.Input;
-import es.ucm.vdm.engine.Pool;
-import es.ucm.vdm.engine.PoolObjectFactory;
+import es.ucm.vdm.engine.utilities.Pool;
+import es.ucm.vdm.engine.utilities.PoolObjectFactory;
 
 public class SingleTouchHandler implements TouchHandler {
 

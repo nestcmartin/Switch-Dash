@@ -7,21 +7,19 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-import es.ucm.vdm.engine.Audio;
-import es.ucm.vdm.engine.FileIO;
 import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Input;
-import es.ucm.vdm.engine.Screen;
+import es.ucm.vdm.engine.State;
 
 public class AndroidGame extends Activity implements Game {
 
     private AndroidFastRenderView renderView_;
     private Graphics graphics_;
-    private Audio audio_;
+    //private Audio audio_;
     private Input input_;
-    private FileIO fileIO_;
-    private Screen screen_;
+    //private FileIO fileIO_;
+    private State state_;
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -43,17 +41,17 @@ public class AndroidGame extends Activity implements Game {
                 / getWindowManager().getDefaultDisplay().getHeight();
         renderView_ = new AndroidFastRenderView(this, frameBuffer);
         graphics_ = new AndroidGraphics(getAssets(), frameBuffer);
-        fileIO_ = new AndroidFileIO(this);
-        audio_ = new AndroidAudio(this);
+        //fileIO_ = new AndroidFileIO(this);
+        //audio_ = new AndroidAudio(this);
         input_ = new AndroidInput(renderView_, scaleX, scaleY);
-        screen_ = getStartScreen();
+        state_ = getStartScreen();
         setContentView(renderView_);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        screen_.resume();
+        state_.resume();
         renderView_.resume();
     }
 
@@ -61,11 +59,11 @@ public class AndroidGame extends Activity implements Game {
     public void onPause() {
         super.onPause();
         renderView_.pause();
-        screen_.pause();
+        state_.pause();
 
         if (isFinishing())
         {
-            screen_.dispose();
+            state_.dispose();
         }
     }
 
@@ -74,35 +72,27 @@ public class AndroidGame extends Activity implements Game {
         return input_;
     }
 
-    public FileIO getFileIO() {
-        return fileIO_;
-    }
-
     public Graphics getGraphics() {
         return graphics_;
     }
 
-    public Audio getAudio() {
-        return audio_;
-    }
-
-    public void setScreen(Screen screen) {
+    public void setScreen(State screen) {
         if (screen == null) {
             throw new IllegalArgumentException("Screen must not be null");
         }
 
-        this.screen_.pause();
-        this.screen_.dispose();
+        this.state_.pause();
+        this.state_.dispose();
         screen.resume();
         screen.update(0);
-        this.screen_ = screen;
+        this.state_ = screen;
     }
 
-    public Screen getCurrentScreen() {
-        return screen_;
+    public State getCurrentScreen() {
+        return state_;
     }
 
-    public Screen getStartScreen() {
+    public State getStartScreen() {
         return null;
     }
 }

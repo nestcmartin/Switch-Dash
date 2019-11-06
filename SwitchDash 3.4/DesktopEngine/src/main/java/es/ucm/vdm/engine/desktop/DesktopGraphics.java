@@ -2,7 +2,7 @@ package es.ucm.vdm.engine.desktop;
 
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Pixmap;
-import es.ucm.vdm.engine.Rect;
+import es.ucm.vdm.engine.utilities.Rect;
 
 import java.awt.*;
 import java.io.IOException;
