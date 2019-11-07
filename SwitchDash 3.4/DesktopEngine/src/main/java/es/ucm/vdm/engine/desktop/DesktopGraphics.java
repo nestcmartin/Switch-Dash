@@ -5,11 +5,37 @@ import es.ucm.vdm.engine.Pixmap;
 import es.ucm.vdm.engine.utilities.Rect;
 
 import java.awt.*;
+import java.awt.image.BufferStrategy;
 import java.io.IOException;
+
+import javax.swing.JFrame;
 
 public class DesktopGraphics implements Graphics {
 
     private java.awt.Graphics graphics_;
+    private BufferStrategy strategy_;
+
+    public DesktopGraphics(DesktopWindow window) {
+
+        int intentos = 100;
+        while(intentos-- > 0) {
+            try {
+                window.createBufferStrategy(2);
+                break;
+            }
+            catch(Exception e) {
+                System.out.println(intentos);
+            }
+        }
+
+        if (intentos == -1) {
+            System.err.println("No pude crear la BufferStrategy");
+            return;
+        }
+
+        strategy_ = window.getBufferStrategy();
+        graphics_ = strategy_.getDrawGraphics();
+    }
 
     public Pixmap newPixmap(String fileName) {
         Image image = null;
@@ -51,5 +77,9 @@ public class DesktopGraphics implements Graphics {
 
     public int getHeight() {
         return 0;
+    }
+
+    public void dispose() {
+        graphics_.dispose();
     }
 }

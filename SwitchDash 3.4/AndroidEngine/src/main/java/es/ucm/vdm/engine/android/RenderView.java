@@ -36,7 +36,7 @@ public class RenderView extends SurfaceView implements Runnable {
                 continue;
             }
 
-            float deltaTime = (System.nanoTime() - startTime) / 1000000000.0f;
+            double deltaTime = (System.nanoTime() - startTime) / 1000000000.0f;
             startTime = System.nanoTime();
 
             game_.getCurrentState().update(deltaTime);

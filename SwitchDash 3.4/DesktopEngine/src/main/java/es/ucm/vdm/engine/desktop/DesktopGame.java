@@ -8,13 +8,15 @@ import es.ucm.vdm.engine.State;
 public class DesktopGame implements Game {
 
     private DesktopWindow window_;
-    private Graphics graphics_;
+    private DesktopGraphics graphics_;
     private Input input_;
     private State state_;
 
-    public void startGame(String windowName, int width, int height){
-        state_ = getStartState();
+    public DesktopGame(String windowName, int width, int height){
         window_ = new DesktopWindow(this, windowName, width, height);
+        graphics_ = new DesktopGraphics(window_);
+        state_ = getStartState();
+        window_.init();
         window_.run();
     }
 
@@ -22,7 +24,7 @@ public class DesktopGame implements Game {
         return input_;
     }
 
-    public Graphics getGraphics() {
+    public DesktopGraphics getGraphics() {
         return graphics_;
     }
 

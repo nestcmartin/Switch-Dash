@@ -1,15 +1,17 @@
 package es.ucm.vdm.engine.desktop;
 
+import java.awt.image.BufferStrategy;
+
 import javax.swing.JFrame;
 
 public class DesktopWindow extends JFrame implements Runnable {
 
-    private static String title_;
     private DesktopGame game_;
-    private volatile boolean running_ = false;
-
+    private static String title_;
     private int width_;
     private int height_;
+    private BufferStrategy strategy_;
+    private volatile boolean running_ = true;
 
     public DesktopWindow(DesktopGame game, String title, int width, int height){
         super(title);
@@ -22,23 +24,36 @@ public class DesktopWindow extends JFrame implements Runnable {
     public void init(){
         setSize(width_, height_);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        setIgnoreRepaint(true);
+        setVisible(true);
+
     }
 
     @Override
     public void run() {
-        init();
-        this.setVisible(true);
 
-        long startTime = System.nanoTime();
-        running_ = true;
+        long lastFrameTime = System.nanoTime();
 
         while(running_) {
-
-            float deltaTime = (System.nanoTime() - startTime) / 1000000000.0f;
-            startTime = System.nanoTime();
+            long currentTime = System.nanoTime();
+            long nanoElapsedTime = currentTime - lastFrameTime;
+            lastFrameTime = currentTime;
+            double deltaTime = (double) nanoElapsedTime / 1.0E9;
 
             game_.getCurrentState().update(deltaTime);
-            game_.getCurrentState().render(deltaTime);
+
+            do {
+                do {
+                    try {
+                        game_.getCurrentState().render(deltaTime);
+                    }
+                    finally {
+                        //game_.getGraphics().dispose();
+                    }
+                } while(strategy_.contentsRestored());
+                strategy_.show();
+            } while(strategy_.contentsLost());
         }
     }
 }

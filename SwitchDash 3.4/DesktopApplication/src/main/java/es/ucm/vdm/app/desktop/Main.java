@@ -1,6 +1,5 @@
 package es.ucm.vdm.app.desktop;
 
-import es.ucm.vdm.engine.desktop.DesktopGame;
 
 public class Main {
 
@@ -8,7 +7,6 @@ public class Main {
 
         System.out.println(("Starting DesktopGame"));
 
-        DesktopGame game = new DesktopGame();
-        game.startGame("SwitchDash", 1280, 720);
+        DesktopSwitchDash game = new DesktopSwitchDash("SwitchDash", 1280, 720);
     }
 }
