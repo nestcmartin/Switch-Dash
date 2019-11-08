@@ -39,16 +39,16 @@ public class AndroidSingleTouchHandler implements AndroidTouchHandler {
             Input.TouchEvent touchEvent = touchEventPool_.newObject();
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    touchEvent.type_ = Input.TouchEvent.TOUCH_DOWN;
+                    touchEvent.type_ = Input.EventType.PRESSED;
                     isTouched_ = true;
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    touchEvent.type_ = Input.TouchEvent.TOUCH_DRAGGED;
+                    touchEvent.type_ = Input.EventType.MOVED;
                     isTouched_ = true;
                     break;
                 case MotionEvent.ACTION_CANCEL:
                 case MotionEvent.ACTION_UP:
-                    touchEvent.type_ = Input.TouchEvent.TOUCH_UP;
+                    touchEvent.type_ = Input.EventType.RELEASED;
                     isTouched_ = false;
                     break;
             }

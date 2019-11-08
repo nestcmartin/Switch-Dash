@@ -1,6 +1,9 @@
 package es.ucm.vdm.logic;
 
+import java.util.List;
+
 import es.ucm.vdm.engine.Game;
+import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.State;
 
 public class DemoState extends State {
@@ -11,6 +14,24 @@ public class DemoState extends State {
 
     @Override
     public void update(double deltaTime) {
+
+        List<Input.KeyEvent> keyEvents = game_.getInput().getKeyEvents();
+        List<Input.TouchEvent> touchEvents = game_.getInput().getTouchEvents();
+
+        for (int i = 0; i < keyEvents.size(); i++) {
+            Input.KeyEvent event = keyEvents.get(i);
+            if (event.type_ == Input.EventType.PRESSED) {
+                System.out.println(event.keyCode_);
+            }
+        }
+
+        for (int i = 0; i < touchEvents.size(); i++) {
+            Input.TouchEvent event = touchEvents.get(i);
+            if (event.type_ == Input.EventType.PRESSED) {
+                System.out.println(event.id_);
+            }
+        }
+
     }
 
     @Override

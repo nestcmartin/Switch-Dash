@@ -13,6 +13,7 @@ public class DesktopGame implements Game {
     public DesktopGame(String windowName, int width, int height){
         window_ = new DesktopRenderView(this, windowName, width, height);
         graphics_ = new DesktopGraphics(window_);
+        input_ = new DesktopInput(window_);
         state_ = getStartState();
         window_.run();
     }
