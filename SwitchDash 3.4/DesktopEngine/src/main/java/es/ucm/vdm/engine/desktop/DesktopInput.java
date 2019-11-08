@@ -19,7 +19,7 @@ public class DesktopInput implements Input {
 
     @Override
     public boolean isKeyPressed(int keyCode) {
-        return false;
+        return keyHandler_.isKeyPressed(keyCode);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class DesktopInput implements Input {
 
     @Override
     public List<KeyEvent> getKeyEvents() {
-        return null;
+        return keyHandler_.getKeyEvents();
     }
 
     @Override
