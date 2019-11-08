@@ -4,12 +4,15 @@ import java.util.List;
 
 public interface Input {
 
+    public enum EventType {
+        PRESSED,
+        RELEASED,
+        MOVED
+    }
+
     public class KeyEvent {
 
-        public static final int KEY_DOWN = 0;
-        public static final int KEY_UP = 1;
-
-        public int type_;
+        public EventType type_;
         public int keyCode_;
         public char keyChar_;
 
@@ -17,14 +20,10 @@ public interface Input {
 
     public static class TouchEvent {
 
-        public static final int TOUCH_DOWN = 0;
-        public static final int TOUCH_UP = 1;
-        public static final int TOUCH_DRAGGED = 2;
-
-        public int type_;
+        public EventType type_;
         public int x_;
         public int y_;
-        public int pointer_;
+        public int id_;
 
     }
 

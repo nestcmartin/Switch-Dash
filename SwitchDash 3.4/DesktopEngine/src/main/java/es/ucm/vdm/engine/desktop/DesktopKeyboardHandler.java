@@ -11,6 +11,7 @@ import es.ucm.vdm.engine.Input;
 
 public class DesktopKeyboardHandler implements KeyListener {
 
+    private boolean[] pressedKeys_ = new boolean[128];
     private List<Input.KeyEvent> keyEventsBuffer_ = new ArrayList<>();
     private List<Input.KeyEvent> keyEvents_ = new ArrayList<>();
 

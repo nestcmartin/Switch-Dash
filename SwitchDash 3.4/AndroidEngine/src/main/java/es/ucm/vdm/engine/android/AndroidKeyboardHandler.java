@@ -24,7 +24,7 @@ public class AndroidKeyboardHandler implements View.OnKeyListener {
                 return new Input.KeyEvent();
             }
         };
-        keyEventPool_ = new Pool<Input.KeyEvent>(factory, 100);
+        keyEventPool_ = new Pool<>(factory, 100);
         view.setOnKeyListener(this);
         view.setFocusableInTouchMode(true);
         view.requestFocus();
@@ -40,13 +40,13 @@ public class AndroidKeyboardHandler implements View.OnKeyListener {
             keyEvent.keyCode_ = keyCode;
             keyEvent.keyChar_ = (char) event.getUnicodeChar();
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                keyEvent.type_ = Input.KeyEvent.KEY_DOWN;
+                keyEvent.type_ = Input.EventType.PRESSED;
                 if (keyCode > 0 && keyCode < 127) {
                     pressedKeys_[keyCode] = true;
                 }
             }
             if (event.getAction() == KeyEvent.ACTION_UP) {
-                keyEvent.type_ = Input.KeyEvent.KEY_UP;
+                keyEvent.type_ = Input.EventType.RELEASED;
                 if (keyCode > 0 && keyCode < 127) {
                     pressedKeys_[keyCode] = false;
                 }
