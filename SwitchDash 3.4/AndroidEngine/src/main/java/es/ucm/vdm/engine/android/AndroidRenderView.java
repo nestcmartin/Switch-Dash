@@ -6,7 +6,7 @@ import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-public class RenderView extends SurfaceView implements Runnable {
+public class AndroidRenderView extends SurfaceView implements Runnable {
 
     private AndroidGame game_;
     private Bitmap frameBuffer_;
@@ -14,7 +14,7 @@ public class RenderView extends SurfaceView implements Runnable {
     private SurfaceHolder holder_;
     private volatile boolean running_ = false;
 
-    public RenderView(AndroidGame game, Bitmap frameBuffer) {
+    public AndroidRenderView(AndroidGame game, Bitmap frameBuffer) {
         super(game);
         this.game_ = game;
         this.frameBuffer_ = frameBuffer;
@@ -55,7 +55,7 @@ public class RenderView extends SurfaceView implements Runnable {
             try {
                 renderThread_.join();
                 return;
-            } catch (InterruptedException e) {
+            } catch(InterruptedException e) {
 
             }
         }

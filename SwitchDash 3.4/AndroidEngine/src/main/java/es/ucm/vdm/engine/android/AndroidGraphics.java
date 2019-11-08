@@ -19,8 +19,6 @@ public class AndroidGraphics implements Graphics {
     private Bitmap frameBuffer_;
     private Canvas canvas_;
     private Paint paint_;
-    private android.graphics.Rect srcRect_ = new android.graphics.Rect();
-    private android.graphics.Rect dstRect_ = new android.graphics.Rect();
 
 
     public AndroidGraphics(AssetManager assets, Bitmap frameBuffer) {

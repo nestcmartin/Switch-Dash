@@ -11,7 +11,6 @@ public class DemoState extends State {
 
     @Override
     public void update(double deltaTime) {
-        System.out.println("Demo state running!" + deltaTime);
     }
 
     @Override
@@ -31,5 +30,6 @@ public class DemoState extends State {
 
     @Override
     public void render(double deltaTime) {
+        game_.getGraphics().clear(0);
     }
 }
