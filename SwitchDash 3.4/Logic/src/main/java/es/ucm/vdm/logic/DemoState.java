@@ -54,7 +54,9 @@ public class DemoState extends State {
     @Override
     public void render(double deltaTime) {
         game_.getGraphics().clear(0xff000000);
-        Pixmap p = PixmapManager.getInstance().getPixmap(Assets.imageFiles[Assets.ImageName.ARROWS_BACKGROUND.ordinal()]);
-        game_.getGraphics().drawPixmap(p, 0, 0);
+        for (int i = 0; i < Assets.imageFiles.length; i++) {
+            Pixmap p = PixmapManager.getInstance().getPixmap(Assets.imageFiles[i]);
+            game_.getGraphics().drawPixmap(p, 0, 0);
+        }
     }
 }
