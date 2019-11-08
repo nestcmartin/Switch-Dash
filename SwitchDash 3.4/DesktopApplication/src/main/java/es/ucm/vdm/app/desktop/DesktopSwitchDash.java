@@ -5,6 +5,7 @@ import java.io.IOException;
 import es.ucm.vdm.engine.State;
 import es.ucm.vdm.engine.desktop.DesktopGame;
 import es.ucm.vdm.logic.DemoState;
+import es.ucm.vdm.logic.LoadingState;
 
 public class DesktopSwitchDash extends DesktopGame {
 
@@ -17,7 +18,7 @@ public class DesktopSwitchDash extends DesktopGame {
 
     @Override
     public State getStartState() {
-        return new DemoState(this);
+        return new LoadingState(this);
     }
 
     public static void main(String[] args) {

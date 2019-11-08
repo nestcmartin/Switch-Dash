@@ -82,7 +82,14 @@ public class DesktopGraphics implements Graphics {
     }
 
     public void setGraphics(){
-        graphics_ = strategy_.getDrawGraphics();
+        while(true) {
+            try {
+                graphics_ = strategy_.getDrawGraphics();
+                break;
+            } catch (Exception e) {
+
+            }
+        }
     }
 
     public void dispose() {

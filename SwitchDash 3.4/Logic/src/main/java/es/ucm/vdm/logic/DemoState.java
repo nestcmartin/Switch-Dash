@@ -4,7 +4,9 @@ import java.util.List;
 
 import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Input;
+import es.ucm.vdm.engine.Pixmap;
 import es.ucm.vdm.engine.State;
+import es.ucm.vdm.engine.utilities.PixmapManager;
 
 public class DemoState extends State {
 
@@ -51,6 +53,8 @@ public class DemoState extends State {
 
     @Override
     public void render(double deltaTime) {
-        game_.getGraphics().clear(0x000000ff);
+        game_.getGraphics().clear(0xff0000ff);
+        Pixmap p = PixmapManager.getInstance().getPixmap("arrowsBackground.png");
+        game_.getGraphics().drawPixmap(p, 0, 0);
     }
 }
