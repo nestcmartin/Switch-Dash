@@ -39,7 +39,7 @@ public class DesktopGraphics implements Graphics {
     public Pixmap newPixmap(String fileName) {
         Image image = null;
         try{
-            image = javax.imageio.ImageIO.read(new java.io.File(fileName));
+            image = javax.imageio.ImageIO.read(new java.io.File(DesktopGame.assetsPath_ + fileName));
         }
         catch (IOException e){
             System.err.println("The image could not be loaded");

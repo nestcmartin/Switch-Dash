@@ -5,14 +5,14 @@ import es.ucm.vdm.engine.State;
 
 public class DesktopGame implements Game {
 
-    private DesktopFileIO fileIO_;
+    public static final String assetsPath_ = "assets/";
+
     private DesktopRenderView window_;
     private DesktopGraphics graphics_;
     private DesktopInput input_;
     private State state_;
 
     public DesktopGame(String windowName, int width, int height) {
-        fileIO_ = new DesktopFileIO();
         window_ = new DesktopRenderView(this, windowName, width, height);
         graphics_ = new DesktopGraphics(window_);
         input_ = new DesktopInput(window_);
