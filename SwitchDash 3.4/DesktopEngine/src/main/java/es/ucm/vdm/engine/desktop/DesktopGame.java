@@ -1,15 +1,13 @@
 package es.ucm.vdm.engine.desktop;
 
 import es.ucm.vdm.engine.Game;
-import es.ucm.vdm.engine.Graphics;
-import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.State;
 
 public class DesktopGame implements Game {
 
     private DesktopRenderView window_;
     private DesktopGraphics graphics_;
-    private Input input_;
+    private DesktopInput input_;
     private State state_;
 
     public DesktopGame(String windowName, int width, int height){
@@ -19,7 +17,7 @@ public class DesktopGame implements Game {
         window_.run();
     }
 
-    public Input getInput() {
+    public DesktopInput getInput() {
         return input_;
     }
 

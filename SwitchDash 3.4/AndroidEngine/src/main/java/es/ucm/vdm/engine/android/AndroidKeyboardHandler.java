@@ -10,14 +10,14 @@ import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.utilities.Pool;
 import es.ucm.vdm.engine.utilities.PoolObjectFactory;
 
-public class KeyboardHandler implements View.OnKeyListener {
+public class AndroidKeyboardHandler implements View.OnKeyListener {
 
     private boolean[] pressedKeys_ = new boolean[128];
     private Pool<Input.KeyEvent> keyEventPool_;
     private List<Input.KeyEvent> keyEventsBuffer_ = new ArrayList<Input.KeyEvent>();
     private List<Input.KeyEvent> keyEvents_ = new ArrayList<Input.KeyEvent>();
 
-    public KeyboardHandler(View view) {
+    public AndroidKeyboardHandler(View view) {
         PoolObjectFactory<Input.KeyEvent> factory = new PoolObjectFactory<Input.KeyEvent>() {
             @Override
             public Input.KeyEvent createObject() {

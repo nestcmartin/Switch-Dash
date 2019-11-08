@@ -6,7 +6,7 @@ import java.util.List;
 
 import es.ucm.vdm.engine.Input;
 
-public interface TouchHandler extends View.OnTouchListener {
+public interface AndroidTouchHandler extends View.OnTouchListener {
 
     public boolean isTouchDown(int pointer);
 

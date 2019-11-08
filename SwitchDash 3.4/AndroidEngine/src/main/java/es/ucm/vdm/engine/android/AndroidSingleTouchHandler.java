@@ -10,7 +10,7 @@ import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.utilities.Pool;
 import es.ucm.vdm.engine.utilities.PoolObjectFactory;
 
-public class SingleTouchHandler implements TouchHandler {
+public class AndroidSingleTouchHandler implements AndroidTouchHandler {
 
     private boolean isTouched_;
     private int touchX_;
@@ -21,7 +21,7 @@ public class SingleTouchHandler implements TouchHandler {
     private float scaleX_;
     private float scaleY_;
 
-    public SingleTouchHandler(View view, float scaleX, float scaleY) {
+    public AndroidSingleTouchHandler(View view, float scaleX, float scaleY) {
         PoolObjectFactory<Input.TouchEvent> factory = new PoolObjectFactory<Input.TouchEvent>() {
             @Override
             public Input.TouchEvent createObject() {

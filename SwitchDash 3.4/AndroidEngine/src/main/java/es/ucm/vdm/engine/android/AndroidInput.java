@@ -8,12 +8,12 @@ import es.ucm.vdm.engine.Input;
 
 public class AndroidInput implements Input {
 
-    private KeyboardHandler keyHandler_;
-    private TouchHandler touchHandler_;
+    private AndroidKeyboardHandler keyHandler_;
+    private AndroidTouchHandler touchHandler_;
 
     public AndroidInput(View view, float scaleX, float scaleY) {
-        keyHandler_ = new KeyboardHandler(view);
-        touchHandler_ = new SingleTouchHandler(view, scaleX, scaleY);
+        keyHandler_ = new AndroidKeyboardHandler(view);
+        touchHandler_ = new AndroidSingleTouchHandler(view, scaleX, scaleY);
     }
 
     public boolean isKeyPressed(int keyCode) {

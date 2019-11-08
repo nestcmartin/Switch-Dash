@@ -26,6 +26,7 @@ public class DesktopGraphics implements Graphics {
                 break;
             }
             catch(Exception e) {
+                System.err.println("Error creando BufferStrategy; reintentando...");
             }
         }
         if (i == 0) {
