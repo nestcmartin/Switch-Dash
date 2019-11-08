@@ -3,6 +3,7 @@ package es.ucm.vdm.engine.desktop;
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Pixmap;
 import es.ucm.vdm.engine.utilities.Rect;
+import es.ucm.vdm.engine.utilities.Scaler;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -67,6 +68,7 @@ public class DesktopGraphics implements Graphics {
     }
 
     public void drawPixmap(Pixmap pixmap, Rect src, Rect dst) {
+        dst = Scaler.scaleRect(dst);
         graphics_.drawImage(((DesktopPixmap)pixmap).getImage(),
                 dst.x1, dst.y1, dst.x2, dst.y2,
                 src.x1, src.y1, src.x2, src.y2,

@@ -2,6 +2,7 @@ package es.ucm.vdm.engine.desktop;
 
 import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.State;
+import es.ucm.vdm.engine.utilities.Scaler;
 
 public class DesktopGame implements Game {
 

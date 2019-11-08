@@ -3,10 +3,12 @@ package es.ucm.vdm.logic;
 import java.util.List;
 
 import es.ucm.vdm.engine.Game;
+import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.Pixmap;
 import es.ucm.vdm.engine.State;
 import es.ucm.vdm.engine.utilities.PixmapManager;
+import es.ucm.vdm.engine.utilities.Rect;
 
 public class DemoState extends State {
 
@@ -53,10 +55,12 @@ public class DemoState extends State {
 
     @Override
     public void render(double deltaTime) {
-        game_.getGraphics().clear(0xff000000);
-        for (int i = 0; i < Assets.imageFiles.length; i++) {
-            Pixmap p = PixmapManager.getInstance().getPixmap(Assets.imageFiles[i]);
-            game_.getGraphics().drawPixmap(p, 0, 0);
-        }
+        Graphics g = game_.getGraphics();
+        g.clear(0xff000000);
+
+        Pixmap p = PixmapManager.getInstance().getPixmap(Assets.imageFiles[Assets.ImageName.ARROWS_BACKGROUND.ordinal()]);
+        Rect src = new Rect(0, 0, 676, 3070);
+        Rect dst = new Rect(0, 0, 1080, 2220);
+        game_.getGraphics().drawPixmap(p, src, dst);
     }
 }

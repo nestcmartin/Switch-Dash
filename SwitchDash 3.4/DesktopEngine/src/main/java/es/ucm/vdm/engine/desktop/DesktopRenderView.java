@@ -1,6 +1,12 @@
 package es.ucm.vdm.engine.desktop;
 
+import java.awt.Color;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+
 import javax.swing.JFrame;
+
+import es.ucm.vdm.engine.utilities.Scaler;
 
 public class DesktopRenderView extends JFrame {
 
@@ -12,6 +18,7 @@ public class DesktopRenderView extends JFrame {
         this.game_ = game;
         setSize(width, height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBackground(Color.BLACK);
         setIgnoreRepaint(true);
         setVisible(true);
     }
@@ -31,6 +38,7 @@ public class DesktopRenderView extends JFrame {
             do {
                 do {
                     game_.getGraphics().setGraphics();
+                    Scaler.scaleCanvas(game_.getGraphics().getWidth(), game_.getGraphics().getHeight());
                     try {
                         game_.getCurrentState().render(deltaTime);
                     } finally {
