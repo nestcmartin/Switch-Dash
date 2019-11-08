@@ -9,9 +9,12 @@ import es.ucm.vdm.engine.Input;
 public class DesktopInput implements Input {
 
     private DesktopKeyboardHandler keyHandler_;
+    private DesktopMouseHandler mouseHandler_;
 
     public DesktopInput(JFrame window) {
+
         keyHandler_ = new DesktopKeyboardHandler(window);
+        mouseHandler_ = new DesktopMouseHandler(window);
     }
 
     @Override
@@ -40,7 +43,5 @@ public class DesktopInput implements Input {
     }
 
     @Override
-    public List<TouchEvent> getTouchEvents() {
-        return null;
-    }
+    public List<TouchEvent> getTouchEvents() { return  mouseHandler_.getTouchEventsBuffer_(); }
 }
