@@ -51,6 +51,6 @@ public class DemoState extends State {
 
     @Override
     public void render(double deltaTime) {
-        game_.getGraphics().clear(0);
+        game_.getGraphics().clear(0x000000ff);
     }
 }

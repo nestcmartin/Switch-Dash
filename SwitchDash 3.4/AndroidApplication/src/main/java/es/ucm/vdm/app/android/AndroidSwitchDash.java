@@ -1,14 +1,13 @@
 package es.ucm.vdm.app.android;
 
-import android.os.Bundle;
-
+import es.ucm.vdm.engine.State;
 import es.ucm.vdm.engine.android.AndroidGame;
+import es.ucm.vdm.logic.DemoState;
 
 public class AndroidSwitchDash extends AndroidGame {
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public State getStartState() {
+        return new DemoState(this);
     }
 }
