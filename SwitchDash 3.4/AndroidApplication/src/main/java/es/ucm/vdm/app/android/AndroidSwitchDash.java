@@ -1,13 +1,13 @@
 package es.ucm.vdm.app.android;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import es.ucm.vdm.engine.android.AndroidGame;
+
+public class AndroidSwitchDash extends AndroidGame {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
