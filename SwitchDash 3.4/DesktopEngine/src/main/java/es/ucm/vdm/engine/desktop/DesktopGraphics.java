@@ -48,34 +48,29 @@ public class DesktopGraphics implements Graphics {
     }
 
     public void clear(int color) {
-        graphics_ = strategy_.getDrawGraphics();
-        graphics_.setColor(Color.BLUE);
+        int r = (color>>16)&0xFF;
+        int g = (color>>8)&0xFF;
+        int b = (color>>0)&0xFF;
+        graphics_.setColor(new Color(r, g, b));
         graphics_.fillRect(0, 0, getWidth(), getHeight());
-        graphics_.dispose();
     }
 
     public void drawPixmap(Pixmap pixmap, int x, int y) {
-        graphics_ = strategy_.getDrawGraphics();
         graphics_.drawImage(((DesktopPixmap)pixmap).getImage(), x, y, null);
-        graphics_.dispose();
     }
 
     public void drawPixmap(Pixmap pixmap, Rect src, int x, int y) {
-        graphics_ = strategy_.getDrawGraphics();
         graphics_.drawImage(((DesktopPixmap)pixmap).getImage(),
                 x, y, x + src.width(), y + src.height(),
                 src.x1, src.y1, src.x2, src.y2,
                 null);
-        graphics_.dispose();
     }
 
     public void drawPixmap(Pixmap pixmap, Rect src, Rect dst) {
-        graphics_ = strategy_.getDrawGraphics();
         graphics_.drawImage(((DesktopPixmap)pixmap).getImage(),
                 dst.x1, dst.y1, dst.x2, dst.y2,
                 src.x1, src.y1, src.x2, src.y2,
                 null);
-        graphics_.dispose();
     }
 
     public int getWidth() {
@@ -86,5 +81,14 @@ public class DesktopGraphics implements Graphics {
         return window_.getHeight();
     }
 
+    public void setGraphics(){
+        graphics_ = strategy_.getDrawGraphics();
+    }
+
+    public void dispose() {
+        graphics_.dispose();
+    }
+
     public BufferStrategy getBufferStrategy() { return strategy_; }
+
 }

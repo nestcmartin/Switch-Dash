@@ -30,7 +30,12 @@ public class DesktopRenderView extends JFrame {
 
             do {
                 do {
-                    game_.getCurrentState().render(deltaTime);
+                    game_.getGraphics().setGraphics();
+                    try {
+                        game_.getCurrentState().render(deltaTime);
+                    } finally {
+                        game_.getGraphics().dispose();
+                    }
                 } while(game_.getGraphics().getBufferStrategy().contentsRestored());
                 game_.getGraphics().getBufferStrategy().show();
             } while(game_.getGraphics().getBufferStrategy().contentsLost());

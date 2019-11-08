@@ -1,5 +1,7 @@
 package es.ucm.vdm.app.desktop;
 
+import java.io.IOException;
+
 import es.ucm.vdm.engine.State;
 import es.ucm.vdm.engine.desktop.DesktopGame;
 import es.ucm.vdm.logic.DemoState;
