@@ -10,29 +10,27 @@ public class Scaler {
     private static int canvasHeight_;
     private static int canvasPosX_;
     private static int canvasPosY_;
-    private static float aspectRatio_;
 
     public static void scaleCanvas(int ww, int wh) {
         windowWidth_ = ww;
         windowHeight_ = wh;
-        aspectRatio_ = (float)ww / (float)wh;
+        float logicAspectRatio = (float) canvasLogicHeight_ / (float)canvasLogicWidth_;
+        float realAspectRatio = (float)wh / (float)ww;
 
-        if (windowWidth_ >= windowHeight_)
+        if (logicAspectRatio > realAspectRatio)
         {
             canvasHeight_ = windowHeight_;
-            canvasWidth_ = (int)((float) canvasHeight_ / aspectRatio_);
+            canvasWidth_ = (int)((float) canvasHeight_ / logicAspectRatio);
             canvasPosX_ = (windowWidth_ - canvasWidth_) / 2;
             canvasPosY_ = 0;
         }
         else
         {
             canvasWidth_ = windowWidth_;
-            canvasHeight_ = (int)((float) canvasWidth_ * aspectRatio_);
+            canvasHeight_ = (int)((float) canvasWidth_ * logicAspectRatio);
             canvasPosY_ = (windowHeight_ - canvasHeight_) / 2;
             canvasPosX_ = 0;
         }
-
-        System.out.println((float)canvasWidth_ / (float)canvasHeight_);
     }
 
     private static int scaleInAxisX(int x) {
