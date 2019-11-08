@@ -18,9 +18,10 @@ public class DesktopMouseHandler implements MouseListener, MouseMotionListener {
 
     DesktopMouseHandler(JFrame window){
         window.addMouseListener(this);
-        for (int i = 0; i < currentTouchEventStates_.length; i++)
+        for (int i = 0; i < currentTouchEventStates_.length; i++) {
+            currentTouchEventStates_[i] = new Input.TouchEvent();
             currentTouchEventStates_[i].id_ = i;
-
+        }
     }
 
     public List<Input.TouchEvent> getTouchEventsBuffer_(){
@@ -70,7 +71,7 @@ public class DesktopMouseHandler implements MouseListener, MouseMotionListener {
         tEvent.type_ = Input.EventType.PRESSED;
         tEvent.x_ = mouseEvent.getX();
         tEvent.y_ = mouseEvent.getY();
-        tEvent.id_ = mouseEvent.getID();
+        tEvent.id_ = mouseEvent.getButton();
         updateCurrentState(tEvent);
         synchronized(this) {
             touchEventsBuffer_.add(tEvent);
@@ -83,7 +84,7 @@ public class DesktopMouseHandler implements MouseListener, MouseMotionListener {
         tEvent.type_ = Input.EventType.RELEASED;
         tEvent.x_ = mouseEvent.getX();
         tEvent.y_ = mouseEvent.getY();
-        tEvent.id_ = mouseEvent.getID();
+        tEvent.id_ = mouseEvent.getButton();
         updateCurrentState(tEvent);
         synchronized(this) {
             touchEventsBuffer_.add(tEvent);
@@ -98,7 +99,7 @@ public class DesktopMouseHandler implements MouseListener, MouseMotionListener {
         tEvent.type_ = Input.EventType.MOVED;
         tEvent.x_ = mouseEvent.getX();
         tEvent.y_ = mouseEvent.getY();
-        tEvent.id_ = mouseEvent.getID();
+        tEvent.id_ = mouseEvent.getButton();
         updateCurrentState(tEvent);
         synchronized(this) {
             touchEventsBuffer_.add(tEvent);
