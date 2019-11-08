@@ -32,6 +32,8 @@ public class AndroidGraphics implements Graphics {
         InputStream in = null;
         Bitmap bitmap = null;
         try {
+            String[] imgPath = assets_.list(".");
+            System.out.println(imgPath);
             in = assets_.open(fileName);
             bitmap = BitmapFactory.decodeStream(in);
             if (bitmap == null) {

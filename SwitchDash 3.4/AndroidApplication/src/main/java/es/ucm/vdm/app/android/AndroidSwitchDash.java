@@ -2,12 +2,12 @@ package es.ucm.vdm.app.android;
 
 import es.ucm.vdm.engine.State;
 import es.ucm.vdm.engine.android.AndroidGame;
-import es.ucm.vdm.logic.DemoState;
+import es.ucm.vdm.logic.LoadingState;
 
 public class AndroidSwitchDash extends AndroidGame {
 
     @Override
     public State getStartState() {
-        return new DemoState(this);
+        return new LoadingState(this);
     }
 }
