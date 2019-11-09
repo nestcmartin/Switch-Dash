@@ -2,7 +2,6 @@ package es.ucm.vdm.engine.android;
 
 import android.graphics.Bitmap;
 
-import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Pixmap;
 
 public class AndroidPixmap implements Pixmap {
@@ -11,10 +10,6 @@ public class AndroidPixmap implements Pixmap {
 
     public Bitmap getBitmap() {
         return bitmap_;
-    }
-
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap_ = bitmap;
     }
 
     public AndroidPixmap(Bitmap bitmap) {

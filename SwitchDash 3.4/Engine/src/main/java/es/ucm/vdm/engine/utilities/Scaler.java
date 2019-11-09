@@ -2,8 +2,6 @@ package es.ucm.vdm.engine.utilities;
 
 public class Scaler {
 
-    private static int windowWidth_;
-    private static int windowHeight_;
     private static int canvasLogicWidth_ = 1080;
     private static int canvasLogicHeight_ = 2220;
     private static int canvasWidth_;
@@ -11,24 +9,27 @@ public class Scaler {
     private static int canvasPosX_;
     private static int canvasPosY_;
 
+    public static void setCanvasLogicSize(int w, int h) {
+        canvasLogicWidth_ = w;
+        canvasLogicHeight_ = h;
+    }
+
     public static void scaleCanvas(int ww, int wh) {
-        windowWidth_ = ww;
-        windowHeight_ = wh;
-        float logicAspectRatio = (float) canvasLogicHeight_ / (float)canvasLogicWidth_;
+        float logicAspectRatio = (float)canvasLogicHeight_ / (float)canvasLogicWidth_;
         float realAspectRatio = (float)wh / (float)ww;
 
         if (logicAspectRatio > realAspectRatio)
         {
-            canvasHeight_ = windowHeight_;
-            canvasWidth_ = (int)((float) canvasHeight_ / logicAspectRatio);
-            canvasPosX_ = (windowWidth_ - canvasWidth_) / 2;
+            canvasHeight_ = wh;
+            canvasWidth_ = (int)((float)canvasHeight_ / logicAspectRatio);
+            canvasPosX_ = (ww - canvasWidth_) / 2;
             canvasPosY_ = 0;
         }
         else
         {
-            canvasWidth_ = windowWidth_;
-            canvasHeight_ = (int)((float) canvasWidth_ * logicAspectRatio);
-            canvasPosY_ = (windowHeight_ - canvasHeight_) / 2;
+            canvasWidth_ = ww;
+            canvasHeight_ = (int)((float)canvasWidth_ * logicAspectRatio);
+            canvasPosY_ = (wh - canvasHeight_) / 2;
             canvasPosX_ = 0;
         }
     }

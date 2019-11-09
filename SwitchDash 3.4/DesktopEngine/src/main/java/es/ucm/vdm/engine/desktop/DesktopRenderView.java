@@ -1,8 +1,6 @@
 package es.ucm.vdm.engine.desktop;
 
 import java.awt.Color;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 import javax.swing.JFrame;
 
@@ -19,8 +17,6 @@ public class DesktopRenderView extends JFrame {
         setSize(width, height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBackground(Color.BLACK);
-        setIgnoreRepaint(true);
-        setVisible(true);
     }
 
     public void run() {

@@ -1,8 +1,8 @@
 package es.ucm.vdm.engine.desktop;
 
 import es.ucm.vdm.engine.Game;
+import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.State;
-import es.ucm.vdm.engine.utilities.Scaler;
 
 public class DesktopGame implements Game {
 
@@ -10,18 +10,22 @@ public class DesktopGame implements Game {
 
     private DesktopRenderView window_;
     private DesktopGraphics graphics_;
-    private DesktopInput input_;
+    private Input input_;
     private State state_;
 
     public DesktopGame(String windowName, int width, int height) {
         window_ = new DesktopRenderView(this, windowName, width, height);
+        window_.setIgnoreRepaint(true);
+        window_.setVisible(true);
+
         graphics_ = new DesktopGraphics(window_);
         input_ = new DesktopInput(window_);
         state_ = getStartState();
+
         window_.run();
     }
 
-    public DesktopInput getInput() {
+    public Input getInput() {
         return input_;
     }
 

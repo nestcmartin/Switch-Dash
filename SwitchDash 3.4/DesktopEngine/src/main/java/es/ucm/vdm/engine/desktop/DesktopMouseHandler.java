@@ -9,49 +9,56 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import es.ucm.vdm.engine.Input;
+import es.ucm.vdm.engine.utilities.Pool;
+import es.ucm.vdm.engine.utilities.PoolObjectFactory;
 
 public class DesktopMouseHandler implements MouseListener, MouseMotionListener {
 
-    List<Input.TouchEvent> touchEventsBuffer_ = new ArrayList<Input.TouchEvent>();
+    private boolean isTouched_;
+    private int touchX_;
+    private int touchY_;
 
-    Input.TouchEvent[] currentTouchEventStates_ = new Input.TouchEvent[10];
+    private Pool<Input.TouchEvent> touchEventPool_;
+    private List<Input.TouchEvent> touchEvents_ = new ArrayList<Input.TouchEvent>();
+    private List<Input.TouchEvent> touchEventsBuffer_ = new ArrayList<Input.TouchEvent>();
 
-    DesktopMouseHandler(JFrame window){
+
+    DesktopMouseHandler(JFrame window) {
+        PoolObjectFactory<Input.TouchEvent> factory = new PoolObjectFactory<Input.TouchEvent>() {
+            @Override
+            public Input.TouchEvent createObject() {
+                return new Input.TouchEvent();
+            }
+        };
+        touchEventPool_ = new Pool<Input.TouchEvent>(factory, 100);
         window.addMouseListener(this);
-        for (int i = 0; i < currentTouchEventStates_.length; i++) {
-            currentTouchEventStates_[i] = new Input.TouchEvent();
-            currentTouchEventStates_[i].id_ = i;
-        }
     }
 
-    public List<Input.TouchEvent> getTouchEventsBuffer_(){
-        List<Input.TouchEvent> touchEventListCopy = new ArrayList<Input.TouchEvent>();
-        synchronized(this) {
-            touchEventListCopy.addAll(touchEventsBuffer_);
+    public boolean isTouchDown() {
+        return isTouched_;
+    }
+
+    public int getTouchX() {
+        return touchX_;
+    }
+
+    public int getTouchY() {
+        return touchY_;
+    }
+
+    public List<Input.TouchEvent> getTouchEvents() {
+        synchronized (this) {
+            int len = touchEvents_.size();
+            for(int i = 0; i < len; i++) {
+                touchEventPool_.free(touchEvents_.get(i));
+            }
+            touchEvents_.clear();
+            touchEvents_.addAll(touchEventsBuffer_);
             touchEventsBuffer_.clear();
+            return touchEvents_;
         }
-        return touchEventListCopy;
     }
 
-    public boolean isTouchDown(int id) {
-        return currentTouchEventStates_[id].type_ == Input.EventType.PRESSED;
-    }
-
-    public int getTouchX(int id) {
-        return currentTouchEventStates_[id].x_;
-    }
-
-    public int getTouchY(int id) {
-        return currentTouchEventStates_[id].y_;
-    }
-
-    private void updateCurrentState(Input.TouchEvent touchEvent){
-        currentTouchEventStates_[touchEvent.id_].type_ = touchEvent.type_;
-        currentTouchEventStates_[touchEvent.id_].x_ = touchEvent.x_;
-        currentTouchEventStates_[touchEvent.id_].y_ = touchEvent.y_;
-    }
-
-    // MouseListener
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
@@ -67,46 +74,45 @@ public class DesktopMouseHandler implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
-        Input.TouchEvent tEvent = new Input.TouchEvent();
-        tEvent.type_ = Input.EventType.PRESSED;
-        tEvent.x_ = mouseEvent.getX();
-        tEvent.y_ = mouseEvent.getY();
-        tEvent.id_ = mouseEvent.getButton();
-        updateCurrentState(tEvent);
-        synchronized(this) {
-            touchEventsBuffer_.add(tEvent);
+        synchronized (this) {
+            Input.TouchEvent touchEvent = touchEventPool_.newObject();
+            touchEvent.type_ = Input.EventType.PRESSED;
+            touchEvent.id_ = mouseEvent.getButton();
+            touchEvent.x_ = touchX_ = mouseEvent.getX();
+            touchEvent.y_ = touchY_ = mouseEvent.getY();
+            touchEventsBuffer_.add(touchEvent);
+            isTouched_ = true;
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
-        Input.TouchEvent tEvent = new Input.TouchEvent();
-        tEvent.type_ = Input.EventType.RELEASED;
-        tEvent.x_ = mouseEvent.getX();
-        tEvent.y_ = mouseEvent.getY();
-        tEvent.id_ = mouseEvent.getButton();
-        updateCurrentState(tEvent);
-        synchronized(this) {
-            touchEventsBuffer_.add(tEvent);
+        synchronized (this) {
+            Input.TouchEvent touchEvent = touchEventPool_.newObject();
+            touchEvent.type_ = Input.EventType.RELEASED;
+            touchEvent.id_ = mouseEvent.getButton();
+            touchEvent.x_ = touchX_ = mouseEvent.getX();
+            touchEvent.y_ = touchY_ = mouseEvent.getY();
+            touchEventsBuffer_.add(touchEvent);
+            isTouched_ = false;
         }
     }
 
-    // MouseMotionListener
-
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
-        Input.TouchEvent tEvent = new Input.TouchEvent();
-        tEvent.type_ = Input.EventType.MOVED;
-        tEvent.x_ = mouseEvent.getX();
-        tEvent.y_ = mouseEvent.getY();
-        tEvent.id_ = mouseEvent.getButton();
-        updateCurrentState(tEvent);
-        synchronized(this) {
-            touchEventsBuffer_.add(tEvent);
+        synchronized (this) {
+            Input.TouchEvent touchEvent = touchEventPool_.newObject();
+            touchEvent.type_ = Input.EventType.MOVED;
+            touchEvent.id_ = mouseEvent.getButton();
+            touchEvent.x_ = touchX_ = mouseEvent.getX();
+            touchEvent.y_ = touchY_ = mouseEvent.getY();
+            touchEventsBuffer_.add(touchEvent);
+            isTouched_ = true;
         }
     }
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
     }
+
 }

@@ -52,6 +52,7 @@ public class AndroidSingleTouchHandler implements AndroidTouchHandler {
                     isTouched_ = false;
                     break;
             }
+            touchEvent.id_ = 0;
             touchEvent.x_ = touchX_ = (int)(event.getX() * scaleX_);
             touchEvent.y_ = touchY_ = (int)(event.getY() * scaleY_);
             touchEventsBuffer_.add(touchEvent);

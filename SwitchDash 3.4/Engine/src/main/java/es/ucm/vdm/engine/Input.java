@@ -18,7 +18,7 @@ public interface Input {
 
     }
 
-    public static class TouchEvent {
+    public class TouchEvent {
 
         public EventType type_;
         public int x_;

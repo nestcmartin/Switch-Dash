@@ -27,8 +27,8 @@ public class AndroidGame extends Activity implements Game {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-        int frameBufferWidth = isLandscape ? 480 : 320;
-        int frameBufferHeight = isLandscape ? 320 : 480;
+        int frameBufferWidth = isLandscape ? 1920 : 1080;
+        int frameBufferHeight = isLandscape ? 1080 : 1920;
         Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth, frameBufferHeight, Bitmap.Config.RGB_565);
         float scaleX = (float)frameBufferWidth / getWindowManager().getDefaultDisplay().getWidth();
         float scaleY = (float)frameBufferHeight / getWindowManager().getDefaultDisplay().getHeight();

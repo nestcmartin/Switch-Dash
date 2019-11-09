@@ -24,17 +24,17 @@ public class DesktopInput implements Input {
 
     @Override
     public boolean isTouchDown(int id) {
-        return mouseHandler_.isTouchDown(id);
+        return mouseHandler_.isTouchDown();
     }
 
     @Override
     public int getTouchX(int id) {
-        return mouseHandler_.getTouchX(id);
+        return mouseHandler_.getTouchX();
     }
 
     @Override
     public int getTouchY(int id) {
-        return mouseHandler_.getTouchY(id);
+        return mouseHandler_.getTouchY();
     }
 
     @Override
@@ -43,5 +43,5 @@ public class DesktopInput implements Input {
     }
 
     @Override
-    public List<TouchEvent> getTouchEvents() { return  mouseHandler_.getTouchEventsBuffer_(); }
+    public List<TouchEvent> getTouchEvents() { return  mouseHandler_.getTouchEvents(); }
 }
