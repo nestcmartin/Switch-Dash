@@ -5,7 +5,7 @@ task copyPNGs(type: Copy) {
     from(rootDir) {
         include "assets/**"
     }
-    into "src/main/assets"
+    into "src/main"
 }
 
 android {
