@@ -12,6 +12,7 @@ import java.io.InputStream;
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Pixmap;
 import es.ucm.vdm.engine.utilities.Rect;
+import es.ucm.vdm.engine.utilities.Scaler;
 
 public class AndroidGraphics implements Graphics {
 
@@ -70,6 +71,7 @@ public class AndroidGraphics implements Graphics {
     }
 
     public void drawPixmap(Pixmap pixmap, Rect src, Rect dst) {
+        dst = Scaler.scaleRect(dst);
         android.graphics.Rect source = new android.graphics.Rect(src.x1, src.y1, src.x2, src.y2);
         android.graphics.Rect destiny = new android.graphics.Rect(dst.x1, dst.y1, dst.x2, dst.y2);
         canvas_.drawBitmap(((AndroidPixmap)pixmap).getBitmap(), source, destiny, null);
