@@ -8,8 +8,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import es.ucm.vdm.engine.Game;
-import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Input;
+import es.ucm.vdm.engine.ScaledGraphics;
 import es.ucm.vdm.engine.State;
 
 public class AndroidGame extends Activity implements Game {
@@ -65,7 +65,7 @@ public class AndroidGame extends Activity implements Game {
         return input_;
     }
 
-    public Graphics getGraphics() {
+    public ScaledGraphics getGraphics() {
         return graphics_;
     }
 

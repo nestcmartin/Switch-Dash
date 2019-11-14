@@ -6,8 +6,6 @@ import java.awt.event.ComponentEvent;
 
 import javax.swing.JFrame;
 
-import es.ucm.vdm.engine.utilities.Scaler;
-
 public class DesktopRenderView extends JFrame {
 
     private DesktopGame game_;
@@ -20,18 +18,18 @@ public class DesktopRenderView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBackground(Color.BLACK);
 
-        // Añadimos un listener para que cuando se reescale la ventana el Scaler se actualice
+        // Añadimos un listener para que cuando se reescale la ventana el escalado se actualice
         addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent evt) {
                 if(game_.getGraphics() != null)
-                    Scaler.scaleCanvas(game_.getGraphics().getWidth(), game_.getGraphics().getHeight());
+                    game_.getGraphics().scaleCanvas(game_.getGraphics().getWidth(), game_.getGraphics().getHeight());
             }
         });
     }
 
     public void run() {
 
-        Scaler.scaleCanvas(game_.getGraphics().getWidth(), game_.getGraphics().getHeight());
+        game_.getGraphics().scaleCanvas(game_.getGraphics().getWidth(), game_.getGraphics().getHeight());
 
         long lastFrameTime = System.nanoTime();
 

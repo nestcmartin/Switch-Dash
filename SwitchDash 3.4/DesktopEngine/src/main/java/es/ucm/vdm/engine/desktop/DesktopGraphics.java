@@ -1,9 +1,8 @@
 package es.ucm.vdm.engine.desktop;
 
-import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Pixmap;
+import es.ucm.vdm.engine.ScaledGraphics;
 import es.ucm.vdm.engine.utilities.Rect;
-import es.ucm.vdm.engine.utilities.Scaler;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -11,7 +10,7 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
-public class DesktopGraphics implements Graphics {
+public class DesktopGraphics extends ScaledGraphics {
 
     private java.awt.Graphics graphics_;
     private BufferStrategy strategy_;
@@ -67,8 +66,8 @@ public class DesktopGraphics implements Graphics {
                 null);
     }
 
-    public void drawPixmap(Pixmap pixmap, Rect src, Rect dst) {
-        dst = Scaler.scaleRect(dst);
+    @Override
+    protected void drawScaledPixmap(Pixmap pixmap, Rect src, Rect dst) {
         graphics_.drawImage(((DesktopPixmap)pixmap).getImage(),
                 dst.x1, dst.y1, dst.x2, dst.y2,
                 src.x1, src.y1, src.x2, src.y2,
