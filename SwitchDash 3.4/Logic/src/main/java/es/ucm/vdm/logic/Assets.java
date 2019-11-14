@@ -18,7 +18,7 @@ public class Assets {
         WHITE
     };
 
-    public static final String[] imageFiles = {
+    public static final String[] images = {
         "arrowsBackground.png",
         "backgrounds.png",
         "balls.png",

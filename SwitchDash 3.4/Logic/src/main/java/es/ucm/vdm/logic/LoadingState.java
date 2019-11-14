@@ -8,22 +8,16 @@ import es.ucm.vdm.engine.utilities.PixmapManager;
 
 public class LoadingState extends State {
 
-    private Game game_;
-    private static final int logicWidth_ = 1080;
-    private static final int logicHeight_ = 2220;
-
     public LoadingState(Game game) {
         super(game);
-        this.game_ = game;
     }
 
     @Override
     public void update(double deltaTime) {
         ScaledGraphics g = game_.getGraphics();
-        g.setCanvasLogicSize(logicWidth_, logicHeight_);
 
-        for (int i = 0; i < Assets.imageFiles.length; i++) {
-            PixmapManager.getInstance().addPixmap(Assets.imageFiles[i], g.newPixmap(Assets.imageFiles[i]));
+        for (int i = 0; i < Assets.images.length; i++) {
+            PixmapManager.getInstance().addPixmap(Assets.images[i], g.newPixmap(Assets.images[i]));
         }
 
         game_.setState(new MainState(game_));

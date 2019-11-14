@@ -6,55 +6,35 @@ import es.ucm.vdm.engine.Pixmap;
 public class Sprite {
 
     private Rect srcRect_;
-    private Rect dstRect_;
     private Pixmap image_;
 
-    private int x_;
-    private int y_;
-    private int w_;
-    private int h_;
+    private int frameRow_ = 0;
+    private int frameCol_ = 0;
+    private int frameWidth_;
+    private int frameHeight_;
 
-    public int getX() { return x_; }
-    public int getY() { return y_; }
+    public Pixmap getImage() { return image_; }
+    public int getFrameRow() { return frameRow_; }
+    public int getFrameCol() { return frameCol_; }
+    public void setFrameRow(int row) { frameRow_ = row; updateSourceRect(); }
+    public void setFrameCol(int col) { frameCol_ = col; updateSourceRect(); }
 
-    public void setX(int x) {
-        x_ = x;
-        dstRect_.x1 = x;
-        dstRect_.x2 = x + w_;
-    }
+    public Sprite(Pixmap image, int numRows, int numCols) {
+        image_ = image;
 
-    public void setY(int y) {
-        y_ = y;
-        dstRect_.y1 = y;
-        dstRect_.y2 = y + h_;
-    }
+        frameWidth_ = image_.getWidth() / numCols;
+        frameHeight_ = image_.getHeight() / numRows;
 
-    public Sprite(Pixmap image, Rect src, int x, int y, int w, int h) {
-        this.image_ = image;
-        this.srcRect_ = src;
-        this.w_ = w;
-        this.h_ = h;
-        this.dstRect_ = new Rect();
-        setPosition(x, y);
-    }
-
-    public void setPosition(int x, int y) {
-        setX(x);
-        setY(y);
-    }
-
-    public void draw(Graphics g) {
-        g.drawPixmap(image_, srcRect_, dstRect_);
+        updateSourceRect();
     }
 
     public void draw(Graphics g, Rect dst) {
         g.drawPixmap(image_, srcRect_, dst);
     }
 
-    public void draw(Graphics g, int x, int y) {
-        g.drawPixmap(image_, srcRect_, x, y);
+    private void updateSourceRect() {
+        srcRect_ = new Rect(frameCol_ * frameWidth_, frameRow_ * frameHeight_,
+                (frameCol_ * frameWidth_) + frameWidth_, (frameRow_ * frameHeight_) + frameHeight_);
     }
-
-
 
 }

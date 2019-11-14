@@ -1,13 +1,5 @@
 apply plugin: 'com.android.application'
 
-task copyPNGs(type: Copy) {
-    description = "Copying images into assets folder..."
-    from(rootDir) {
-        include "assets/**"
-    }
-    into "src/main"
-}
-
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"

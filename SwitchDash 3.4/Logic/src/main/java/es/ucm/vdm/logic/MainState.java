@@ -5,31 +5,35 @@ import java.util.List;
 import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Input;
-import es.ucm.vdm.engine.Pixmap;
+import es.ucm.vdm.engine.ScaledGraphics;
 import es.ucm.vdm.engine.State;
-import es.ucm.vdm.engine.utilities.PixmapManager;
-import es.ucm.vdm.engine.utilities.Random;
-import es.ucm.vdm.engine.utilities.Rect;
-import es.ucm.vdm.engine.utilities.Sprite;
 
 public class MainState extends State {
 
-    private Sprite background_;
-    private int currentBackgroundColor_ = 0;
-    private int[] backgroundColors_ = new int[] {0x41a85f, 0x00a885, 0x3d8eb9, 0x2969b0, 0x553982, 0x28324e, 0xf37934, 0xd14b41, 0x75706b};
+    public final int GAME_WIDTH = 1080;
+    public final int GAME_HEIGHT = 2220;
+
+    private Background background_;
+    private Arrows arrows_;
+
 
     public MainState(Game game) {
         super(game);
 
-        currentBackgroundColor_ = Random.randomInt(0, backgroundColors_.length - 1);
-        Pixmap p = PixmapManager.getInstance().getPixmap(Assets.imageFiles[Assets.ImageName.ARROWS_BACKGROUND.ordinal()]);
-        Rect src = new Rect(0, 0, 676, 3070);
-        background_ = new Sprite(p, src, 202, 0, 676, 3070);
+        ScaledGraphics g = game_.getGraphics();
+        g.setCanvasLogicSize(GAME_WIDTH, GAME_HEIGHT);
+
+        background_ = new Background(game_);
+        background_.updateColor();
+
+        arrows_ = new Arrows(game_);
     }
 
     @Override
     public void update(double deltaTime) {
         handleInput();
+
+        arrows_.update(deltaTime);
     }
 
     private void handleInput() {
@@ -71,9 +75,8 @@ public class MainState extends State {
     public void render(double deltaTime) {
         Graphics g = game_.getGraphics();
         g.clear(0xff000000);
-        Rect dst = new Rect(0, 0, 1080, 2220);
-        g.fillRect(dst, backgroundColors_[currentBackgroundColor_]);
-        background_.draw(g);
 
+        background_.render(deltaTime);
+        arrows_.render(deltaTime);
     }
 }
