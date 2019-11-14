@@ -4,6 +4,7 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 
 import java.io.IOException;
@@ -57,6 +58,14 @@ public class AndroidGraphics extends ScaledGraphics {
         canvas_.drawRGB((color & 0xff0000) >> 16,
                 (color & 0xff00) >> 8,
                 (color & 0xff));
+    }
+
+    @Override
+    protected void fillScaledRect(Rect rect, int color) {
+        android.graphics.Rect rct = new android.graphics.Rect(rect.x1, rect.y1, rect.x2, rect.y2);
+        paint_.setStyle(Paint.Style.FILL);
+        paint_.setColor(Color.parseColor(String.format("#%06X", (0xFFFFFF & color))));
+        canvas_.drawRect(rct, paint_);
     }
 
     public void drawPixmap(Pixmap pixmap, int x, int y) {

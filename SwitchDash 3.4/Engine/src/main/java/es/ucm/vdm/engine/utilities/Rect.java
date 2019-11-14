@@ -2,6 +2,13 @@ package es.ucm.vdm.engine.utilities;
 
 public class Rect {
 
+    public Rect() {
+        this.x1 = 0;
+        this.y1 = 0;
+        this.x2 = 0;
+        this.y2 = 0;
+    }
+
     public Rect(int x1, int y1, int x2, int y2) {
         this.x1 = x1;
         this.y1 = y1;

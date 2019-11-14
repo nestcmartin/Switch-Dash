@@ -8,6 +8,8 @@ public interface Graphics {
 
     public void clear(int color);
 
+    public void fillRect(Rect rect, int color);
+
     public void drawPixmap(Pixmap pixmap, int x, int y);
 
     public void drawPixmap(Pixmap pixmap, Rect src, int x, int y);
