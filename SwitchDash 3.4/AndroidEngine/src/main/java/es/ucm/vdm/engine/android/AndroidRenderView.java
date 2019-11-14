@@ -6,8 +6,6 @@ import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import es.ucm.vdm.engine.utilities.Scaler;
-
 public class AndroidRenderView extends SurfaceView implements Runnable {
 
     private AndroidGame game_;
@@ -26,7 +24,7 @@ public class AndroidRenderView extends SurfaceView implements Runnable {
     public void resume() {
         running_ = true;
         renderThread_ = new Thread(this);
-        Scaler.scaleCanvas(game_.getGraphics().getWidth(), game_.getGraphics().getHeight());
+        game_.getGraphics().scaleCanvas(game_.getGraphics().getWidth(), game_.getGraphics().getHeight());
         renderThread_.start();
     }
 

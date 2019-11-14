@@ -1,20 +1,30 @@
-package es.ucm.vdm.engine.utilities;
+package es.ucm.vdm.engine;
 
-public class Scaler {
+import es.ucm.vdm.engine.utilities.Rect;
 
-    private static int canvasLogicWidth_ = 1080;
-    private static int canvasLogicHeight_ = 2220;
-    private static int canvasWidth_;
-    private static int canvasHeight_;
-    private static int canvasPosX_;
-    private static int canvasPosY_;
+public abstract class ScaledGraphics implements Graphics {
 
-    public static void setCanvasLogicSize(int w, int h) {
+    private int canvasLogicWidth_ = 1080;
+    private int canvasLogicHeight_ = 2220;
+    private int canvasWidth_;
+    private int canvasHeight_;
+    private int canvasPosX_;
+    private int canvasPosY_;
+
+    @Override
+    public void drawPixmap(Pixmap pixmap, Rect src, Rect dst) {
+        dst = scaleRect(dst);
+        drawScaledPixmap(pixmap, src, dst);
+    }
+
+    protected void drawScaledPixmap(Pixmap pixmap, Rect src, Rect dst){};
+
+    public void setCanvasLogicSize(int w, int h) {
         canvasLogicWidth_ = w;
         canvasLogicHeight_ = h;
     }
 
-    public static void scaleCanvas(int ww, int wh) {
+    public void scaleCanvas(int ww, int wh) {
         float logicAspectRatio = (float)canvasLogicHeight_ / (float)canvasLogicWidth_;
         float realAspectRatio = (float)wh / (float)ww;
 
@@ -34,15 +44,15 @@ public class Scaler {
         }
     }
 
-    private static int scaleInAxisX(int x) {
+    private int scaleInAxisX(int x) {
         return canvasWidth_ * x / canvasLogicWidth_;
     }
 
-    private static int scaleInAxisY(int y) {
+    private int scaleInAxisY(int y) {
         return canvasHeight_ * y / canvasLogicHeight_;
     }
 
-    public static Rect scaleRect(Rect rect) {
+    public Rect scaleRect(Rect rect) {
         Rect r = new Rect(0, 0, 0,0);
         int newX1 = scaleInAxisX(rect.x1);
         int newY1 = scaleInAxisY(rect.y1);
@@ -54,6 +64,4 @@ public class Scaler {
         r.y2 = newY2 + canvasPosY_;
         return r;
     }
-
-
 }

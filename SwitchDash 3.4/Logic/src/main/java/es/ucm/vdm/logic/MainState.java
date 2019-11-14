@@ -9,6 +9,7 @@ import es.ucm.vdm.engine.Pixmap;
 import es.ucm.vdm.engine.State;
 import es.ucm.vdm.engine.utilities.PixmapManager;
 import es.ucm.vdm.engine.utilities.Rect;
+import es.ucm.vdm.engine.utilities.Sprite;
 
 public class MainState extends State {
 
@@ -61,11 +62,10 @@ public class MainState extends State {
         g.clear(0xff000000);
 
         // Render Test
-        /*
+
         Pixmap p = PixmapManager.getInstance().getPixmap(Assets.imageFiles[Assets.ImageName.ARROWS_BACKGROUND.ordinal()]);
         Rect src = new Rect(0, 0, 676, 3070);
         Rect dst = new Rect(0, 0, 1080, 2220);
         game_.getGraphics().drawPixmap(p, src, dst);
-        */
     }
 }

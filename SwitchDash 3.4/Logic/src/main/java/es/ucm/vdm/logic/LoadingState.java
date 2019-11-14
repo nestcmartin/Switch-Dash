@@ -2,9 +2,9 @@ package es.ucm.vdm.logic;
 
 import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Graphics;
+import es.ucm.vdm.engine.ScaledGraphics;
 import es.ucm.vdm.engine.State;
 import es.ucm.vdm.engine.utilities.PixmapManager;
-import es.ucm.vdm.engine.utilities.Scaler;
 
 public class LoadingState extends State {
 
@@ -19,9 +19,8 @@ public class LoadingState extends State {
 
     @Override
     public void update(double deltaTime) {
-        Scaler.setCanvasLogicSize(logicWidth_, logicHeight_);
-
-        Graphics g = game_.getGraphics();
+        ScaledGraphics g = game_.getGraphics();
+        g.setCanvasLogicSize(logicWidth_, logicHeight_);
 
         for (int i = 0; i < Assets.imageFiles.length; i++) {
             PixmapManager.getInstance().addPixmap(Assets.imageFiles[i], g.newPixmap(Assets.imageFiles[i]));

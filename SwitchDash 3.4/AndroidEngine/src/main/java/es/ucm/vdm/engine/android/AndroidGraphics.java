@@ -9,12 +9,11 @@ import android.graphics.Paint;
 import java.io.IOException;
 import java.io.InputStream;
 
-import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Pixmap;
+import es.ucm.vdm.engine.ScaledGraphics;
 import es.ucm.vdm.engine.utilities.Rect;
-import es.ucm.vdm.engine.utilities.Scaler;
 
-public class AndroidGraphics implements Graphics {
+public class AndroidGraphics extends ScaledGraphics {
 
     private AssetManager assets_;
     private Bitmap frameBuffer_;
@@ -70,8 +69,8 @@ public class AndroidGraphics implements Graphics {
         canvas_.drawBitmap(((AndroidPixmap)pixmap).getBitmap(), source, destiny, null);
     }
 
-    public void drawPixmap(Pixmap pixmap, Rect src, Rect dst) {
-        dst = Scaler.scaleRect(dst);
+    @Override
+    protected void drawScaledPixmap(Pixmap pixmap, Rect src, Rect dst) {
         android.graphics.Rect source = new android.graphics.Rect(src.x1, src.y1, src.x2, src.y2);
         android.graphics.Rect destiny = new android.graphics.Rect(dst.x1, dst.y1, dst.x2, dst.y2);
         canvas_.drawBitmap(((AndroidPixmap)pixmap).getBitmap(), source, destiny, null);
