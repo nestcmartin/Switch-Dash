@@ -10,15 +10,17 @@ import es.ucm.vdm.engine.State;
 import es.ucm.vdm.engine.utilities.PixmapManager;
 import es.ucm.vdm.engine.utilities.Rect;
 
-public class DemoState extends State {
+public class MainState extends State {
 
-    public DemoState(Game game) {
+    public MainState(Game game) {
         super(game);
     }
 
     @Override
     public void update(double deltaTime) {
 
+        // Testing Input
+        /*
         List<Input.KeyEvent> keyEvents = game_.getInput().getKeyEvents();
         List<Input.TouchEvent> touchEvents = game_.getInput().getTouchEvents();
 
@@ -35,7 +37,7 @@ public class DemoState extends State {
                 System.out.println("Click with mouse key: " + event.id_);
             }
         }
-
+        */
     }
 
     @Override
@@ -58,9 +60,12 @@ public class DemoState extends State {
         Graphics g = game_.getGraphics();
         g.clear(0xff000000);
 
+        // Render Test
+        /*
         Pixmap p = PixmapManager.getInstance().getPixmap(Assets.imageFiles[Assets.ImageName.ARROWS_BACKGROUND.ordinal()]);
         Rect src = new Rect(0, 0, 676, 3070);
         Rect dst = new Rect(0, 0, 1080, 2220);
         game_.getGraphics().drawPixmap(p, src, dst);
+        */
     }
 }
