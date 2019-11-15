@@ -1,10 +1,11 @@
-package es.ucm.vdm.logic;
+package es.ucm.vdm.logic.states;
 
 import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.ScaledGraphics;
 import es.ucm.vdm.engine.State;
 import es.ucm.vdm.engine.utilities.PixmapManager;
+import es.ucm.vdm.logic.Assets;
 
 public class LoadingState extends State {
 

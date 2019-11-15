@@ -1,4 +1,4 @@
-package es.ucm.vdm.logic;
+package es.ucm.vdm.logic.states;
 
 import java.util.List;
 
@@ -9,6 +9,12 @@ import es.ucm.vdm.engine.ScaledGraphics;
 import es.ucm.vdm.engine.State;
 import es.ucm.vdm.engine.utilities.PixmapManager;
 import es.ucm.vdm.engine.utilities.Sprite;
+import es.ucm.vdm.logic.Arrows;
+import es.ucm.vdm.logic.Assets;
+import es.ucm.vdm.logic.Background;
+import es.ucm.vdm.logic.Button;
+import es.ucm.vdm.logic.GameObject;
+import es.ucm.vdm.logic.PulsatingSprite;
 
 public class HowToPlayState extends State {
 
@@ -73,7 +79,7 @@ public class HowToPlayState extends State {
         for (int i = 0; i < keyEvents.size(); i++) {
             Input.KeyEvent event = keyEvents.get(i);
             if (event.type_ == Input.EventType.RELEASED) {
-                game_.setState(new GameState(game_));
+                game_.setState(new MainGameState(game_));
             }
         }
 
@@ -82,7 +88,7 @@ public class HowToPlayState extends State {
             if(goToMenuButton_.handleTouchEvent(event))
                 game_.setState(new MenuState(game_));
             else if (event.type_ == Input.EventType.RELEASED)
-                game_.setState(new GameState(game_));
+                game_.setState(new MainGameState(game_));
         }
     }
 

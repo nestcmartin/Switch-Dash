@@ -2,7 +2,7 @@ package es.ucm.vdm.app.desktop;
 
 import es.ucm.vdm.engine.State;
 import es.ucm.vdm.engine.desktop.DesktopGame;
-import es.ucm.vdm.logic.LoadingState;
+import es.ucm.vdm.logic.states.LoadingState;
 
 public class DesktopSwitchDash extends DesktopGame {
 
