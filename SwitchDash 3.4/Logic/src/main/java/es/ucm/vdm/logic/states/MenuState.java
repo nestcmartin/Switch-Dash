@@ -8,12 +8,12 @@ import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.ScaledGraphics;
 import es.ucm.vdm.engine.utilities.PixmapManager;
 import es.ucm.vdm.engine.utilities.Sprite;
-import es.ucm.vdm.logic.GameState;
 import es.ucm.vdm.logic.Arrows;
 import es.ucm.vdm.logic.Assets;
 import es.ucm.vdm.logic.Background;
 import es.ucm.vdm.logic.Button;
 import es.ucm.vdm.logic.GameObject;
+import es.ucm.vdm.logic.GameState;
 import es.ucm.vdm.logic.PulsatingSprite;
 
  public class MenuState extends GameState {
@@ -84,7 +84,6 @@ import es.ucm.vdm.logic.PulsatingSprite;
     public void render(double deltaTime) {
         Graphics g = game_.getGraphics();
         g.clear(0xff000000);
-
         super.render(deltaTime);
     }
 }
