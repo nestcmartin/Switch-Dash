@@ -19,7 +19,7 @@ public class HowToPlayState extends State {
     private Arrows arrows_;
     private GameObject howToPlay_;
     private GameObject instructions_;
-    private GameObject tapToPlay_;
+    private PulsatingSprite tapToPlay_;
 
 
     public HowToPlayState(Game game) {
@@ -46,7 +46,7 @@ public class HowToPlayState extends State {
         // TapToPlay
         Sprite tapSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.TAP_TO_PLAY.ordinal()]), 1, 1);
         int tapX = (GAME_WIDTH - tapSprite.getImage().getWidth()) / 2;
-        tapToPlay_ = new GameObject(game_, tapSprite, tapX, 1464, tapSprite.getImage().getWidth(), tapSprite.getImage().getHeight());
+        tapToPlay_ = new PulsatingSprite(game_, tapSprite, tapX, 1464, tapSprite.getImage().getWidth(), tapSprite.getImage().getHeight(), 1.2f);
     }
 
     @Override
@@ -55,6 +55,7 @@ public class HowToPlayState extends State {
 
         background_.update(deltaTime);
         arrows_.update(deltaTime);
+        tapToPlay_.update(deltaTime);
     }
 
     private void handleInput() {

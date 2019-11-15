@@ -18,7 +18,7 @@ public class MenuState extends State {
     private Background background_;
     private Arrows arrows_;
     private GameObject gameLogo_;
-    private GameObject tapToPlay_;
+    private PulsatingSprite tapToPlay_;
 
 
     public MenuState(Game game) {
@@ -40,7 +40,7 @@ public class MenuState extends State {
         // TapToPlay
         Sprite tapSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.TAP_TO_PLAY.ordinal()]), 1, 1);
         int tapX = (GAME_WIDTH - tapSprite.getImage().getWidth()) / 2;
-        tapToPlay_ = new GameObject(game_, tapSprite, logoX, 950, tapSprite.getImage().getWidth(), tapSprite.getImage().getHeight());
+        tapToPlay_ = new PulsatingSprite(game_, tapSprite, tapX, 950, tapSprite.getImage().getWidth(), tapSprite.getImage().getHeight(), 1.2f);
     }
 
     @Override
@@ -49,6 +49,7 @@ public class MenuState extends State {
 
         background_.update(deltaTime);
         arrows_.update(deltaTime);
+        tapToPlay_.update(deltaTime);
     }
 
     private void handleInput() {
