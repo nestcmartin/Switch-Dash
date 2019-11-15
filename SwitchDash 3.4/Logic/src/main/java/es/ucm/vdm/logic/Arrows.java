@@ -8,7 +8,7 @@ import es.ucm.vdm.engine.utilities.Sprite;
 
 public class Arrows extends GameObject {
 
-    private float scrollSpeed_ = 1;
+    private float scrollSpeed_ = 20;
     Rect auxDstRect_ = new Rect();
 
     public Arrows(Game g) {
@@ -25,7 +25,7 @@ public class Arrows extends GameObject {
     public void update(double deltaTime) {
         System.out.println(deltaTime);
 
-        y_ += scrollSpeed_;
+        y_ += (scrollSpeed_ * deltaTime);
         if (y_ > h_) y_ -= h_;
 
         super.update(deltaTime);

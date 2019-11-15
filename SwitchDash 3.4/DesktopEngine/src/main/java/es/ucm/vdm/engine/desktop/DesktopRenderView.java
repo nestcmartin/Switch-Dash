@@ -50,6 +50,11 @@ public class DesktopRenderView extends JFrame {
                 } while(game_.getGraphics().getBufferStrategy().contentsRestored());
                 game_.getGraphics().getBufferStrategy().show();
             } while(game_.getGraphics().getBufferStrategy().contentsLost());
+
+            try {
+                Thread.sleep(5);
+            }
+            catch(Exception e) {}
         }
     }
 }
