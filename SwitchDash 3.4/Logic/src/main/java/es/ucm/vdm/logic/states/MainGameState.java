@@ -11,7 +11,6 @@ import es.ucm.vdm.engine.utilities.Sprite;
 import es.ucm.vdm.logic.Arrows;
 import es.ucm.vdm.logic.Assets;
 import es.ucm.vdm.logic.Background;
-import es.ucm.vdm.logic.GameObject;
 import es.ucm.vdm.logic.GameState;
 import es.ucm.vdm.logic.Player;
 

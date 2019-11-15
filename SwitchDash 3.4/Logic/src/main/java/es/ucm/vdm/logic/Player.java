@@ -27,7 +27,6 @@ public class Player extends GameObject {
 
     private void switchColor(){
         isWhite_ = !isWhite_;
-        System.out.println(isWhite_);
 
         int color = isWhite_ ? 0 : 1;
         sprite_.setFrameRow(color);

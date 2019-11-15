@@ -24,6 +24,7 @@ public class Button extends GameObject {
     }
 
     private boolean isInsideButton(int x, int y){
+        updateDstRect();
         return x > scaledRect_.x1 &&
                x < scaledRect_.x2 &&
                y > scaledRect_.y1 &&
