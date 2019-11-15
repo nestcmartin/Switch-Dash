@@ -16,15 +16,6 @@ public class DesktopGraphics extends ScaledGraphics {
     private BufferStrategy strategy_;
     private JFrame window_;
 
-    @Override
-    protected void fillScaledRect(Rect rect, int color) {
-        int r = (color>>16)&0xFF;
-        int g = (color>>8)&0xFF;
-        int b = (color>>0)&0xFF;
-        graphics_.setColor(new Color(r, g, b));
-        graphics_.fillRect(rect.x1, rect.y1, rect.width(), rect.height());
-    }
-
     public DesktopGraphics(JFrame window) {
         this.window_ = window;
 
@@ -56,9 +47,22 @@ public class DesktopGraphics extends ScaledGraphics {
         return new DesktopPixmap(image);
     }
 
+    private Color intToColor(int color){
+        int r = (color>>16)&0xFF;
+        int g = (color>>8)&0xFF;
+        int b = (color>>0)&0xFF;
+        return new Color(r, g, b);
+    }
+
     public void clear(int color) {
-        Rect rect = new Rect(0, 0, getWidth(), getHeight());
-        fillRect(rect, color);
+        graphics_.setColor(intToColor(color));
+        graphics_.fillRect(0, 0, getWidth(), getHeight());
+    }
+
+    @Override
+    protected void fillScaledRect(Rect rect, int color) {
+        graphics_.setColor(intToColor(color));
+        graphics_.fillRect(rect.x1, rect.y1, rect.width(), rect.height());
     }
 
     public void drawPixmap(Pixmap pixmap, int x, int y) {
