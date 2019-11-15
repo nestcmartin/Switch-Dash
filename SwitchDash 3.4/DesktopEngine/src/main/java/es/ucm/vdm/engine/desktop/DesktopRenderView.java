@@ -31,20 +31,17 @@ public class DesktopRenderView extends JFrame {
 
         game_.getGraphics().scaleCanvas(game_.getGraphics().getWidth(), game_.getGraphics().getHeight());
 
-        long lastFrameTime = System.nanoTime();
+        long startTime = System.nanoTime();
 
         while(running_) {
-            long currentTime = System.nanoTime();
-            long nanoElapsedTime = currentTime - lastFrameTime;
-            lastFrameTime = currentTime;
-            double deltaTime = (double) nanoElapsedTime / 1.0E9;
+            double deltaTime = (System.nanoTime() - startTime) / 1000000000.0f;
+            startTime = System.nanoTime();
 
             game_.getCurrentState().update(deltaTime);
 
             do {
                 do {
                     game_.getGraphics().setGraphics();
-                    //Scaler.scaleCanvas(game_.getGraphics().getWidth(), game_.getGraphics().getHeight());
                     try {
                         game_.getCurrentState().render(deltaTime);
                     } finally {

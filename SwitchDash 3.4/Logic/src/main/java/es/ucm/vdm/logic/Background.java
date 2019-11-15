@@ -9,7 +9,7 @@ import es.ucm.vdm.engine.utilities.Sprite;
 
 public class Background extends GameObject {
 
-    private Rect auxDstRect_ = new Rect();
+    private Rect canvasBackGroundRect_ = new Rect();
     private int currentBackgroundColor_ = 0;
 
     private int[] backgroundColors_ = {
@@ -28,24 +28,34 @@ public class Background extends GameObject {
         super(g);
 
         sprite_ = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.BACKGROUNDS.ordinal()]), 1, 9);
-        w_ = (1080 - sprite_.getImage().getWidth()) / 2;
-        h_ = (2220 - sprite_.getImage().getHeight()) / 2;
 
-        auxDstRect_.x1 = x_;
-        auxDstRect_.y1 = y_;
-        auxDstRect_.x2 = 1080;
-        auxDstRect_.y2 = 2220;
+        w_ = PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.ARROWS_BACKGROUND.ordinal()]).getWidth();
+        h_ = PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.ARROWS_BACKGROUND.ordinal()]).getHeight();
+        x_ = (1080 - w_) / 2;
+        y_ = (2220 - h_) / 2;
+
+        canvasBackGroundRect_.x1 = 0;
+        canvasBackGroundRect_.y1 = 0;
+        canvasBackGroundRect_.x2 = 1080;
+        canvasBackGroundRect_.y2 = 2220;
     }
 
-
-    public void updateColor() {
-        currentBackgroundColor_ = Random.randomInt(0, backgroundColors_.length - 1);
+    @Override
+    public void update(double deltaTime) {
+        super.update(deltaTime);
     }
 
     @Override
     public void render(double deltaTime) {
         super.render(deltaTime);
         Graphics g = game_.getGraphics();
-        g.fillRect(auxDstRect_, backgroundColors_[currentBackgroundColor_]);
+        g.fillRect(canvasBackGroundRect_, backgroundColors_[currentBackgroundColor_]);
+        sprite_.draw(g, dstRect_);
     }
+
+    public void updateColor() {
+        currentBackgroundColor_ = Random.randomInt(0, backgroundColors_.length - 1);
+        sprite_.setFrameCol(currentBackgroundColor_);
+    }
+
 }

@@ -33,6 +33,7 @@ public class MainState extends State {
     public void update(double deltaTime) {
         handleInput();
 
+        background_.update(deltaTime);
         arrows_.update(deltaTime);
     }
 
