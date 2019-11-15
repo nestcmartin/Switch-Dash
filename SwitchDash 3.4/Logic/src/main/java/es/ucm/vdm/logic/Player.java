@@ -17,6 +17,14 @@ public class Player extends GameObject {
         super.update(deltaTime);
     }
 
+    public boolean handleKeyEvent(Input.KeyEvent event){
+        if(event.type_ == Input.EventType.PRESSED) {
+            switchColor();
+            return true;
+        }
+        return false;
+    }
+
     public boolean handleTouchEvent(Input.TouchEvent event){
         if(event.type_ == Input.EventType.PRESSED) {
             switchColor();

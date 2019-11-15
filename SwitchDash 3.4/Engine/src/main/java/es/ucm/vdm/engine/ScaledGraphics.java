@@ -33,7 +33,9 @@ public abstract class ScaledGraphics implements Graphics {
         canvasLogicHeight_ = h;
     }
 
-    public void scaleCanvas(int ww, int wh) {
+    public void scaleCanvas() {
+        int wh = getHeight();
+        int ww = getWidth();
         float logicAspectRatio = (float)canvasLogicHeight_ / (float)canvasLogicWidth_;
         float realAspectRatio = (float)wh / (float)ww;
 

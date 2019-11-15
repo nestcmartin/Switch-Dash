@@ -11,6 +11,7 @@ import es.ucm.vdm.engine.utilities.Sprite;
 import es.ucm.vdm.logic.Arrows;
 import es.ucm.vdm.logic.Assets;
 import es.ucm.vdm.logic.Background;
+import es.ucm.vdm.logic.BallsManager;
 import es.ucm.vdm.logic.GameState;
 import es.ucm.vdm.logic.Player;
 
@@ -22,11 +23,13 @@ public class MainGameState extends GameState {
     private Background background_;
     private Arrows arrows_;
     private Player player_;
+    private BallsManager ballsManager_;
 
     public MainGameState(Game game) {
         super(game);
         ScaledGraphics g = game_.getGraphics();
         g.setCanvasLogicSize(GAME_WIDTH, GAME_HEIGHT);
+        g.scaleCanvas();
 
         // Background
         background_ = new Background(game_);
@@ -41,6 +44,11 @@ public class MainGameState extends GameState {
         int playerX = (GAME_WIDTH - playerSprite.getWidth()) / 2;
         player_ = new Player(game_, playerSprite, playerX, 1200, playerSprite.getWidth(), playerSprite.getHeight());
         gameObjects_.add(player_);
+
+        Sprite ballsSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.BALLS.ordinal()]), 2, 10);
+        int ballX = (GAME_WIDTH - ballsSprite.getWidth()) / 2;
+        ballsManager_ = new BallsManager(game_, ballsSprite, ballX, 0, ballsSprite.getWidth(), ballsSprite.getHeight());
+        gameObjects_.add(ballsManager_);
     }
 
     @Override
@@ -56,9 +64,10 @@ public class MainGameState extends GameState {
 
         for (int i = 0; i < keyEvents.size(); i++) {
             Input.KeyEvent event = keyEvents.get(i);
-            if (event.type_ == Input.EventType.PRESSED) {
-                // Accion
-            }
+            if(player_.handleKeyEvent(event)){}
+//            if (event.type_ == Input.EventType.PRESSED) {
+//                // Accion
+//            }
         }
 
         for (int i = 0; i < touchEvents.size(); i++) {

@@ -24,7 +24,7 @@ public class AndroidRenderView extends SurfaceView implements Runnable {
     public void resume() {
         running_ = true;
         renderThread_ = new Thread(this);
-        game_.getGraphics().scaleCanvas(game_.getGraphics().getWidth(), game_.getGraphics().getHeight());
+        game_.getGraphics().scaleCanvas();
         renderThread_.start();
     }
 

@@ -22,15 +22,12 @@ public class DesktopRenderView extends JFrame {
         addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent evt) {
                 if(game_.getGraphics() != null)
-                    game_.getGraphics().scaleCanvas(game_.getGraphics().getWidth(), game_.getGraphics().getHeight());
+                    game_.getGraphics().scaleCanvas();
             }
         });
     }
 
     public void run() {
-
-        game_.getGraphics().scaleCanvas(game_.getGraphics().getWidth(), game_.getGraphics().getHeight());
-
         long startTime = System.nanoTime();
 
         while(running_) {

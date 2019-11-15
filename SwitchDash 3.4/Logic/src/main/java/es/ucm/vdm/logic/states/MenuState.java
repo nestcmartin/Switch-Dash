@@ -27,6 +27,7 @@ import es.ucm.vdm.logic.PulsatingSprite;
         super(game);
         ScaledGraphics g = game_.getGraphics();
         g.setCanvasLogicSize(GAME_WIDTH, GAME_HEIGHT);
+        g.scaleCanvas();
 
         // Background
         Background background_ = new Background(game_);
