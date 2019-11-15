@@ -7,21 +7,16 @@ import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.ScaledGraphics;
 import es.ucm.vdm.engine.State;
-import es.ucm.vdm.engine.utilities.PixmapManager;
-import es.ucm.vdm.engine.utilities.Sprite;
 
-public class MenuState extends State {
+public class GameState extends State {
 
     public final int GAME_WIDTH = 1080;
     public final int GAME_HEIGHT = 1920;
 
     private Background background_;
     private Arrows arrows_;
-    private GameObject gameLogo_;
-    private GameObject tapToPlay_;
 
-
-    public MenuState(Game game) {
+    public GameState(Game game) {
         super(game);
 
         ScaledGraphics g = game_.getGraphics();
@@ -32,15 +27,6 @@ public class MenuState extends State {
 
         arrows_ = new Arrows(game_);
 
-        // Logo
-        Sprite logoSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.SWITCH_DASH_LOGO.ordinal()]), 1, 1);
-        int logoX = (GAME_WIDTH - logoSprite.getImage().getWidth()) / 2;
-        gameLogo_ = new GameObject(game_, logoSprite, logoX, 356, logoSprite.getImage().getWidth(), logoSprite.getImage().getHeight());
-
-        // TapToPlay
-        Sprite tapSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.TAP_TO_PLAY.ordinal()]), 1, 1);
-        int tapX = (GAME_WIDTH - tapSprite.getImage().getWidth()) / 2;
-        tapToPlay_ = new GameObject(game_, tapSprite, logoX, 950, tapSprite.getImage().getWidth(), tapSprite.getImage().getHeight());
     }
 
     @Override
@@ -59,14 +45,14 @@ public class MenuState extends State {
         for (int i = 0; i < keyEvents.size(); i++) {
             Input.KeyEvent event = keyEvents.get(i);
             if (event.type_ == Input.EventType.PRESSED) {
-                game_.setState(new HowToPlayState(game_));
+                // Accion
             }
         }
 
         for (int i = 0; i < touchEvents.size(); i++) {
             Input.TouchEvent event = touchEvents.get(i);
             if (event.type_ == Input.EventType.PRESSED) {
-                game_.setState(new HowToPlayState(game_));
+                // Accion
             }
         }
     }
@@ -93,7 +79,5 @@ public class MenuState extends State {
 
         background_.render(deltaTime);
         arrows_.render(deltaTime);
-        gameLogo_.render(deltaTime);
-        tapToPlay_.render(deltaTime);
     }
 }

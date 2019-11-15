@@ -10,18 +10,19 @@ import es.ucm.vdm.engine.State;
 import es.ucm.vdm.engine.utilities.PixmapManager;
 import es.ucm.vdm.engine.utilities.Sprite;
 
-public class MenuState extends State {
+public class HowToPlayState extends State {
 
     public final int GAME_WIDTH = 1080;
     public final int GAME_HEIGHT = 1920;
 
     private Background background_;
     private Arrows arrows_;
-    private GameObject gameLogo_;
+    private GameObject howToPlay_;
+    private GameObject instructions_;
     private GameObject tapToPlay_;
 
 
-    public MenuState(Game game) {
+    public HowToPlayState(Game game) {
         super(game);
 
         ScaledGraphics g = game_.getGraphics();
@@ -32,15 +33,20 @@ public class MenuState extends State {
 
         arrows_ = new Arrows(game_);
 
-        // Logo
-        Sprite logoSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.SWITCH_DASH_LOGO.ordinal()]), 1, 1);
-        int logoX = (GAME_WIDTH - logoSprite.getImage().getWidth()) / 2;
-        gameLogo_ = new GameObject(game_, logoSprite, logoX, 356, logoSprite.getImage().getWidth(), logoSprite.getImage().getHeight());
+        // HowToPlay
+        Sprite howToPlaySprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.HOW_TO_PLAY.ordinal()]), 1, 1);
+        int howToPlayX = (GAME_WIDTH - howToPlaySprite.getImage().getWidth()) / 2;
+        howToPlay_ = new GameObject(game_, howToPlaySprite, howToPlayX, 290, howToPlaySprite.getImage().getWidth(), howToPlaySprite.getImage().getHeight());
+
+        // Instructions
+        Sprite instructionsSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.INSTRUCTIONS.ordinal()]), 1, 1);
+        int instructionsX = (GAME_WIDTH - instructionsSprite.getImage().getWidth()) / 2;
+        instructions_ = new GameObject(game_, instructionsSprite, instructionsX, 768, instructionsSprite.getImage().getWidth(), instructionsSprite.getImage().getHeight());
 
         // TapToPlay
         Sprite tapSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.TAP_TO_PLAY.ordinal()]), 1, 1);
         int tapX = (GAME_WIDTH - tapSprite.getImage().getWidth()) / 2;
-        tapToPlay_ = new GameObject(game_, tapSprite, logoX, 950, tapSprite.getImage().getWidth(), tapSprite.getImage().getHeight());
+        tapToPlay_ = new GameObject(game_, tapSprite, tapX, 1464, tapSprite.getImage().getWidth(), tapSprite.getImage().getHeight());
     }
 
     @Override
@@ -59,14 +65,14 @@ public class MenuState extends State {
         for (int i = 0; i < keyEvents.size(); i++) {
             Input.KeyEvent event = keyEvents.get(i);
             if (event.type_ == Input.EventType.PRESSED) {
-                game_.setState(new HowToPlayState(game_));
+                game_.setState(new GameState(game_));
             }
         }
 
         for (int i = 0; i < touchEvents.size(); i++) {
             Input.TouchEvent event = touchEvents.get(i);
             if (event.type_ == Input.EventType.PRESSED) {
-                game_.setState(new HowToPlayState(game_));
+                game_.setState(new GameState(game_));
             }
         }
     }
@@ -93,7 +99,8 @@ public class MenuState extends State {
 
         background_.render(deltaTime);
         arrows_.render(deltaTime);
-        gameLogo_.render(deltaTime);
+        howToPlay_.render(deltaTime);
+        instructions_.render(deltaTime);
         tapToPlay_.render(deltaTime);
     }
 }
