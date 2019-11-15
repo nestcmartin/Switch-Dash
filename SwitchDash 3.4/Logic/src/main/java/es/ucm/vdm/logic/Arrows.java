@@ -7,7 +7,7 @@ import es.ucm.vdm.engine.utilities.Sprite;
 
 public class Arrows extends GameObject {
 
-    private float scrollSpeed_ = 300;
+    private float pixelsPerSecond_ = 300;
     float floatY_ = 0f;
     int resetDistance_;
 
@@ -24,9 +24,13 @@ public class Arrows extends GameObject {
         y_ = resetDistance_;
     }
 
+    public void incrementSpeed(int increment){
+        pixelsPerSecond_ += increment;
+    }
+
     @Override
     public void update(double deltaTime) {
-        floatY_ += (scrollSpeed_ * deltaTime);
+        floatY_ += (pixelsPerSecond_ * deltaTime);
         if (floatY_ > 0) floatY_ += resetDistance_;
         y_ = (int)floatY_;
         updateDstRect();

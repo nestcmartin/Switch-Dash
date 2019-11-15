@@ -6,16 +6,15 @@ import es.ucm.vdm.engine.utilities.Sprite;
 
 public class Player extends GameObject {
 
+    boolean isAlive_ = true;
     boolean isWhite_ = true;
 
     public Player(Game g, Sprite s, int x, int y, int w, int h) {
         super(g, s, x, y, w, h);
     }
 
-    @Override
-    public void update(double deltaTime) {
-        super.update(deltaTime);
-    }
+    public int getColor(){ return isWhite_? 0 : 1; }
+    public void die(){ isAlive_ = false; }
 
     public boolean handleKeyEvent(Input.KeyEvent event){
         if(event.type_ == Input.EventType.PRESSED) {
@@ -38,5 +37,11 @@ public class Player extends GameObject {
 
         int color = isWhite_ ? 0 : 1;
         sprite_.setFrameRow(color);
+    }
+
+    @Override
+    public void render(double deltaTime) {
+        if(isAlive_)
+            super.render(deltaTime);
     }
 }

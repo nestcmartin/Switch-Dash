@@ -20,10 +20,16 @@ public class MainGameState extends GameState {
     public final int GAME_WIDTH = 1080;
     public final int GAME_HEIGHT = 1920;
 
+    private boolean gameOver = false;
+
     private Background background_;
     private Arrows arrows_;
     private Player player_;
     private BallsManager ballsManager_;
+
+    private int speedIncrement_ = 90;
+    private int correctBalls_ = 0;
+    private int points_ = 0;
 
     public MainGameState(Game game) {
         super(game);
@@ -53,29 +59,53 @@ public class MainGameState extends GameState {
 
     @Override
     public void update(double deltaTime) {
-        handleInput();
+        if(!gameOver)
+            handleInput();
+
         super.update(deltaTime);
+
+        if(!gameOver) {
+            if (ballsManager_.getCurrentBallY() >= player_.getY()) {
+                // Correct color
+                if (player_.getColor() == ballsManager_.getCurrentBallColor()) {
+                    ballsManager_.correctBall();
+                    points_++;
+                    correctBalls_++;
+                    if (correctBalls_ >= 3) {
+                        correctBalls_ = 0;
+                        ballsManager_.incrementSpeed(speedIncrement_);
+                        arrows_.incrementSpeed(speedIncrement_);
+                    }
+                }
+                // Incorrect color
+                else
+                    gameOver();
+            }
+        }
+    }
+
+    private void gameOver(){
+        System.out.println("GAME OVER | Your score is " + points_);
+        gameOver = true;
+        player_.die();
+
+        // ToDo: wait 1 second
+
+        // ToDo: switch state to GameOverState
     }
 
     private void handleInput() {
-
         List<Input.KeyEvent> keyEvents = game_.getInput().getKeyEvents();
         List<Input.TouchEvent> touchEvents = game_.getInput().getTouchEvents();
 
         for (int i = 0; i < keyEvents.size(); i++) {
             Input.KeyEvent event = keyEvents.get(i);
             if(player_.handleKeyEvent(event)){}
-//            if (event.type_ == Input.EventType.PRESSED) {
-//                // Accion
-//            }
         }
 
         for (int i = 0; i < touchEvents.size(); i++) {
             Input.TouchEvent event = touchEvents.get(i);
             if(player_.handleTouchEvent(event)){}
-//            else if (event.type_ == Input.EventType.PRESSED) {
-//                // Accion
-//            }
         }
     }
 
