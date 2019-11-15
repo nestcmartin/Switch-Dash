@@ -79,10 +79,12 @@ public class AndroidGraphics extends ScaledGraphics {
     }
 
     @Override
-    protected void drawScaledPixmap(Pixmap pixmap, Rect src, Rect dst) {
+    protected void drawScaledPixmap(Pixmap pixmap, Rect src, Rect dst, float alpha) {
         android.graphics.Rect source = new android.graphics.Rect(src.x1, src.y1, src.x2, src.y2);
         android.graphics.Rect destiny = new android.graphics.Rect(dst.x1, dst.y1, dst.x2, dst.y2);
-        canvas_.drawBitmap(((AndroidPixmap)pixmap).getBitmap(), source, destiny, null);
+
+        paint_.setAlpha((int) (alpha * 255));
+        canvas_.drawBitmap(((AndroidPixmap) pixmap).getBitmap(), source, destiny, paint_);
     }
 
     public int getWidth() {
