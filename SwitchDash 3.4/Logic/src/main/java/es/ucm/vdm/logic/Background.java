@@ -41,13 +41,7 @@ public class Background extends GameObject {
     }
 
     @Override
-    public void update(double deltaTime) {
-        super.update(deltaTime);
-    }
-
-    @Override
     public void render(double deltaTime) {
-        super.render(deltaTime);
         Graphics g = game_.getGraphics();
         g.fillRect(canvasBackGroundRect_, backgroundColors_[currentBackgroundColor_]);
         sprite_.draw(g, dstRect_);
@@ -56,6 +50,6 @@ public class Background extends GameObject {
     public void updateColor() {
         currentBackgroundColor_ = Random.randomInt(0, backgroundColors_.length - 1);
         sprite_.setFrameCol(currentBackgroundColor_);
+        updateDstRect();
     }
-
 }

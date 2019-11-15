@@ -20,7 +20,7 @@ public class LoadingState extends State {
             PixmapManager.getInstance().addPixmap(Assets.images[i], g.newPixmap(Assets.images[i]));
         }
 
-        game_.setState(new MainState(game_));
+        game_.setState(new MenuState(game_));
     }
 
     @Override

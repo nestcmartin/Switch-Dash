@@ -24,6 +24,7 @@ public class GameObject {
         y_ = y;
         w_ = w;
         h_ = h;
+        updateDstRect();
     }
 
     public GameObject(Game g) {

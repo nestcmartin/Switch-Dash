@@ -7,17 +7,20 @@ import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.ScaledGraphics;
 import es.ucm.vdm.engine.State;
+import es.ucm.vdm.engine.utilities.PixmapManager;
+import es.ucm.vdm.engine.utilities.Sprite;
 
-public class MainState extends State {
+public class MenuState extends State {
 
     public final int GAME_WIDTH = 1080;
-    public final int GAME_HEIGHT = 2220;
+    public final int GAME_HEIGHT = 1920;
 
     private Background background_;
     private Arrows arrows_;
+    private GameObject gameLogo_;
 
 
-    public MainState(Game game) {
+    public MenuState(Game game) {
         super(game);
 
         ScaledGraphics g = game_.getGraphics();
@@ -27,6 +30,11 @@ public class MainState extends State {
         background_.updateColor();
 
         arrows_ = new Arrows(game_);
+
+        // Logo
+        Sprite logoSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.SWITCH_DASH_LOGO.ordinal()]), 1, 1);
+        int logoX = (GAME_WIDTH - logoSprite.getImage().getWidth()) / 2;
+        gameLogo_ = new GameObject(game_, logoSprite, logoX, 500, logoSprite.getImage().getWidth(), logoSprite.getImage().getHeight());
     }
 
     @Override
@@ -79,5 +87,6 @@ public class MainState extends State {
 
         background_.render(deltaTime);
         arrows_.render(deltaTime);
+        gameLogo_.render(deltaTime);
     }
 }
