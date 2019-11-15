@@ -34,9 +34,7 @@ public class Arrows extends GameObject {
 
     @Override
     public void render(double deltaTime) {
-        super.render(deltaTime);
-
         Graphics g = game_.getGraphics();
-        sprite_.draw(g, dstRect_);
+        sprite_.draw(g, dstRect_, 0.15f);
     }
 }

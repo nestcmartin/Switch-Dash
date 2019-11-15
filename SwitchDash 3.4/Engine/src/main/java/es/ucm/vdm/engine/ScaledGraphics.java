@@ -20,13 +20,12 @@ public abstract class ScaledGraphics implements Graphics {
         fillScaledRect(rect, color);
     }
 
-    @Override
-    public void drawPixmap(Pixmap pixmap, Rect src, Rect dst) {
+    public void drawPixmap(Pixmap pixmap, Rect src, Rect dst, float alpha) {
         dst = scaleRect(dst);
-        drawScaledPixmap(pixmap, src, dst);
+        drawScaledPixmap(pixmap, src, dst, alpha);
     }
 
-    protected void drawScaledPixmap(Pixmap pixmap, Rect src, Rect dst){};
+    protected void drawScaledPixmap(Pixmap pixmap, Rect src, Rect dst, float alpha){};
     protected void fillScaledRect(Rect rect, int color) {};
 
     public void setCanvasLogicSize(int w, int h) {

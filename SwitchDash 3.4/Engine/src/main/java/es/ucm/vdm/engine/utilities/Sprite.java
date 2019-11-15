@@ -29,7 +29,11 @@ public class Sprite {
     }
 
     public void draw(Graphics g, Rect dst) {
-        g.drawPixmap(image_, srcRect_, dst);
+        g.drawPixmap(image_, srcRect_, dst, 1);
+    }
+
+    public void draw(Graphics g, Rect dst, float alpha) {
+        g.drawPixmap(image_, srcRect_, dst, alpha);
     }
 
     private void updateSourceRect() {

@@ -77,7 +77,19 @@ public class DesktopGraphics extends ScaledGraphics {
     }
 
     @Override
-    protected void drawScaledPixmap(Pixmap pixmap, Rect src, Rect dst) {
+    protected void drawScaledPixmap(Pixmap pixmap, Rect src, Rect dst, float alpha) {
+        if(alpha == 1) {
+            drawPixmapBasic(pixmap, src, dst);
+        }
+        else {
+            Graphics2D graphics2D = (Graphics2D)graphics_;
+            graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+            drawPixmapBasic(pixmap, src, dst);
+            graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+        }
+    }
+
+    private void drawPixmapBasic(Pixmap pixmap, Rect src, Rect dst){
         graphics_.drawImage(((DesktopPixmap)pixmap).getImage(),
                 dst.x1, dst.y1, dst.x2, dst.y2,
                 src.x1, src.y1, src.x2, src.y2,
