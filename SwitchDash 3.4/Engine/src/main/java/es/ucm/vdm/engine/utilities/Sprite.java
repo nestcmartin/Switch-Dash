@@ -33,8 +33,9 @@ public class Sprite {
     }
 
     private void updateSourceRect() {
-        srcRect_ = new Rect(frameCol_ * frameWidth_, frameRow_ * frameHeight_,
-                (frameCol_ * frameWidth_) + frameWidth_, (frameRow_ * frameHeight_) + frameHeight_);
+        srcRect_ = new Rect(frameCol_ * frameWidth_,
+                            frameRow_ * frameHeight_,
+                           (frameCol_ * frameWidth_) + frameWidth_,
+                           (frameRow_ * frameHeight_) + frameHeight_);
     }
-
 }

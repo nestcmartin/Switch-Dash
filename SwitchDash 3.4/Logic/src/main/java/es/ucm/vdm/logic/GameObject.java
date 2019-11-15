@@ -45,7 +45,9 @@ public class GameObject {
     public void setH(int h) { h_ = h; }
     public void setPosition(int x, int y) { setX(x); setY(y); }
 
-    public void update(double deltaTime) {
+    public void update(double deltaTime) {}
+
+    protected void updateDstRect(){
         dstRect_.x1 = x_;
         dstRect_.y1 = y_;
         dstRect_.x2 = x_ + w_;

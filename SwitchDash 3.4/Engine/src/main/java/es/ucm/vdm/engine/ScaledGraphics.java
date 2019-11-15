@@ -11,6 +11,9 @@ public abstract class ScaledGraphics implements Graphics {
     private int canvasPosX_;
     private int canvasPosY_;
 
+    public int getCanvasLogicHeight() { return canvasLogicHeight_; }
+    public int getCanvasLogicWidth() { return  canvasLogicWidth_; }
+
     @Override
     public void fillRect(Rect rect, int color) {
         rect = scaleRect(rect);

@@ -18,7 +18,7 @@ public class DesktopRenderView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBackground(Color.BLACK);
 
-        // Añadimos un listener para que cuando se reescale la ventana el escalado se actualice
+        // Añadimos un listener a la ventana, así cuando se reescala actualizamos el escalado de los gráficos
         addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent evt) {
                 if(game_.getGraphics() != null)
@@ -50,11 +50,6 @@ public class DesktopRenderView extends JFrame {
                 } while(game_.getGraphics().getBufferStrategy().contentsRestored());
                 game_.getGraphics().getBufferStrategy().show();
             } while(game_.getGraphics().getBufferStrategy().contentsLost());
-
-            try {
-                Thread.sleep(5);
-            }
-            catch(Exception e) {}
         }
     }
 }
