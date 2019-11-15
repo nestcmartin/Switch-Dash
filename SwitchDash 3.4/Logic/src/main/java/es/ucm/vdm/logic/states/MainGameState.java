@@ -6,9 +6,14 @@ import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.ScaledGraphics;
+import es.ucm.vdm.engine.utilities.PixmapManager;
+import es.ucm.vdm.engine.utilities.Sprite;
 import es.ucm.vdm.logic.Arrows;
+import es.ucm.vdm.logic.Assets;
 import es.ucm.vdm.logic.Background;
+import es.ucm.vdm.logic.GameObject;
 import es.ucm.vdm.logic.GameState;
+import es.ucm.vdm.logic.Player;
 
 public class MainGameState extends GameState {
 
@@ -17,6 +22,7 @@ public class MainGameState extends GameState {
 
     private Background background_;
     private Arrows arrows_;
+    private Player player_;
 
     public MainGameState(Game game) {
         super(game);
@@ -31,6 +37,11 @@ public class MainGameState extends GameState {
         // Moving Arrows
         arrows_ = new Arrows(game_);
         gameObjects_.add(arrows_);
+
+        Sprite playerSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.PLAYERS.ordinal()]), 2, 1);
+        int playerX = (GAME_WIDTH - playerSprite.getWidth()) / 2;
+        player_ = new Player(game_, playerSprite, playerX, 1200, playerSprite.getWidth(), playerSprite.getHeight());
+        gameObjects_.add(player_);
     }
 
     @Override
@@ -53,9 +64,10 @@ public class MainGameState extends GameState {
 
         for (int i = 0; i < touchEvents.size(); i++) {
             Input.TouchEvent event = touchEvents.get(i);
-            if (event.type_ == Input.EventType.PRESSED) {
-                // Accion
-            }
+            if(player_.handleTouchEvent(event)){}
+//            else if (event.type_ == Input.EventType.PRESSED) {
+//                // Accion
+//            }
         }
     }
 
