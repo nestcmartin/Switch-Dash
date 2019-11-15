@@ -14,6 +14,8 @@ public class Sprite {
     private int frameHeight_;
 
     public Pixmap getImage() { return image_; }
+    public int getWidth() { return frameWidth_; }
+    public int getHeight() { return frameHeight_; }
     public int getFrameRow() { return frameRow_; }
     public int getFrameCol() { return frameCol_; }
     public void setFrameRow(int row) { frameRow_ = row; updateSourceRect(); }

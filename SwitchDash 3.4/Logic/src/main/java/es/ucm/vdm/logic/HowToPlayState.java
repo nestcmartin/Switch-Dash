@@ -20,6 +20,7 @@ public class HowToPlayState extends State {
     private GameObject howToPlay_;
     private GameObject instructions_;
     private PulsatingSprite tapToPlay_;
+    private Button goToMenuButton_;
 
 
     public HowToPlayState(Game game) {
@@ -47,6 +48,12 @@ public class HowToPlayState extends State {
         Sprite tapSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.TAP_TO_PLAY.ordinal()]), 1, 1);
         int tapX = (GAME_WIDTH - tapSprite.getImage().getWidth()) / 2;
         tapToPlay_ = new PulsatingSprite(game_, tapSprite, tapX, 1464, tapSprite.getImage().getWidth(), tapSprite.getImage().getHeight(), 1.2f);
+
+        // GoToMenuButton
+        Sprite gtmSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.BUTTONS.ordinal()]), 1, 10);
+        gtmSprite.setFrameCol(1);
+        int gtmX = (GAME_WIDTH - gtmSprite.getWidth()) - 30;
+        goToMenuButton_ = new Button(game_, gtmSprite , gtmX, 90, gtmSprite.getWidth(), gtmSprite.getHeight());
     }
 
     @Override
@@ -65,16 +72,17 @@ public class HowToPlayState extends State {
 
         for (int i = 0; i < keyEvents.size(); i++) {
             Input.KeyEvent event = keyEvents.get(i);
-            if (event.type_ == Input.EventType.PRESSED) {
+            if (event.type_ == Input.EventType.RELEASED) {
                 game_.setState(new GameState(game_));
             }
         }
 
         for (int i = 0; i < touchEvents.size(); i++) {
             Input.TouchEvent event = touchEvents.get(i);
-            if (event.type_ == Input.EventType.PRESSED) {
+            if(goToMenuButton_.handleTouchEvent(event))
+                game_.setState(new MenuState(game_));
+            else if (event.type_ == Input.EventType.RELEASED)
                 game_.setState(new GameState(game_));
-            }
         }
     }
 
@@ -103,5 +111,6 @@ public class HowToPlayState extends State {
         howToPlay_.render(deltaTime);
         instructions_.render(deltaTime);
         tapToPlay_.render(deltaTime);
+        goToMenuButton_.render(deltaTime);
     }
 }
