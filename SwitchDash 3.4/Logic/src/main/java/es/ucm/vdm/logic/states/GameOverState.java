@@ -8,27 +8,21 @@ import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.ScaledGraphics;
 import es.ucm.vdm.engine.utilities.PixmapManager;
 import es.ucm.vdm.engine.utilities.Sprite;
-import es.ucm.vdm.logic.Arrows;
+import es.ucm.vdm.logic.objects.Arrows;
 import es.ucm.vdm.logic.Assets;
-import es.ucm.vdm.logic.Background;
-import es.ucm.vdm.logic.Button;
+import es.ucm.vdm.logic.objects.Background;
+import es.ucm.vdm.logic.objects.Button;
 import es.ucm.vdm.logic.FontMapper;
 import es.ucm.vdm.logic.GameObject;
 import es.ucm.vdm.logic.GameState;
-import es.ucm.vdm.logic.PulsatingSprite;
+import es.ucm.vdm.logic.objects.PulsatingSprite;
 
 public class GameOverState extends GameState {
 
-    public final int GAME_WIDTH = 1080;
-    public final int GAME_HEIGHT = 1920;
-
     private Button howToPlayButton_;
-    private int score_;
 
     public GameOverState(Game game, int score) {
         super(game);
-
-        this.score_ = score;
 
         ScaledGraphics g = game_.getGraphics();
         g.setCanvasLogicSize(GAME_WIDTH, GAME_HEIGHT);
@@ -48,30 +42,30 @@ public class GameOverState extends GameState {
         gameObjects_.add(new GameObject(game_, gameOver, gameOverX, 356, gameOver.getWidth(), gameOver.getHeight()));
 
         // Score
-        if (score_ < 10) {
-            Sprite sUnidades = FontMapper.getInstance().getSprite(String.valueOf(score_ % 10));
+        if (score < 10) {
+            Sprite sUnidades = FontMapper.getInstance().getSprite(String.valueOf(score % 10));
             int uniX = (GAME_WIDTH - sUnidades.getWidth()) / 2;
             gameObjects_.add(new GameObject(game_, sUnidades, uniX, 800, sUnidades.getWidth(), sUnidades.getHeight()));
         }
-        else if (score_ >= 10 && score_ < 100) {
-            Sprite sDecenas = FontMapper.getInstance().getSprite(String.valueOf((score_ % 100) / 10));
+        else if (score >= 10 && score < 100) {
+            Sprite sDecenas = FontMapper.getInstance().getSprite(String.valueOf((score % 100) / 10));
             int decX = (GAME_WIDTH - (2 * sDecenas.getWidth())) / 2;
             gameObjects_.add(new GameObject(game_, sDecenas, decX, 800, sDecenas.getWidth(), sDecenas.getHeight()));
 
-            Sprite sUnidades = FontMapper.getInstance().getSprite(String.valueOf(score_ % 10));
+            Sprite sUnidades = FontMapper.getInstance().getSprite(String.valueOf(score % 10));
             int uniX = decX + sDecenas.getWidth();
             gameObjects_.add(new GameObject(game_, sUnidades, uniX, 800, sUnidades.getWidth(), sUnidades.getHeight()));
         }
         else {
-            Sprite sCentenas = FontMapper.getInstance().getSprite(String.valueOf(score_ / 100));
+            Sprite sCentenas = FontMapper.getInstance().getSprite(String.valueOf(score / 100));
             int centX = (GAME_WIDTH - (3 * sCentenas.getWidth())) / 2;
             gameObjects_.add(new GameObject(game_, sCentenas, centX, 800, sCentenas.getWidth(), sCentenas.getHeight()));
 
-            Sprite sDecenas = FontMapper.getInstance().getSprite(String.valueOf((score_ % 100) / 10));
+            Sprite sDecenas = FontMapper.getInstance().getSprite(String.valueOf((score % 100) / 10));
             int decX = centX + sCentenas.getWidth();
             gameObjects_.add(new GameObject(game_, sDecenas, decX, 800, sDecenas.getWidth(), sDecenas.getHeight()));
 
-            Sprite sUnidades = FontMapper.getInstance().getSprite(String.valueOf(score_ % 10));
+            Sprite sUnidades = FontMapper.getInstance().getSprite(String.valueOf(score % 10));
             int uniX = decX + sDecenas.getWidth();
             gameObjects_.add(new GameObject(game_, sUnidades, uniX, 800, sUnidades.getWidth(), sUnidades.getHeight()));
         }

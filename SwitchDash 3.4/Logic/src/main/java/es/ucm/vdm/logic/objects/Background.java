@@ -1,4 +1,4 @@
-package es.ucm.vdm.logic;
+package es.ucm.vdm.logic.objects;
 
 import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Graphics;
@@ -6,6 +6,8 @@ import es.ucm.vdm.engine.utilities.PixmapManager;
 import es.ucm.vdm.engine.utilities.Random;
 import es.ucm.vdm.engine.utilities.Rect;
 import es.ucm.vdm.engine.utilities.Sprite;
+import es.ucm.vdm.logic.Assets;
+import es.ucm.vdm.logic.GameObject;
 
 public class Background extends GameObject {
 

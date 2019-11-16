@@ -1,9 +1,10 @@
-package es.ucm.vdm.logic;
+package es.ucm.vdm.logic.objects;
 
 import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.utilities.Rect;
 import es.ucm.vdm.engine.utilities.Sprite;
+import es.ucm.vdm.logic.GameObject;
 
 public class Button extends GameObject {
 

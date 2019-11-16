@@ -8,18 +8,15 @@ import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.ScaledGraphics;
 import es.ucm.vdm.engine.utilities.PixmapManager;
 import es.ucm.vdm.engine.utilities.Sprite;
-import es.ucm.vdm.logic.Arrows;
+import es.ucm.vdm.logic.objects.Arrows;
 import es.ucm.vdm.logic.Assets;
-import es.ucm.vdm.logic.Background;
-import es.ucm.vdm.logic.Button;
+import es.ucm.vdm.logic.objects.Background;
+import es.ucm.vdm.logic.objects.Button;
 import es.ucm.vdm.logic.GameObject;
 import es.ucm.vdm.logic.GameState;
-import es.ucm.vdm.logic.PulsatingSprite;
+import es.ucm.vdm.logic.objects.PulsatingSprite;
 
  public class MenuState extends GameState {
-
-    public final int GAME_WIDTH = 1080;
-    public final int GAME_HEIGHT = 1920;
 
     private Button howToPlayButton_;
 

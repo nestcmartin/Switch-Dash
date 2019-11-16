@@ -8,6 +8,9 @@ import es.ucm.vdm.engine.State;
 
 public class GameState extends State {
 
+    public final int GAME_WIDTH = 1080;
+    public final int GAME_HEIGHT = 1920;
+
     protected List<GameObject> gameObjects_ = new ArrayList<>();
 
     public GameState(Game game) {
