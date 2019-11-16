@@ -60,4 +60,9 @@ public class GameObject {
         sprite_.draw(g, dstRect_);
     }
 
+    public void updateSpriteFrame(int row, int col) {
+        sprite_.setFrameCol(col);
+        sprite_.setFrameRow(row);
+    }
+
 }

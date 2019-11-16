@@ -17,6 +17,10 @@ public class FontMapper {
     private Pixmap fontPixmap_;
     private HashMap<String, Pair> font_ = new HashMap<>();
 
+    public Pair getFrameLocation(String c) {
+        return (font_.get(c));
+    }
+
     public Sprite getSprite(String c) {
         Sprite sprite = new Sprite(fontPixmap_, 7, 15);
         sprite.setFrameRow((int)font_.get(c).second());

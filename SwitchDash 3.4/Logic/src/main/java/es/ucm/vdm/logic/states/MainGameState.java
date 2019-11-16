@@ -6,12 +6,15 @@ import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.ScaledGraphics;
+import es.ucm.vdm.engine.utilities.Pair;
 import es.ucm.vdm.engine.utilities.PixmapManager;
 import es.ucm.vdm.engine.utilities.Sprite;
 import es.ucm.vdm.logic.Arrows;
 import es.ucm.vdm.logic.Assets;
 import es.ucm.vdm.logic.Background;
 import es.ucm.vdm.logic.BallsManager;
+import es.ucm.vdm.logic.FontMapper;
+import es.ucm.vdm.logic.GameObject;
 import es.ucm.vdm.logic.GameState;
 import es.ucm.vdm.logic.Player;
 
@@ -26,6 +29,10 @@ public class MainGameState extends GameState {
     private Arrows arrows_;
     private Player player_;
     private BallsManager ballsManager_;
+
+    private GameObject centenas_;
+    private GameObject decenas_;
+    private GameObject unidades_;
 
     private int speedIncrement_ = 90;
     private int correctBalls_ = 0;
@@ -45,6 +52,17 @@ public class MainGameState extends GameState {
         // Moving Arrows
         arrows_ = new Arrows(game_);
         gameObjects_.add(arrows_);
+
+        // Score
+        Sprite centenas = FontMapper.getInstance().getSprite(String.valueOf(0));
+        Sprite decenas = FontMapper.getInstance().getSprite(String.valueOf(0));
+        Sprite unidades = FontMapper.getInstance().getSprite(String.valueOf(0));
+        centenas_ = new GameObject(game_, centenas, (GAME_WIDTH - (67 * 3)), 150, 67, 80);
+        decenas_ = new GameObject(game_, decenas, (GAME_WIDTH - (67 * 2)), 150, 67, 80);
+        unidades_ = new GameObject(game_, unidades, (GAME_WIDTH - 67), 150, 67, 80);
+        gameObjects_.add(centenas_);
+        gameObjects_.add(decenas_);
+        gameObjects_.add(unidades_);
 
         Sprite playerSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.PLAYERS.ordinal()]), 2, 1);
         int playerX = (GAME_WIDTH - playerSprite.getWidth()) / 2;
@@ -82,6 +100,18 @@ public class MainGameState extends GameState {
                     gameOver();
             }
         }
+
+        updateScore();
+    }
+
+    private void updateScore() {
+        Pair c = FontMapper.getInstance().getFrameLocation(String.valueOf(points_ / 100));
+        Pair d = FontMapper.getInstance().getFrameLocation(String.valueOf((points_ % 100) / 10));
+        Pair u = FontMapper.getInstance().getFrameLocation(String.valueOf(points_ % 10));
+
+        centenas_.updateSpriteFrame((int)c.second(), (int)c.first());
+        decenas_.updateSpriteFrame((int)d.second(), (int)d.first());
+        unidades_.updateSpriteFrame((int)u.second(), (int)u.first());
     }
 
     private void gameOver(){
@@ -90,7 +120,6 @@ public class MainGameState extends GameState {
 
         // ToDo: wait 1 second
 
-        // ToDo: switch state to GameOverState
         game_.setState(new GameOverState(game_, points_));
     }
 

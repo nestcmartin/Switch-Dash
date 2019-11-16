@@ -76,7 +76,6 @@ public class GameOverState extends GameState {
             gameObjects_.add(new GameObject(game_, sUnidades, uniX, 800, sUnidades.getWidth(), sUnidades.getHeight()));
         }
 
-
         // PlayAgain
         Sprite playAgain = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.PLAY_AGAIN.ordinal()]), 1, 1);
         int playAgainX = (GAME_WIDTH - playAgain.getImage().getWidth()) / 2;
