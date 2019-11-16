@@ -1,0 +1,126 @@
+package es.ucm.vdm.logic.states;
+
+import java.util.List;
+
+import es.ucm.vdm.engine.Game;
+import es.ucm.vdm.engine.Graphics;
+import es.ucm.vdm.engine.Input;
+import es.ucm.vdm.engine.ScaledGraphics;
+import es.ucm.vdm.engine.utilities.PixmapManager;
+import es.ucm.vdm.engine.utilities.Sprite;
+import es.ucm.vdm.logic.Arrows;
+import es.ucm.vdm.logic.Assets;
+import es.ucm.vdm.logic.Background;
+import es.ucm.vdm.logic.Button;
+import es.ucm.vdm.logic.FontMapper;
+import es.ucm.vdm.logic.GameObject;
+import es.ucm.vdm.logic.GameState;
+import es.ucm.vdm.logic.PulsatingSprite;
+
+public class GameOverState extends GameState {
+
+    public final int GAME_WIDTH = 1080;
+    public final int GAME_HEIGHT = 1920;
+
+    private Button howToPlayButton_;
+    private int score_;
+
+    public GameOverState(Game game, int score) {
+        super(game);
+
+        this.score_ = score;
+
+        ScaledGraphics g = game_.getGraphics();
+        g.setCanvasLogicSize(GAME_WIDTH, GAME_HEIGHT);
+        g.scaleCanvas();
+
+        // Background
+        Background background_ = new Background(game_);
+        background_.updateColor();
+        gameObjects_.add(background_);
+
+        // Moving Arrows
+        gameObjects_.add(new Arrows(game_));
+
+        // GameOver
+        Sprite gameOver = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.GAME_OVER.ordinal()]), 1, 1);
+        int gameOverX = (GAME_WIDTH - gameOver.getWidth()) / 2;
+        gameObjects_.add(new GameObject(game_, gameOver, gameOverX, 356, gameOver.getWidth(), gameOver.getHeight()));
+
+        // Score
+        if (score_ < 10) {
+            Sprite sUnidades = FontMapper.getInstance().getSprite(String.valueOf(score_ % 10));
+            int uniX = (GAME_WIDTH - sUnidades.getWidth()) / 2;
+            gameObjects_.add(new GameObject(game_, sUnidades, uniX, 800, sUnidades.getWidth(), sUnidades.getHeight()));
+        }
+        else if (score_ >= 10 && score_ < 100) {
+            Sprite sDecenas = FontMapper.getInstance().getSprite(String.valueOf((score_ % 100) / 10));
+            int decX = (GAME_WIDTH - (2 * sDecenas.getWidth())) / 2;
+            gameObjects_.add(new GameObject(game_, sDecenas, decX, 800, sDecenas.getWidth(), sDecenas.getHeight()));
+
+            Sprite sUnidades = FontMapper.getInstance().getSprite(String.valueOf(score_ % 10));
+            int uniX = decX + sDecenas.getWidth();
+            gameObjects_.add(new GameObject(game_, sUnidades, uniX, 800, sUnidades.getWidth(), sUnidades.getHeight()));
+        }
+        else {
+            Sprite sCentenas = FontMapper.getInstance().getSprite(String.valueOf(score_ / 100));
+            int centX = (GAME_WIDTH - (3 * sCentenas.getWidth())) / 2;
+            gameObjects_.add(new GameObject(game_, sCentenas, centX, 800, sCentenas.getWidth(), sCentenas.getHeight()));
+
+            Sprite sDecenas = FontMapper.getInstance().getSprite(String.valueOf((score_ % 100) / 10));
+            int decX = centX + sCentenas.getWidth();
+            gameObjects_.add(new GameObject(game_, sDecenas, decX, 800, sDecenas.getWidth(), sDecenas.getHeight()));
+
+            Sprite sUnidades = FontMapper.getInstance().getSprite(String.valueOf(score_ % 10));
+            int uniX = decX + sDecenas.getWidth();
+            gameObjects_.add(new GameObject(game_, sUnidades, uniX, 800, sUnidades.getWidth(), sUnidades.getHeight()));
+        }
+
+
+        // PlayAgain
+        Sprite playAgain = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.PLAY_AGAIN.ordinal()]), 1, 1);
+        int playAgainX = (GAME_WIDTH - playAgain.getImage().getWidth()) / 2;
+        gameObjects_.add(new PulsatingSprite(game_, playAgain, playAgainX, 1464, playAgain.getImage().getWidth(), playAgain.getImage().getHeight(), 1.2f));
+
+        // HowToPlayButton
+        Sprite htpSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.BUTTONS.ordinal()]), 1, 10);
+        int htpX = (GAME_WIDTH - htpSprite.getWidth()) - 30;
+        howToPlayButton_ = new Button(game_, htpSprite , htpX, 90, htpSprite.getWidth(), htpSprite.getHeight());
+        gameObjects_.add(howToPlayButton_);
+    }
+
+    @Override
+    public void update(double deltaTime) {
+        handleInput();
+        super.update(deltaTime);
+    }
+
+    private void handleInput() {
+
+        List<Input.KeyEvent> keyEvents = game_.getInput().getKeyEvents();
+        List<Input.TouchEvent> touchEvents = game_.getInput().getTouchEvents();
+
+        for (int i = 0; i < keyEvents.size(); i++) {
+            Input.KeyEvent event = keyEvents.get(i);
+            if (event.type_ == Input.EventType.RELEASED) {
+                game_.setState(new HowToPlayState(game_));
+            }
+        }
+
+        for (int i = 0; i < touchEvents.size(); i++) {
+            Input.TouchEvent event = touchEvents.get(i);
+            if (howToPlayButton_.handleTouchEvent(event))
+                game_.setState(new HowToPlayState(game_));
+            else if (event.type_ == Input.EventType.RELEASED)
+                game_.setState(new MenuState(game_));
+        }
+    }
+
+    @Override
+    public void render(double deltaTime) {
+        Graphics g = game_.getGraphics();
+        g.clear(0xff000000);
+        super.render(deltaTime);
+    }
+
+}

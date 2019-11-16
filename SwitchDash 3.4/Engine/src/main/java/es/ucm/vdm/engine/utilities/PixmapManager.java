@@ -14,8 +14,7 @@ public class PixmapManager {
         return ourInstance;
     }
 
-    private PixmapManager() {
-    }
+    private PixmapManager() {}
 
     public void addPixmap(String filename, Pixmap pixmap) {
         pixmaps_.put(filename, pixmap);

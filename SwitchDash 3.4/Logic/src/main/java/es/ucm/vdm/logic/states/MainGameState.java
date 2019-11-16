@@ -85,13 +85,13 @@ public class MainGameState extends GameState {
     }
 
     private void gameOver(){
-        System.out.println("GAME OVER | Your score is " + points_);
         gameOver = true;
         player_.die();
 
         // ToDo: wait 1 second
 
         // ToDo: switch state to GameOverState
+        game_.setState(new GameOverState(game_, points_));
     }
 
     private void handleInput() {
