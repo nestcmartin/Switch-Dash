@@ -1,10 +1,12 @@
 package es.ucm.vdm.logic.states;
 
+import es.ucm.vdm.engine.Audio;
 import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.ScaledGraphics;
 import es.ucm.vdm.engine.State;
-import es.ucm.vdm.engine.utilities.PixmapManager;
+import es.ucm.vdm.engine.utils.AudioManager;
+import es.ucm.vdm.engine.utils.PixmapManager;
 import es.ucm.vdm.logic.Assets;
 
 public class LoadingState extends State {
@@ -16,11 +18,17 @@ public class LoadingState extends State {
     @Override
     public void update(double deltaTime) {
         ScaledGraphics g = game_.getGraphics();
+        Audio a = game_.getAudio();
 
         for (int i = 0; i < Assets.images.length; i++) {
             PixmapManager.getInstance().addPixmap(Assets.images[i], g.newPixmap(Assets.images[i]));
         }
 
+        for (int i = 0; i < Assets.musics.length; i++) {
+            AudioManager.getInstance().addMusic(Assets.musics[i], a.newMusic(Assets.musics[i]));
+        }
+
+        AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.MENU_MUSIC.ordinal()]).play();
         game_.setState(new MenuState(game_));
     }
 

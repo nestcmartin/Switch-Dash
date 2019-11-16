@@ -3,9 +3,9 @@ package es.ucm.vdm.logic;
 import java.util.HashMap;
 
 import es.ucm.vdm.engine.Pixmap;
-import es.ucm.vdm.engine.utilities.Pair;
-import es.ucm.vdm.engine.utilities.PixmapManager;
-import es.ucm.vdm.engine.utilities.Sprite;
+import es.ucm.vdm.engine.utils.Pair;
+import es.ucm.vdm.engine.utils.PixmapManager;
+import es.ucm.vdm.engine.utils.Sprite;
 
 public class FontMapper {
 

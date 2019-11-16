@@ -1,5 +1,6 @@
 package es.ucm.vdm.engine.desktop;
 
+import es.ucm.vdm.engine.Audio;
 import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.State;
@@ -10,6 +11,7 @@ public class DesktopGame implements Game {
 
     private DesktopRenderView window_;
     private DesktopGraphics graphics_;
+    private DesktopAudio audio_;
     private Input input_;
     private State state_;
 
@@ -19,6 +21,7 @@ public class DesktopGame implements Game {
         window_.setVisible(true);
 
         graphics_ = new DesktopGraphics(window_);
+        audio_ = new DesktopAudio();
         input_ = new DesktopInput(window_);
         state_ = getStartState();
 
@@ -27,6 +30,10 @@ public class DesktopGame implements Game {
 
     public Input getInput() {
         return input_;
+    }
+
+    public Audio getAudio() {
+        return audio_;
     }
 
     public DesktopGraphics getGraphics() {

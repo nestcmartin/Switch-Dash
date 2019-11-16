@@ -1,6 +1,6 @@
 package es.ucm.vdm.engine;
 
-import es.ucm.vdm.engine.utilities.Rect;
+import es.ucm.vdm.engine.utils.Rect;
 
 public interface Graphics {
 

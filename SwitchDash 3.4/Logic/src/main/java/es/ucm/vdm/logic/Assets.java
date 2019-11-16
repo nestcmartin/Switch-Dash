@@ -34,4 +34,14 @@ public class Assets {
         "white.png"
     };
 
+    public enum MusicName {
+        MENU_MUSIC,
+        GAME_MUSIC
+    };
+
+    public static final String[] musics = {
+            "menu.wav",
+            "game.wav"
+    };
+
 }

@@ -2,7 +2,7 @@ package es.ucm.vdm.engine.desktop;
 
 import es.ucm.vdm.engine.Pixmap;
 import es.ucm.vdm.engine.ScaledGraphics;
-import es.ucm.vdm.engine.utilities.Rect;
+import es.ucm.vdm.engine.utils.Rect;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;

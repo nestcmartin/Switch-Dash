@@ -1,8 +1,8 @@
 package es.ucm.vdm.logic.objects;
 
 import es.ucm.vdm.engine.Game;
-import es.ucm.vdm.engine.utilities.Pair;
-import es.ucm.vdm.engine.utilities.Sprite;
+import es.ucm.vdm.engine.utils.Pair;
+import es.ucm.vdm.engine.utils.Sprite;
 import es.ucm.vdm.logic.FontMapper;
 import es.ucm.vdm.logic.GameObject;
 

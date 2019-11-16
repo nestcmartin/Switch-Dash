@@ -12,7 +12,7 @@ import java.io.InputStream;
 
 import es.ucm.vdm.engine.Pixmap;
 import es.ucm.vdm.engine.ScaledGraphics;
-import es.ucm.vdm.engine.utilities.Rect;
+import es.ucm.vdm.engine.utils.Rect;
 
 public class AndroidGraphics extends ScaledGraphics {
 

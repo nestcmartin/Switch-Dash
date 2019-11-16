@@ -6,8 +6,9 @@ import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.ScaledGraphics;
-import es.ucm.vdm.engine.utilities.PixmapManager;
-import es.ucm.vdm.engine.utilities.Sprite;
+import es.ucm.vdm.engine.utils.AudioManager;
+import es.ucm.vdm.engine.utils.PixmapManager;
+import es.ucm.vdm.engine.utils.Sprite;
 import es.ucm.vdm.logic.objects.Arrows;
 import es.ucm.vdm.logic.Assets;
 import es.ucm.vdm.logic.objects.Background;
@@ -35,6 +36,9 @@ public class MainGameState extends GameState {
         ScaledGraphics g = game_.getGraphics();
         g.setCanvasLogicSize(GAME_WIDTH, GAME_HEIGHT);
         g.scaleCanvas();
+
+        AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.MENU_MUSIC.ordinal()]).stop();
+        AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.GAME_MUSIC.ordinal()]).play();
 
         // Background
         background_ = new Background(game_);
@@ -74,10 +78,11 @@ public class MainGameState extends GameState {
                     ballsManager_.correctBall();
                     scoreBoard_.incrementScore();
                     correctBalls_++;
-                    if (correctBalls_ >= 3) {
+                    if (correctBalls_ >= 10) {
                         correctBalls_ = 0;
                         ballsManager_.incrementSpeed(speedIncrement_);
                         arrows_.incrementSpeed(speedIncrement_);
+                        background_.updateColor();
                     }
                 }
                 // Incorrect color
@@ -92,7 +97,8 @@ public class MainGameState extends GameState {
         player_.die();
 
         // ToDo: wait 1 second
-
+        AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.GAME_MUSIC.ordinal()]).stop();
+        AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.MENU_MUSIC.ordinal()]).play();
         game_.setState(new GameOverState(game_, scoreBoard_.getScore()));
     }
 

@@ -1,4 +1,4 @@
-package es.ucm.vdm.engine.utilities;
+package es.ucm.vdm.engine.utils;
 
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Pixmap;

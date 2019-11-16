@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
+import es.ucm.vdm.engine.Audio;
 import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.ScaledGraphics;
@@ -17,6 +18,7 @@ public class AndroidGame extends Activity implements Game {
     private AndroidRenderView renderView_;
     private AndroidGraphics graphics_;
     private AndroidInput input_;
+    private AndroidAudio audio_;
     private State state_;
 
     @Override
@@ -36,6 +38,7 @@ public class AndroidGame extends Activity implements Game {
         renderView_ = new AndroidRenderView(this, frameBuffer);
         graphics_ = new AndroidGraphics(getAssets(), frameBuffer);
         input_ = new AndroidInput(renderView_, scaleX, scaleY);
+        audio_ = new AndroidAudio(this);
         state_ = getStartState();
 
         setContentView(renderView_);
@@ -63,6 +66,11 @@ public class AndroidGame extends Activity implements Game {
 
     public Input getInput() {
         return input_;
+    }
+
+    @Override
+    public Audio getAudio() {
+        return audio_;
     }
 
     public ScaledGraphics getGraphics() {

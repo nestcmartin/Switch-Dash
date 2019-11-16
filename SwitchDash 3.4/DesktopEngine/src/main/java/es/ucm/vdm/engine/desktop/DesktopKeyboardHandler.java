@@ -8,8 +8,8 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import es.ucm.vdm.engine.Input;
-import es.ucm.vdm.engine.utilities.Pool;
-import es.ucm.vdm.engine.utilities.PoolObjectFactory;
+import es.ucm.vdm.engine.utils.Pool;
+import es.ucm.vdm.engine.utils.PoolObjectFactory;
 
 public class DesktopKeyboardHandler implements KeyListener {
 

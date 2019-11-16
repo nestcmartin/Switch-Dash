@@ -2,8 +2,8 @@ package es.ucm.vdm.logic;
 
 import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Graphics;
-import es.ucm.vdm.engine.utilities.Rect;
-import es.ucm.vdm.engine.utilities.Sprite;
+import es.ucm.vdm.engine.utils.Rect;
+import es.ucm.vdm.engine.utils.Sprite;
 
 public class GameObject {
 

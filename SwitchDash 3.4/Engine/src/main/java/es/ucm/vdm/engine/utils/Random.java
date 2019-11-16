@@ -1,4 +1,4 @@
-package es.ucm.vdm.engine.utilities;
+package es.ucm.vdm.engine.utils;
 
 public abstract class Random {
 
