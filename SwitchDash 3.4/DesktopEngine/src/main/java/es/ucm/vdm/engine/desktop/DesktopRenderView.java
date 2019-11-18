@@ -1,6 +1,8 @@
 package es.ucm.vdm.engine.desktop;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
@@ -17,6 +19,11 @@ public class DesktopRenderView extends JFrame {
         setSize(width, height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBackground(Color.BLACK);
+
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        setUndecorated(true);
+
 
         // Añadimos un listener a la ventana, así cuando se reescala actualizamos el escalado de los gráficos
         addComponentListener(new ComponentAdapter() {

@@ -1,2 +1,0 @@
-include ':AndroidApplication', ':Engine', ':AndroidEngine', ':DesktopEngine', ':DesktopApplication', ':SwitchDash'
-rootProject.name='Switch Dash'

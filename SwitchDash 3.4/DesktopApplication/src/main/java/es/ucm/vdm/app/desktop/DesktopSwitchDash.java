@@ -6,7 +6,8 @@ import es.ucm.vdm.logic.states.LoadingState;
 
 public class DesktopSwitchDash extends DesktopGame {
 
-    private static final int windowWidth = 1280;
+    private static final String windowName = "Switch Dash";
+    private static final int windowWidth = 1080;
     private static final int windowHeight = 720;
 
     private DesktopSwitchDash(String windowName, int width, int height) {
@@ -19,6 +20,6 @@ public class DesktopSwitchDash extends DesktopGame {
     }
 
     public static void main(String[] args) {
-        DesktopSwitchDash game = new DesktopSwitchDash("Switch Dash", windowWidth, windowHeight);
+        DesktopSwitchDash game = new DesktopSwitchDash(windowName, windowWidth, windowHeight);
     }
 }
