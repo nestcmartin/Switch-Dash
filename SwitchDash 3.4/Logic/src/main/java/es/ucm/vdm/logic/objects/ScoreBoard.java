@@ -21,9 +21,9 @@ public class ScoreBoard extends GameObject {
         Sprite decenas = FontMapper.getInstance().getSprite(String.valueOf(0));
         Sprite unidades = FontMapper.getInstance().getSprite(String.valueOf(0));
 
-        centenas_ = new GameObject(game_, centenas, (1080 - (67 * 3)), 150, 67, 80);
-        decenas_ = new GameObject(game_, decenas, (1080 - (67 * 2)), 150, 67, 80);
-        unidades_ = new GameObject(game_, unidades, (1080 - 67), 150, 67, 80);
+        centenas_ = new GameObject(game_, centenas, (1080 - (93 * 3)), 150, 93, 112);
+        decenas_ = new GameObject(game_, decenas, (1080 - (93 * 2)), 150, 93, 112);
+        unidades_ = new GameObject(game_, unidades, (1080 - 93), 150, 93, 112);
     }
 
     @Override
@@ -35,9 +35,11 @@ public class ScoreBoard extends GameObject {
 
     @Override
     public void render(double deltaTime) {
-        centenas_.render(deltaTime);
-        decenas_.render(deltaTime);
         unidades_.render(deltaTime);
+        if(score_ > 9)
+            decenas_.render(deltaTime);
+        if(score_ > 99)
+            centenas_.render(deltaTime);
     }
 
     public int getScore() {
