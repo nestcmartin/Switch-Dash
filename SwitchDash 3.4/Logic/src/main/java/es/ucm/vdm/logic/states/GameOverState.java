@@ -87,6 +87,10 @@ public class GameOverState extends GameState {
         soundButton_ = new Button(game_, soundSprite , 30, 90, soundSprite.getWidth(), soundSprite.getHeight());
         soundButton_.updateSpriteFrame(0, 2);
         gameObjects_.add(soundButton_);
+
+        // Screen Fader
+        addScreenFader();
+        screenFader_.startFadeIn(true);
     }
 
     @Override
@@ -103,21 +107,21 @@ public class GameOverState extends GameState {
         for (int i = 0; i < keyEvents.size(); i++) {
             Input.KeyEvent event = keyEvents.get(i);
             if (event.type_ == Input.EventType.RELEASED) {
-                if (event.keyChar_ == ' ') game_.setState(new MainGameState(game_));
+                if (event.keyChar_ == ' ') switchState(new MainGameState(game_));
             }
         }
 
         for (int i = 0; i < touchEvents.size(); i++) {
             Input.TouchEvent event = touchEvents.get(i);
             if (howToPlayButton_.handleTouchEvent(event))
-                game_.setState(new HowToPlayState(game_));
+                switchState(new HowToPlayState(game_));
             else if (soundButton_.handleTouchEvent(event)) {
                 switchSound(!SOUND);
                 if (SOUND) soundButton_.updateSpriteFrame(0, 2);
                 else soundButton_.updateSpriteFrame(0, 3);
             }
             else if (event.type_ == Input.EventType.RELEASED)
-                game_.setState(new MainGameState(game_));
+                switchState(new MainGameState(game_));
         }
     }
 

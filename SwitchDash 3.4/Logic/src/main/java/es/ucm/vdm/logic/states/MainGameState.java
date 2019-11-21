@@ -82,6 +82,10 @@ public class MainGameState extends GameState {
         particleEmitter_ = new ParticleEmitter(game_, particleSprite, ballX, 1100, particleSprite.getWidth(), particleSprite.getHeight(),
                 1, -2100, 500, 800);
         gameObjects_.add(particleEmitter_);
+
+        // Screen Fader
+        addScreenFader();
+        screenFader_.startFadeIn(true);
     }
 
     @Override
@@ -123,7 +127,7 @@ public class MainGameState extends GameState {
         if(timeToSwitchState <= 0) {
             AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.GAME_MUSIC.ordinal()]).stop();
             AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.MENU_MUSIC.ordinal()]).play();
-            game_.setState(new GameOverState(game_, scoreBoard_.getScore()));
+            switchState(new GameOverState(game_, scoreBoard_.getScore()));
         }
     }
 
