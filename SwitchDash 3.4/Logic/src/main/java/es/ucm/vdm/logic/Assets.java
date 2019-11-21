@@ -36,14 +36,12 @@ public class Assets {
 
     public enum SoundName {
         MENU_MUSIC,
-        GAME_MUSIC,
-        POINT_SOUND
+        GAME_MUSIC
     };
 
     public static final String[] sounds = {
             "menu.wav",
-            "game.wav",
-            "point.wav"
+            "game.wav"
     };
 
 

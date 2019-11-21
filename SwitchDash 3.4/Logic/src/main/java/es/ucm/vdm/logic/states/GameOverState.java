@@ -111,6 +111,11 @@ public class GameOverState extends GameState {
             Input.TouchEvent event = touchEvents.get(i);
             if (howToPlayButton_.handleTouchEvent(event))
                 game_.setState(new HowToPlayState(game_));
+            else if (soundButton_.handleTouchEvent(event)) {
+                switchSound(!SOUND);
+                if (SOUND) soundButton_.updateSpriteFrame(0, 2);
+                else soundButton_.updateSpriteFrame(0, 3);
+            }
             else if (event.type_ == Input.EventType.RELEASED)
                 game_.setState(new MainGameState(game_));
         }
