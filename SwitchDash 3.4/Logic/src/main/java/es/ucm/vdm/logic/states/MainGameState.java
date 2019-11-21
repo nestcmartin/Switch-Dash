@@ -34,6 +34,7 @@ public class MainGameState extends GameState {
 
     private int speedIncrement_ = 90;
     private int correctBalls_ = 0;
+    private float timeToSwitchState = 1;
 
     public MainGameState(Game game) {
         super(game);
@@ -110,17 +111,23 @@ public class MainGameState extends GameState {
                 else
                     gameOver();
             }
+        }else {
+            timeToSwitchState -= deltaTime;
+            TrySwitchState();
+        }
+    }
+
+    private void TrySwitchState(){
+        if(timeToSwitchState <= 0) {
+            AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.GAME_MUSIC.ordinal()]).stop();
+            AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.MENU_MUSIC.ordinal()]).play();
+            game_.setState(new GameOverState(game_, scoreBoard_.getScore()));
         }
     }
 
     private void gameOver(){
         gameOver = true;
         player_.die();
-
-        // ToDo: wait 1 second
-        AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.GAME_MUSIC.ordinal()]).stop();
-        AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.MENU_MUSIC.ordinal()]).play();
-        game_.setState(new GameOverState(game_, scoreBoard_.getScore()));
     }
 
     private void handleInput() {
