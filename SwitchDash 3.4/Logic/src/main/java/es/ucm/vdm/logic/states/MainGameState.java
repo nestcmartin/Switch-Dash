@@ -61,7 +61,7 @@ public class MainGameState extends GameState {
         gameObjects_.add(arrows_);
 
         // Score
-        scoreBoard_ = new ScoreBoard(game_);
+        scoreBoard_ = new ScoreBoard(game_, 125, 160);
         gameObjects_.add(scoreBoard_);
 
         // Player

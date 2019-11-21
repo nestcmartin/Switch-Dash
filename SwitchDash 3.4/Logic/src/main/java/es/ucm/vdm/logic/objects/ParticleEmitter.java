@@ -5,6 +5,8 @@ import java.util.List;
 
 import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Graphics;
+import es.ucm.vdm.engine.utils.Pool;
+import es.ucm.vdm.engine.utils.PoolObjectFactory;
 import es.ucm.vdm.engine.utils.Random;
 import es.ucm.vdm.engine.utils.Rect;
 import es.ucm.vdm.engine.utils.Sprite;
@@ -13,7 +15,9 @@ import es.ucm.vdm.logic.GameObject;
 public class ParticleEmitter extends GameObject {
 
     class Particle{
-        public Particle(int x, int y, int size, float speedX, float speedY, int color, float age) {
+        public Particle(){}
+
+        public void setParams(int x, int y, int size, float speedX, float speedY, int color, float age) {
             x_ = x;
             y_ = y;
             size_ = size;
@@ -22,6 +26,7 @@ public class ParticleEmitter extends GameObject {
             color_ = color;
             age_ = age;
             dstRect_ = new Rect(x_, y_, x_+ size_, y + size_);
+
         }
 
         public void updateRect(){
@@ -47,6 +52,7 @@ public class ParticleEmitter extends GameObject {
     private int ySpeed_;
     protected List<Particle> particles_ = new ArrayList<>();
     protected List<Particle> deadParticles_ = new ArrayList<>();
+    private Pool<Particle> particlesPool_;
 
 
     public ParticleEmitter(Game g, Sprite s, int x, int y, int w, int h, float startAge, int gravity, int xSpeed, int ySpeed) {
@@ -55,16 +61,27 @@ public class ParticleEmitter extends GameObject {
         gravity_ = gravity;
         xSpeed_ = xSpeed;
         ySpeed_ = ySpeed;
-        // ToDo: Implementar el pool
+
+        // Pool
+        PoolObjectFactory<Particle> factory = new PoolObjectFactory<Particle>() {
+            @Override
+            public Particle createObject() {
+                return new Particle();
+            }
+        };
+        particlesPool_ = new Pool<Particle>(factory, 100);
     }
 
     public void burst(int nParticles, int color){
-        for(int i = 0; i < nParticles; i++)
-            particles_.add(new Particle(x_, y_ ,
+        for(int i = 0; i < nParticles; i++){
+            Particle p = particlesPool_.newObject();
+            p.setParams(x_, y_ ,
                     Random.randomInt(40, 80),
                     Random.randomInt(-xSpeed_, xSpeed_),
                     Random.randomInt(-ySpeed_, -ySpeed_/4),
-                    color, startAge_));
+                    color, startAge_);
+            particles_.add(p);
+        }
     }
 
     @Override
@@ -83,6 +100,7 @@ public class ParticleEmitter extends GameObject {
             Particle p = deadParticles_.get(0);
             particles_.remove(p);
             deadParticles_.remove(p);
+            particlesPool_.free(p);
         }
     }
 
