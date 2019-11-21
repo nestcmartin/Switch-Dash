@@ -42,8 +42,8 @@ public class MainGameState extends GameState {
         g.setCanvasLogicSize(GAME_WIDTH, GAME_HEIGHT);
         g.scaleCanvas();
 
-        AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.MENU_MUSIC.ordinal()]).stop();
-        AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.GAME_MUSIC.ordinal()]).play();
+        AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.MENU_MUSIC.ordinal()]).stop();
+        AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.GAME_MUSIC.ordinal()]).play();
 
         // SoundButton
         Sprite soundSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.BUTTONS.ordinal()]), 1, 10);
@@ -96,6 +96,9 @@ public class MainGameState extends GameState {
                 // Emmit particles
                 particleEmitter_.burst(15, ballsManager_.getCurrentBallColor());
 
+                // Play sound
+                if (SOUND) AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.POINT_SOUND.ordinal()]).play();
+
                 // Correct color
                 if (player_.getColor() == ballsManager_.getCurrentBallColor()) {
                     ballsManager_.correctBall();
@@ -120,8 +123,8 @@ public class MainGameState extends GameState {
 
     private void tryToSwitchState(){
         if(timeToSwitchState <= 0) {
-            AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.GAME_MUSIC.ordinal()]).stop();
-            AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.MENU_MUSIC.ordinal()]).play();
+            AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.GAME_MUSIC.ordinal()]).stop();
+            AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.MENU_MUSIC.ordinal()]).play();
             game_.setState(new GameOverState(game_, scoreBoard_.getScore()));
         }
     }

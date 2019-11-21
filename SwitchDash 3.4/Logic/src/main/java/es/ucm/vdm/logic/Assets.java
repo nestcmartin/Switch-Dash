@@ -34,24 +34,17 @@ public class Assets {
         "white.png"
     };
 
-    public enum MusicName {
-        MENU_MUSIC,
-        GAME_MUSIC
-    };
-
-    public static final String[] musics = {
-            "menu.wav",
-            "game.wav"
-    };
-
     public enum SoundName {
-        POINT_SOUND,
-        CHANGE_COLOR_SOUND,
-        MENU_CLICK_SOUND
+        MENU_MUSIC,
+        GAME_MUSIC,
+        POINT_SOUND
     };
 
     public static final String[] sounds = {
+            "menu.wav",
+            "game.wav",
             "point.wav"
     };
+
 
 }
