@@ -6,6 +6,7 @@ import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.ScaledGraphics;
+import es.ucm.vdm.engine.Sound;
 import es.ucm.vdm.engine.utils.AudioManager;
 import es.ucm.vdm.engine.utils.PixmapManager;
 import es.ucm.vdm.engine.utils.Sprite;
@@ -18,7 +19,6 @@ import es.ucm.vdm.logic.objects.Button;
 import es.ucm.vdm.logic.objects.ParticleEmitter;
 import es.ucm.vdm.logic.objects.Player;
 import es.ucm.vdm.logic.objects.ScoreBoard;
-import es.ucm.vdm.logic.objects.ScreenFader;
 
 public class MainGameState extends GameState {
 
@@ -35,7 +35,7 @@ public class MainGameState extends GameState {
 
     private int speedIncrement_ = 90;
     private int correctBalls_ = 0;
-    private float timeToSwitchState = 1f;
+    private float timeToSwitchState = 1;
 
     public MainGameState(Game game) {
         super(game);
@@ -43,8 +43,8 @@ public class MainGameState extends GameState {
         g.setCanvasLogicSize(GAME_WIDTH, GAME_HEIGHT);
         g.scaleCanvas();
 
-        AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.MENU_MUSIC.ordinal()]).stop();
-        AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.GAME_MUSIC.ordinal()]).play();
+        AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.MENU_MUSIC.ordinal()]).stop();
+        AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.GAME_MUSIC.ordinal()]).play();
 
         // SoundButton
         Sprite soundSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.BUTTONS.ordinal()]), 1, 10);
@@ -82,10 +82,6 @@ public class MainGameState extends GameState {
         particleEmitter_ = new ParticleEmitter(game_, particleSprite, ballX, 1100, particleSprite.getWidth(), particleSprite.getHeight(),
                 1, -2100, 500, 800);
         gameObjects_.add(particleEmitter_);
-
-        // Screen Fader
-        addScreenFader();
-        screenFader_.startFadeIn(true);
     }
 
     @Override
@@ -125,9 +121,9 @@ public class MainGameState extends GameState {
 
     private void tryToSwitchState(){
         if(timeToSwitchState <= 0) {
-            AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.GAME_MUSIC.ordinal()]).stop();
-            AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.MENU_MUSIC.ordinal()]).play();
-            switchState(new GameOverState(game_, scoreBoard_.getScore()));
+            AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.GAME_MUSIC.ordinal()]).stop();
+            AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.MENU_MUSIC.ordinal()]).play();
+            game_.setState(new GameOverState(game_, scoreBoard_.getScore()));
         }
     }
 

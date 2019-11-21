@@ -60,11 +60,11 @@ public class GameState extends State {
         SOUND = sound;
 
         if (!SOUND) {
-            AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.MENU_MUSIC.ordinal()]).setVolume(0.0f);
-            AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.GAME_MUSIC.ordinal()]).setVolume(0.0f);
+            AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.MENU_MUSIC.ordinal()]).setVolume(0.0f);
+            AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.GAME_MUSIC.ordinal()]).setVolume(0.0f);
         } else {
-            AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.MENU_MUSIC.ordinal()]).setVolume(1.0f);
-            AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.GAME_MUSIC.ordinal()]).setVolume(1.0f);
+            AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.MENU_MUSIC.ordinal()]).setVolume(1.0f);
+            AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.GAME_MUSIC.ordinal()]).setVolume(1.0f);
         }
     }
 
