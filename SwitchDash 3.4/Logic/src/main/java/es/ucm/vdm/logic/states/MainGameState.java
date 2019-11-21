@@ -6,6 +6,7 @@ import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.ScaledGraphics;
+import es.ucm.vdm.engine.Sound;
 import es.ucm.vdm.engine.utils.AudioManager;
 import es.ucm.vdm.engine.utils.PixmapManager;
 import es.ucm.vdm.engine.utils.Sprite;
@@ -95,9 +96,6 @@ public class MainGameState extends GameState {
             if (ballsManager_.getCurrentBallY() >= player_.getY()) {
                 // Emmit particles
                 particleEmitter_.burst(15, ballsManager_.getCurrentBallColor());
-
-                // Play sound
-                if (SOUND) AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.POINT_SOUND.ordinal()]).play();
 
                 // Correct color
                 if (player_.getColor() == ballsManager_.getCurrentBallColor()) {

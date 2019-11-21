@@ -48,7 +48,7 @@ public class AndroidSound implements Sound, MediaPlayer.OnCompletionListener {
     }
 
     public void play() {
-        if (isPlaying()) return;
+        if (isPlaying()) stop();
         try {
             synchronized (this) {
                 if (!isPrepared_) mediaPlayer_.prepare();
