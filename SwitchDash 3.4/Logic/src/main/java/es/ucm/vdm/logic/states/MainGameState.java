@@ -88,6 +88,7 @@ public class MainGameState extends GameState {
         if(!gameOver)
             handleInput();
 
+        // Update gameObjects
         super.update(deltaTime);
 
         if(!gameOver) {
@@ -113,11 +114,11 @@ public class MainGameState extends GameState {
             }
         }else {
             timeToSwitchState -= deltaTime;
-            TrySwitchState();
+            tryToSwitchState();
         }
     }
 
-    private void TrySwitchState(){
+    private void tryToSwitchState(){
         if(timeToSwitchState <= 0) {
             AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.GAME_MUSIC.ordinal()]).stop();
             AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.MENU_MUSIC.ordinal()]).play();

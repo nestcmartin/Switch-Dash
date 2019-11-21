@@ -60,8 +60,11 @@ public class ParticleEmitter extends GameObject {
 
     public void burst(int nParticles, int color){
         for(int i = 0; i < nParticles; i++)
-            particles_.add(new Particle(x_, y_ , Random.randomInt(40, 80),Random.randomInt(-xSpeed_, xSpeed_),
-                                                Random.randomInt(-ySpeed_, -ySpeed_/4), color, startAge_));
+            particles_.add(new Particle(x_, y_ ,
+                    Random.randomInt(40, 80),
+                    Random.randomInt(-xSpeed_, xSpeed_),
+                    Random.randomInt(-ySpeed_, -ySpeed_/4),
+                    color, startAge_));
     }
 
     @Override
