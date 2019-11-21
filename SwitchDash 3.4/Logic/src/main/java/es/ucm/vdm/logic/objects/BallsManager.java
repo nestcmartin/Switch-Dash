@@ -2,8 +2,11 @@ package es.ucm.vdm.logic.objects;
 
 import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Graphics;
+import es.ucm.vdm.engine.Sound;
+import es.ucm.vdm.engine.utils.AudioManager;
 import es.ucm.vdm.engine.utils.Random;
 import es.ucm.vdm.engine.utils.Sprite;
+import es.ucm.vdm.logic.Assets;
 import es.ucm.vdm.logic.GameObject;
 
 public class BallsManager extends GameObject {
@@ -22,9 +25,12 @@ public class BallsManager extends GameObject {
     private int pixelsPerSecond_ = 430;
     private int currentBall_ = 0;
     private int currentColor_ = 0;
+    private Sound sfx_;
 
     public BallsManager(Game g, Sprite s, int x, int y, int w, int h) {
         super(g, s, x, y, w, h);
+
+        sfx_ = AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.POINT_SOUND.ordinal()]);
 
         // Create Balls
         for(int i = 0; i < balls.length; i++) {
@@ -51,6 +57,7 @@ public class BallsManager extends GameObject {
     }
 
     public void correctBall(){
+        sfx_.play(1.0f);
         int lastBallIndex = getLoopIndex(currentBall_ + balls.length - 1);
 
         // Move this ball behind the last one (plus distanceBetweenBalls)

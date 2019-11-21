@@ -21,6 +21,7 @@ import es.ucm.vdm.logic.objects.PulsatingSprite;
  public class MenuState extends GameState {
 
     private Button howToPlayButton_;
+    private Button soundButton_;
 
     public MenuState(Game game) {
         super(game);
@@ -51,6 +52,12 @@ import es.ucm.vdm.logic.objects.PulsatingSprite;
         int htpX = (GAME_WIDTH - htpSprite.getWidth()) - 30;
         howToPlayButton_ = new Button(game_, htpSprite , htpX, 90, htpSprite.getWidth(), htpSprite.getHeight());
         gameObjects_.add(howToPlayButton_);
+
+        // SoundButton
+        Sprite soundSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.BUTTONS.ordinal()]), 1, 10);
+        soundButton_ = new Button(game_, soundSprite , 30, 90, soundSprite.getWidth(), soundSprite.getHeight());
+        soundButton_.updateSpriteFrame(0, 2);
+        gameObjects_.add(soundButton_);
     }
 
     @Override
@@ -75,6 +82,11 @@ import es.ucm.vdm.logic.objects.PulsatingSprite;
             Input.TouchEvent event = touchEvents.get(i);
             if (howToPlayButton_.handleTouchEvent(event))
                 game_.setState(new HowToPlayState(game_));
+            else if (soundButton_.handleTouchEvent(event)) {
+                switchSound(!SOUND);
+                if (SOUND) soundButton_.updateSpriteFrame(0, 2);
+                else soundButton_.updateSpriteFrame(0, 3);
+            }
             else if (event.type_ == Input.EventType.RELEASED)
                 game_.setState(new MainGameState(game_));
         }

@@ -14,12 +14,15 @@ import es.ucm.vdm.logic.Assets;
 import es.ucm.vdm.logic.objects.Background;
 import es.ucm.vdm.logic.objects.BallsManager;
 import es.ucm.vdm.logic.GameState;
+import es.ucm.vdm.logic.objects.Button;
 import es.ucm.vdm.logic.objects.Player;
 import es.ucm.vdm.logic.objects.ScoreBoard;
 
 public class MainGameState extends GameState {
 
     private boolean gameOver = false;
+
+    private Button soundButton_;
 
     private Background background_;
     private Arrows arrows_;
@@ -39,6 +42,12 @@ public class MainGameState extends GameState {
 
         AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.MENU_MUSIC.ordinal()]).stop();
         AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.GAME_MUSIC.ordinal()]).play();
+
+        // SoundButton
+        Sprite soundSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.BUTTONS.ordinal()]), 1, 10);
+        soundButton_ = new Button(game_, soundSprite , 30, 90, soundSprite.getWidth(), soundSprite.getHeight());
+        soundButton_.updateSpriteFrame(0, 2);
+        gameObjects_.add(soundButton_);
 
         // Background
         background_ = new Background(game_);
@@ -114,6 +123,11 @@ public class MainGameState extends GameState {
         for (int i = 0; i < touchEvents.size(); i++) {
             Input.TouchEvent event = touchEvents.get(i);
             if(player_.handleTouchEvent(event)){}
+            else if (soundButton_.handleTouchEvent(event)) {
+                switchSound(!SOUND);
+                if (SOUND) soundButton_.updateSpriteFrame(0, 2);
+                else soundButton_.updateSpriteFrame(0, 3);
+            }
         }
     }
 

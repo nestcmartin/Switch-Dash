@@ -5,11 +5,13 @@ import java.util.List;
 
 import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.State;
+import es.ucm.vdm.engine.utils.AudioManager;
 
 public class GameState extends State {
 
     public final int GAME_WIDTH = 1080;
     public final int GAME_HEIGHT = 1920;
+    public boolean SOUND = true;
 
     protected List<GameObject> gameObjects_ = new ArrayList<>();
 
@@ -19,6 +21,7 @@ public class GameState extends State {
 
     @Override
     public void update(double deltaTime) {
+
         for (GameObject go: gameObjects_) {
             go.update(deltaTime);
         }
@@ -44,4 +47,16 @@ public class GameState extends State {
 
     @Override
     public void dispose() {}
+
+    public void switchSound(boolean sound) {
+        SOUND = sound;
+
+        if (!SOUND) {
+            AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.MENU_MUSIC.ordinal()]).setVolume(0.0f);
+            AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.GAME_MUSIC.ordinal()]).setVolume(0.0f);
+        } else {
+            AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.MENU_MUSIC.ordinal()]).setVolume(1.0f);
+            AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.GAME_MUSIC.ordinal()]).setVolume(1.0f);
+        }
+    }
 }

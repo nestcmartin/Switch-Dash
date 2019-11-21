@@ -28,6 +28,10 @@ public class LoadingState extends State {
             AudioManager.getInstance().addMusic(Assets.musics[i], a.newMusic(Assets.musics[i]));
         }
 
+        for (int i = 0; i < Assets.sounds.length; i++) {
+            AudioManager.getInstance().addSound(Assets.sounds[i], a.newSound(Assets.sounds[i]));
+        }
+
         AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.MENU_MUSIC.ordinal()]).play();
         game_.setState(new MenuState(game_));
     }

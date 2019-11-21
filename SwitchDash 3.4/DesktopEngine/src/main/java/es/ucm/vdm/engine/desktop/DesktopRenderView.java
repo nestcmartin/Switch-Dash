@@ -22,7 +22,7 @@ public class DesktopRenderView extends JFrame {
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-        setUndecorated(true);
+        //setUndecorated(true);
 
 
         // Añadimos un listener a la ventana, así cuando se reescala actualizamos el escalado de los gráficos

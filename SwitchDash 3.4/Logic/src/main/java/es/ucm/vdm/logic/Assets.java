@@ -44,4 +44,14 @@ public class Assets {
             "game.wav"
     };
 
+    public enum SoundName {
+        POINT_SOUND,
+        CHANGE_COLOR_SOUND,
+        MENU_CLICK_SOUND
+    };
+
+    public static final String[] sounds = {
+            "point.wav"
+    };
+
 }

@@ -20,6 +20,7 @@ import es.ucm.vdm.logic.objects.PulsatingSprite;
 public class GameOverState extends GameState {
 
     private Button howToPlayButton_;
+    private Button soundButton_;
 
     public GameOverState(Game game, int score) {
         super(game);
@@ -80,6 +81,12 @@ public class GameOverState extends GameState {
         int htpX = (GAME_WIDTH - htpSprite.getWidth()) - 30;
         howToPlayButton_ = new Button(game_, htpSprite , htpX, 90, htpSprite.getWidth(), htpSprite.getHeight());
         gameObjects_.add(howToPlayButton_);
+
+        // SoundButton
+        Sprite soundSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.BUTTONS.ordinal()]), 1, 10);
+        soundButton_ = new Button(game_, soundSprite , 30, 90, soundSprite.getWidth(), soundSprite.getHeight());
+        soundButton_.updateSpriteFrame(0, 2);
+        gameObjects_.add(soundButton_);
     }
 
     @Override
