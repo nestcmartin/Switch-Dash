@@ -14,16 +14,16 @@ public class ScoreBoard extends GameObject {
 
     private int score_ = 0;
 
-    public ScoreBoard(Game g) {
+    public ScoreBoard(Game g, int fontW, int fontH) {
         super(g);
 
         Sprite centenas = FontMapper.getInstance().getSprite(String.valueOf(0));
         Sprite decenas = FontMapper.getInstance().getSprite(String.valueOf(0));
         Sprite unidades = FontMapper.getInstance().getSprite(String.valueOf(0));
 
-        centenas_ = new GameObject(game_, centenas, (1080 - (93 * 3)), 150, 93, 112);
-        decenas_ = new GameObject(game_, decenas, (1080 - (93 * 2)), 150, 93, 112);
-        unidades_ = new GameObject(game_, unidades, (1080 - 93), 150, 93, 112);
+        centenas_ = new GameObject(game_, centenas, (1080 - (int)(fontW * 2.5f)), 150, fontW, fontH);
+        decenas_ = new GameObject(game_, decenas, (1080 - (int)(fontW * 1.75f)), 150, fontW, fontH);
+        unidades_ = new GameObject(game_, unidades, (1080 - fontW), 150, fontW, fontH);
     }
 
     @Override
