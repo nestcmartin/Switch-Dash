@@ -78,7 +78,7 @@ public class MainGameState extends GameState {
         // Particle Emitter
         Sprite particleSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.BALLS.ordinal()]), 2, 10);
         particleEmitter_ = new ParticleEmitter(game_, particleSprite, ballX, 1100, particleSprite.getWidth(), particleSprite.getHeight(),
-                1, -2100);
+                1, -2100, 500, 800);
         gameObjects_.add(particleEmitter_);
     }
 
