@@ -15,6 +15,7 @@ import es.ucm.vdm.logic.objects.Background;
 import es.ucm.vdm.logic.objects.BallsManager;
 import es.ucm.vdm.logic.GameState;
 import es.ucm.vdm.logic.objects.Button;
+import es.ucm.vdm.logic.objects.ParticleEmitter;
 import es.ucm.vdm.logic.objects.Player;
 import es.ucm.vdm.logic.objects.ScoreBoard;
 
@@ -29,7 +30,7 @@ public class MainGameState extends GameState {
     private Player player_;
     private BallsManager ballsManager_;
     private ScoreBoard scoreBoard_;
-
+    private ParticleEmitter particleEmitter_;
 
     private int speedIncrement_ = 90;
     private int correctBalls_ = 0;
@@ -62,15 +63,23 @@ public class MainGameState extends GameState {
         scoreBoard_ = new ScoreBoard(game_);
         gameObjects_.add(scoreBoard_);
 
+        // Player
         Sprite playerSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.PLAYERS.ordinal()]), 2, 1);
         int playerX = (GAME_WIDTH - playerSprite.getWidth()) / 2;
         player_ = new Player(game_, playerSprite, playerX, 1200, playerSprite.getWidth(), playerSprite.getHeight());
         gameObjects_.add(player_);
 
+        // Balls Manager
         Sprite ballsSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.BALLS.ordinal()]), 2, 10);
         int ballX = (GAME_WIDTH - ballsSprite.getWidth()) / 2;
         ballsManager_ = new BallsManager(game_, ballsSprite, ballX, 0, ballsSprite.getWidth(), ballsSprite.getHeight());
         gameObjects_.add(ballsManager_);
+
+        // Particle Emitter
+        Sprite particleSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.BALLS.ordinal()]), 2, 10);
+        particleEmitter_ = new ParticleEmitter(game_, particleSprite, ballX, 1100, particleSprite.getWidth(), particleSprite.getHeight(),
+                1, -2100);
+        gameObjects_.add(particleEmitter_);
     }
 
     @Override
@@ -82,6 +91,9 @@ public class MainGameState extends GameState {
 
         if(!gameOver) {
             if (ballsManager_.getCurrentBallY() >= player_.getY()) {
+                // Emmit particles
+                particleEmitter_.burst(15, ballsManager_.getCurrentBallColor());
+
                 // Correct color
                 if (player_.getColor() == ballsManager_.getCurrentBallColor()) {
                     ballsManager_.correctBall();
