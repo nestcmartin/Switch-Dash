@@ -103,7 +103,7 @@ public class GameOverState extends GameState {
         for (int i = 0; i < keyEvents.size(); i++) {
             Input.KeyEvent event = keyEvents.get(i);
             if (event.type_ == Input.EventType.RELEASED) {
-                game_.setState(new HowToPlayState(game_));
+                if (event.keyChar_ == ' ') game_.setState(new HowToPlayState(game_));
             }
         }
 

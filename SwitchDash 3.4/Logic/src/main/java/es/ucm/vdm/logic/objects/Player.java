@@ -19,8 +19,11 @@ public class Player extends GameObject {
 
     public boolean handleKeyEvent(Input.KeyEvent event){
         if(event.type_ == Input.EventType.PRESSED) {
-            switchColor();
-            return true;
+            if (event.keyChar_ == ' ')
+            {
+                switchColor();
+                return true;
+            }
         }
         return false;
     }
