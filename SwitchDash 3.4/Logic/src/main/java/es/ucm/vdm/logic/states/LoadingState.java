@@ -33,7 +33,7 @@ public class LoadingState extends State {
         }
 
         AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.MENU_MUSIC.ordinal()]).play();
-        game_.setState(new MenuState(game_));
+        game_.setState(new MenuState(game_, true));
     }
 
     @Override

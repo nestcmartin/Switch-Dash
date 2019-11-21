@@ -18,6 +18,7 @@ import es.ucm.vdm.logic.objects.Button;
 import es.ucm.vdm.logic.objects.ParticleEmitter;
 import es.ucm.vdm.logic.objects.Player;
 import es.ucm.vdm.logic.objects.ScoreBoard;
+import es.ucm.vdm.logic.objects.ScreenFader;
 
 public class MainGameState extends GameState {
 
@@ -34,7 +35,7 @@ public class MainGameState extends GameState {
 
     private int speedIncrement_ = 90;
     private int correctBalls_ = 0;
-    private float timeToSwitchState = 1;
+    private float timeToSwitchState = 1f;
 
     public MainGameState(Game game) {
         super(game);
@@ -81,6 +82,10 @@ public class MainGameState extends GameState {
         particleEmitter_ = new ParticleEmitter(game_, particleSprite, ballX, 1100, particleSprite.getWidth(), particleSprite.getHeight(),
                 1, -2100, 500, 800);
         gameObjects_.add(particleEmitter_);
+
+        // Screen Fader
+        addScreenFader();
+        screenFader_.startFadeIn(true);
     }
 
     @Override
@@ -122,7 +127,7 @@ public class MainGameState extends GameState {
         if(timeToSwitchState <= 0) {
             AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.GAME_MUSIC.ordinal()]).stop();
             AudioManager.getInstance().getMusic(Assets.musics[Assets.MusicName.MENU_MUSIC.ordinal()]).play();
-            game_.setState(new GameOverState(game_, scoreBoard_.getScore()));
+            switchState(new GameOverState(game_, scoreBoard_.getScore()));
         }
     }
 
