@@ -12,14 +12,18 @@ import es.ucm.vdm.engine.utils.PoolObjectFactory;
 
 public class AndroidSingleTouchHandler implements AndroidTouchHandler {
 
+    private float scaleX_;
+    private float scaleY_;
+
     private boolean isTouched_;
     private int touchX_;
     private int touchY_;
+
     private Pool<Input.TouchEvent> touchEventPool_;
     private List<Input.TouchEvent> touchEvents_ = new ArrayList<Input.TouchEvent>();
     private List<Input.TouchEvent> touchEventsBuffer_ = new ArrayList<Input.TouchEvent>();
-    private float scaleX_;
-    private float scaleY_;
+
+
 
     public AndroidSingleTouchHandler(View view, float scaleX, float scaleY) {
         PoolObjectFactory<Input.TouchEvent> factory = new PoolObjectFactory<Input.TouchEvent>() {
