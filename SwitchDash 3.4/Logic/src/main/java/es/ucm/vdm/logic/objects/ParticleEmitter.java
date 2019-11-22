@@ -25,19 +25,19 @@ public class ParticleEmitter extends GameObject {
             speedY_ = speedY;
             color_ = color;
             age_ = age;
-            dstRect_ = new Rect(x_, y_, x_+ size_, y + size_);
-
+            dstRect_ = new Rect();
+            updateRect();
         }
 
         public void updateRect(){
-            dstRect_.x1 = x_;
-            dstRect_.y1 = y_;
-            dstRect_.x2 = x_ + size_;
-            dstRect_.y2 = y_ + size_;
+            dstRect_.x1 = (int)x_;
+            dstRect_.y1 = (int)y_;
+            dstRect_.x2 = (int)(x_ + size_);
+            dstRect_.y2 = (int)(y_ + size_);
         }
 
-        public int x_;
-        public int y_;
+        public float x_;
+        public float y_;
         public int size_;
         public float speedX_;
         public float speedY_;
