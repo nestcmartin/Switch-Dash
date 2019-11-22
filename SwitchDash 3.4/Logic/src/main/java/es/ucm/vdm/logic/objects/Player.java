@@ -7,11 +7,20 @@ import es.ucm.vdm.logic.GameObject;
 
 public class Player extends GameObject {
 
-    boolean isAlive_ = true;
-    boolean isWhite_ = true;
+    private boolean isAlive_ = true;
+    private boolean isWhite_ = true;
+    private float sizeMult_ = 1f;
+    private float width_;
+    private float height_;
+    private int gameWidth_;
+    private int gameHeight_;
 
-    public Player(Game g, Sprite s, int x, int y, int w, int h) {
+    public Player(Game g, Sprite s, int x, int y, int w, int h, int gameWidth, int gameHeight) {
         super(g, s, x, y, w, h);
+        width_ = w;
+        height_ = h;
+        gameWidth_ = gameWidth;
+        gameHeight_ = gameHeight;
     }
 
     public int getColor(){ return isWhite_? 0 : 1; }
@@ -38,9 +47,24 @@ public class Player extends GameObject {
 
     private void switchColor(){
         isWhite_ = !isWhite_;
-
         int color = isWhite_ ? 0 : 1;
         sprite_.setFrameRow(color);
+        sizeMult_ = 0.8f;
+    }
+
+    private void updateSize(){
+        w_ = (int)(sizeMult_ * width_);
+        h_ = (int)(sizeMult_ * height_);
+        x_ = (int)((gameWidth_ - w_) / 2);
+        updateDstRect();
+    }
+
+    @Override
+    public void update(double deltaTime) {
+        if (sizeMult_ < 1f)
+            sizeMult_ += deltaTime;
+        else sizeMult_ = 1;
+        updateSize();
     }
 
     @Override

@@ -24,7 +24,6 @@ public class AndroidSingleTouchHandler implements AndroidTouchHandler {
     private List<Input.TouchEvent> touchEventsBuffer_ = new ArrayList<Input.TouchEvent>();
 
 
-
     public AndroidSingleTouchHandler(View view, float scaleX, float scaleY) {
         PoolObjectFactory<Input.TouchEvent> factory = new PoolObjectFactory<Input.TouchEvent>() {
             @Override

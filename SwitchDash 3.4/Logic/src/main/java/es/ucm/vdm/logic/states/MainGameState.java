@@ -67,7 +67,7 @@ public class MainGameState extends GameState {
         // Player
         Sprite playerSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.PLAYERS.ordinal()]), 2, 1);
         int playerX = (GAME_WIDTH - playerSprite.getWidth()) / 2;
-        player_ = new Player(game_, playerSprite, playerX, 1200, playerSprite.getWidth(), playerSprite.getHeight());
+        player_ = new Player(game_, playerSprite, playerX, 1200, playerSprite.getWidth(), playerSprite.getHeight(), GAME_WIDTH, GAME_HEIGHT);
         gameObjects_.add(player_);
 
         // Balls Manager
