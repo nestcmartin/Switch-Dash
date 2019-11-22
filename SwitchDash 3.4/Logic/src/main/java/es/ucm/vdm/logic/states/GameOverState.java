@@ -48,7 +48,7 @@ public class GameOverState extends GameState {
             int uniX = (GAME_WIDTH - sUnidades.getWidth()) / 2;
             gameObjects_.add(new GameObject(game_, sUnidades, uniX, 800, sUnidades.getWidth(), sUnidades.getHeight()));
         }
-        else if (score >= 10 && score < 100) {
+        else if (score < 100) {
             Sprite sDecenas = FontMapper.getInstance().getSprite(String.valueOf((score % 100) / 10));
             int decX = (GAME_WIDTH - (2 * sDecenas.getWidth())) / 2;
             gameObjects_.add(new GameObject(game_, sDecenas, decX, 800, sDecenas.getWidth(), sDecenas.getHeight()));
@@ -70,6 +70,34 @@ public class GameOverState extends GameState {
             int uniX = decX + sDecenas.getWidth();
             gameObjects_.add(new GameObject(game_, sUnidades, uniX, 800, sUnidades.getWidth(), sUnidades.getHeight()));
         }
+
+        // Points
+        int charX = 0;
+        // 125/160
+        Sprite P = FontMapper.getInstance().getSprite("P");
+        charX = (GAME_WIDTH / 2) - (3 * 80);
+        gameObjects_.add(new GameObject(game_, P, charX, 960, 80, 105));
+        System.out.println(P.getHeight());
+
+        Sprite O = FontMapper.getInstance().getSprite("O");
+        charX = (GAME_WIDTH / 2) - (2 * 80);
+        gameObjects_.add(new GameObject(game_, O, charX, 960, 80, 105));
+
+        Sprite I = FontMapper.getInstance().getSprite("I");
+        charX = (GAME_WIDTH / 2) - (80);
+        gameObjects_.add(new GameObject(game_, I, charX, 960, 80, 105));
+
+        Sprite N = FontMapper.getInstance().getSprite("N");
+        charX = (GAME_WIDTH / 2);
+        gameObjects_.add(new GameObject(game_, N, charX, 960, 80, 105));
+
+        Sprite T = FontMapper.getInstance().getSprite("T");
+        charX = (GAME_WIDTH / 2) + (80);
+        gameObjects_.add(new GameObject(game_, T, charX, 960, 80, 105));
+
+        Sprite S = FontMapper.getInstance().getSprite("S");
+        charX = (GAME_WIDTH / 2) +  (2 * 80);
+        gameObjects_.add(new GameObject(game_, S, charX, 960, 80, 105));
 
         // PlayAgain
         Sprite playAgain = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.PLAY_AGAIN.ordinal()]), 1, 1);
