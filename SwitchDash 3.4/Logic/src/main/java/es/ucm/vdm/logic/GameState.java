@@ -74,7 +74,7 @@ public class GameState extends State {
         gameObjects_.add(screenFader_);
     }
 
-    protected void switchState(GameState state){
+    protected void switchStateWithFading(GameState state){
         if(!isSwitching){
             screenFader_.startFadeIn(false);
             isSwitching = true;

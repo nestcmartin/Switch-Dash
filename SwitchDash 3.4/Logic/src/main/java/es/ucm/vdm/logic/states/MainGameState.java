@@ -6,7 +6,6 @@ import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.ScaledGraphics;
-import es.ucm.vdm.engine.Sound;
 import es.ucm.vdm.engine.utils.AudioManager;
 import es.ucm.vdm.engine.utils.PixmapManager;
 import es.ucm.vdm.engine.utils.Sprite;
@@ -124,10 +123,10 @@ public class MainGameState extends GameState {
     }
 
     private void tryToSwitchState(){
-        if(timeToSwitchState <= 0) {
+        if(timeToSwitchState <= 0 && !screenFader_.isFading()) {
             AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.GAME_MUSIC.ordinal()]).stop();
             AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.MENU_MUSIC.ordinal()]).play();
-            switchState(new GameOverState(game_, scoreBoard_.getScore()));
+            switchStateWithFading(new GameOverState(game_, scoreBoard_.getScore()));
         }
     }
 

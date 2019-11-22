@@ -15,7 +15,6 @@ import es.ucm.vdm.logic.objects.Button;
 import es.ucm.vdm.logic.GameObject;
 import es.ucm.vdm.logic.GameState;
 import es.ucm.vdm.logic.objects.PulsatingSprite;
-import es.ucm.vdm.logic.objects.ScreenFader;
 
 public class MenuState extends GameState {
 
@@ -79,21 +78,21 @@ public class MenuState extends GameState {
         for (int i = 0; i < keyEvents.size(); i++) {
             Input.KeyEvent event = keyEvents.get(i);
             if (event.type_ == Input.EventType.RELEASED) {
-                if (event.keyChar_ == ' ') switchState(new HowToPlayState(game_));
+                if (event.keyChar_ == ' ') switchStateWithFading(new HowToPlayState(game_));
             }
         }
 
         for (int i = 0; i < touchEvents.size(); i++) {
             Input.TouchEvent event = touchEvents.get(i);
             if (howToPlayButton_.handleTouchEvent(event))
-                switchState(new HowToPlayState(game_));
+                switchStateWithFading(new HowToPlayState(game_));
             else if (soundButton_.handleTouchEvent(event)) {
                 switchSound(!SOUND);
                 if (SOUND) soundButton_.updateSpriteFrame(0, 2);
                 else soundButton_.updateSpriteFrame(0, 3);
             }
             else if (event.type_ == Input.EventType.RELEASED)
-                switchState(new MainGameState(game_));
+                switchStateWithFading(new MainGameState(game_));
         }
     }
 
