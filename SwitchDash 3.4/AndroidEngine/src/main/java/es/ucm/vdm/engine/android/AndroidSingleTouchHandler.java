@@ -91,5 +91,4 @@ public class AndroidSingleTouchHandler implements AndroidTouchHandler {
             return touchEvents_;
         }
     }
-
 }

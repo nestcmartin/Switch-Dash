@@ -13,7 +13,7 @@ public class AndroidInput implements Input {
 
     public AndroidInput(View view, float scaleX, float scaleY) {
         keyHandler_ = new AndroidKeyboardHandler(view);
-        touchHandler_ = new AndroidSingleTouchHandler(view, scaleX, scaleY);
+        touchHandler_ = new AndroidMultiTouchHandler(view, scaleX, scaleY);
     }
 
     public boolean isKeyPressed(int keyCode) {
