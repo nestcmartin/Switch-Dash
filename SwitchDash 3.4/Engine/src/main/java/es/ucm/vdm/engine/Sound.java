@@ -2,7 +2,7 @@ package es.ucm.vdm.engine;
 
 public interface Sound {
 
-    public void play();
+    public void play(boolean looping);
     public void stop();
     public void pause();
 

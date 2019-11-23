@@ -3,7 +3,9 @@ package es.ucm.vdm.logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.ucm.vdm.engine.Audio;
 import es.ucm.vdm.engine.Game;
+import es.ucm.vdm.engine.Sound;
 import es.ucm.vdm.engine.State;
 import es.ucm.vdm.engine.utils.AudioManager;
 import es.ucm.vdm.engine.utils.PixmapManager;
@@ -12,9 +14,12 @@ import es.ucm.vdm.logic.objects.ScreenFader;
 
 public class GameState extends State {
 
-    public final int GAME_WIDTH = 1080;
-    public final int GAME_HEIGHT = 1920;
-    public boolean SOUND = true;
+    protected final int GAME_WIDTH = 1080;
+    protected final int GAME_HEIGHT = 1920;
+    protected boolean SOUND = true;
+
+    protected Sound menuMusic_;
+    protected Sound gameMusic_;
 
     protected List<GameObject> gameObjects_ = new ArrayList<>();
     protected ScreenFader screenFader_;
@@ -23,6 +28,9 @@ public class GameState extends State {
 
     public GameState(Game game) {
         super(game);
+
+        menuMusic_ = AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.MENU_MUSIC.ordinal()]);
+        gameMusic_ = AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.GAME_MUSIC.ordinal()]);
     }
 
     @Override
@@ -58,14 +66,8 @@ public class GameState extends State {
 
     public void switchSound(boolean sound) {
         SOUND = sound;
-
-        if (!SOUND) {
-            AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.MENU_MUSIC.ordinal()]).setVolume(0.0f);
-            AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.GAME_MUSIC.ordinal()]).setVolume(0.0f);
-        } else {
-            AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.MENU_MUSIC.ordinal()]).setVolume(1.0f);
-            AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.GAME_MUSIC.ordinal()]).setVolume(1.0f);
-        }
+        if (!SOUND) AudioManager.getInstance().muteAllSounds();
+        else AudioManager.getInstance().unmuteAllSounds();
     }
 
     protected void addScreenFader(){

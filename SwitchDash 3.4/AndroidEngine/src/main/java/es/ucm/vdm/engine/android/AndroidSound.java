@@ -47,12 +47,13 @@ public class AndroidSound implements Sound, MediaPlayer.OnCompletionListener {
         if (isPlaying()) mediaPlayer_.pause();
     }
 
-    public void play() {
+    public void play(boolean looping) {
         if (isPlaying()) stop();
         try {
             synchronized (this) {
                 if (!isPrepared_) mediaPlayer_.prepare();
                 mediaPlayer_.start();
+                setLooping(looping);
             }
         } catch (IllegalStateException e) {
             e.printStackTrace();

@@ -28,7 +28,6 @@ public class LoadingState extends State {
             AudioManager.getInstance().addSound(Assets.sounds[i], a.newSound(Assets.sounds[i]));
         }
 
-        AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.MENU_MUSIC.ordinal()]).play();
         game_.setState(new MenuState(game_, true));
     }
 

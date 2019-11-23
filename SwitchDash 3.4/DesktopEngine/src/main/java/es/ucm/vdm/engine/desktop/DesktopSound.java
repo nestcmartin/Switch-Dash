@@ -17,9 +17,10 @@ public class DesktopSound implements Sound {
     }
 
     @Override
-    public void play() {
+    public void play(boolean looping) {
         clip_.setMicrosecondPosition(clipTimePosition_);
         clip_.start();
+        setLooping(looping);
 
         clipTimePosition_ = 0;
         isPlaying_ = true;

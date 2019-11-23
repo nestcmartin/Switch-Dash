@@ -12,6 +12,7 @@ import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.ScaledGraphics;
 import es.ucm.vdm.engine.State;
+import es.ucm.vdm.engine.utils.AudioManager;
 
 public class AndroidGame extends Activity implements Game {
 
@@ -61,6 +62,12 @@ public class AndroidGame extends Activity implements Game {
         {
             state_.dispose();
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        AudioManager.getInstance().stopAllSounds();
     }
 
 

@@ -42,9 +42,6 @@ public class MainGameState extends GameState {
         g.setCanvasLogicSize(GAME_WIDTH, GAME_HEIGHT);
         g.scaleCanvas();
 
-        AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.MENU_MUSIC.ordinal()]).stop();
-        AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.GAME_MUSIC.ordinal()]).play();
-
         // SoundButton
         Sprite soundSprite = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.BUTTONS.ordinal()]), 1, 10);
         soundButton_ = new Button(game_, soundSprite , 30, 90, soundSprite.getWidth(), soundSprite.getHeight());
@@ -124,8 +121,6 @@ public class MainGameState extends GameState {
 
     private void tryToSwitchState(){
         if(timeToSwitchState <= 0 && !screenFader_.isFading()) {
-            AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.GAME_MUSIC.ordinal()]).stop();
-            AudioManager.getInstance().getSound(Assets.sounds[Assets.SoundName.MENU_MUSIC.ordinal()]).play();
             switchStateWithFading(new GameOverState(game_, scoreBoard_.getScore()));
         }
     }
@@ -160,5 +155,18 @@ public class MainGameState extends GameState {
         Graphics g = game_.getGraphics();
         g.clear(0xff000000);
         super.render(deltaTime);
+    }
+
+    @Override
+    public void resume() {
+        super.resume();
+        if (menuMusic_.isPlaying()) menuMusic_.stop();
+        if (!gameMusic_.isPlaying()) gameMusic_.play(true);
+    }
+
+    @Override
+    public void dispose() {
+        super.pause();
+        if (gameMusic_.isPlaying()) gameMusic_.stop();
     }
 }

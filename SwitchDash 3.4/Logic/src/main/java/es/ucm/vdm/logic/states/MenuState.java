@@ -6,6 +6,7 @@ import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.ScaledGraphics;
+import es.ucm.vdm.engine.utils.AudioManager;
 import es.ucm.vdm.engine.utils.PixmapManager;
 import es.ucm.vdm.engine.utils.Sprite;
 import es.ucm.vdm.logic.objects.Arrows;
@@ -101,5 +102,11 @@ public class MenuState extends GameState {
         Graphics g = game_.getGraphics();
         g.clear(0xff000000);
         super.render(deltaTime);
+    }
+
+    @Override
+    public void resume() {
+        super.resume();
+        if (!menuMusic_.isPlaying()) menuMusic_.play(true);
     }
 }
