@@ -78,7 +78,6 @@ public class GameOverState extends GameState {
         Sprite P = FontMapper.getInstance().getSprite("P");
         charX = (GAME_WIDTH / 2) - (3 * 80);
         gameObjects_.add(new GameObject(game_, P, charX, 960, 80, 105));
-        System.out.println(P.getHeight());
 
         Sprite O = FontMapper.getInstance().getSprite("O");
         charX = (GAME_WIDTH / 2) - (2 * 80);
