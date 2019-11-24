@@ -7,7 +7,7 @@ import es.ucm.vdm.engine.Sound;
 
 public class DesktopSound implements Sound {
 
-    Clip clip_;
+    private Clip clip_;
     private long clipTimePosition_ = 0;
     private boolean isPlaying_ = false;
     private boolean isLooping_ = false;
