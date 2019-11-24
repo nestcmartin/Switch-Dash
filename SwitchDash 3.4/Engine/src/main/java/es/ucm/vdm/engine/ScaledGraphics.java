@@ -2,37 +2,93 @@ package es.ucm.vdm.engine;
 
 import es.ucm.vdm.engine.utils.Rect;
 
+/**
+ * Implementación del gestor gráfico del motor de tecnología
+ * que permite el reescalado activo de los elementos que dibuja.
+ * Clase basada en el patrón de diseño Strategy.
+ */
 public abstract class ScaledGraphics implements Graphics {
 
-    private int canvasLogicWidth_ = 1080;
-    private int canvasLogicHeight_ = 2220;
+    protected int canvasLogicWidth_ = 1080;
+    protected int canvasLogicHeight_ = 1920;
+
     private int canvasWidth_;
     private int canvasHeight_;
     private int canvasPosX_;
     private int canvasPosY_;
 
-    public int getCanvasLogicHeight() { return canvasLogicHeight_; }
-    public int getCanvasLogicWidth() { return  canvasLogicWidth_; }
+    /**
+     * @return la altura del canvas lógico
+     */
+    public int getCanvasLogicHeight() {
+        return canvasLogicHeight_;
+    }
 
+    /**
+     * @return la altura del canvas lógico
+     */
+    public int getCanvasLogicWidth() {
+        return  canvasLogicWidth_;
+    }
+
+    /**
+     * Pinta un rectángulo del color indicado.
+     * El rectángulo se reescalará en función del tamaño del canvas lógico.
+     * @param rect  el rectángulo a pintar.
+     * @param color el color con el que se debe pintar.
+     */
     @Override
     public void fillRect(Rect rect, int color) {
         rect = scaleRect(rect);
         fillScaledRect(rect, color);
     }
 
+    /**
+     * Pinta una zona de una imagen en la posición y tamaño deseados.
+     * El rectángulo de destino se reescalará en función del tamaño del canvas lógico.
+     * @param pixmap el objeto tipo Pixmap con los datos de la imagen.
+     * @param src    el rectángulo fuente.
+     * @param dst    el rectángulo destino.
+     * @param alpha  la transparencia con la que se debe pintar.
+     */
+    @Override
     public void drawPixmap(Pixmap pixmap, Rect src, Rect dst, float alpha) {
         dst = scaleRect(dst);
         drawScaledPixmap(pixmap, src, dst, alpha);
     }
 
-    protected void drawScaledPixmap(Pixmap pixmap, Rect src, Rect dst, float alpha){};
-    protected void fillScaledRect(Rect rect, int color) {};
+    /**
+     * Método vacío que deben implementar las distintas plataformas del motor de tecnología.
+     * @param pixmap el objeto tipo Pixmap con los datos de la imagen.
+     * @param src    el rectángulo fuente.
+     * @param dst    el rectángulo destino ya reescalado.
+     * @param alpha  la transparencia con la que se debe pintar.
+     */
+    protected void drawScaledPixmap(Pixmap pixmap, Rect src, Rect dst, float alpha) {}
 
+    /**
+     * Método vacío que deben implementar las distintas plataformas del motor de tecnología.
+     * @param rect  el rectángulo a pintar ya reescalado.
+     * @param color el color con el que se debe pintar.
+     */
+    protected void fillScaledRect(Rect rect, int color) {}
+
+    /**
+     * Cambia el tamaño lógico del canvas.
+     * @param w nuevo ancho del canvas.
+     * @param h nuevo alto del canvas.
+     */
     public void setCanvasLogicSize(int w, int h) {
         canvasLogicWidth_ = w;
         canvasLogicHeight_ = h;
     }
 
+    /**
+     * Escala el tamaño del canvas real en función del tamaño de
+     * la superficie de renderizado y del tamaño del canvas lógico.
+     * Este reescalado mantiene el aspect ratio establecido por el
+     * tamaño lógico del canvas.
+     */
     public void scaleCanvas() {
         int wh = getHeight();
         int ww = getWidth();
@@ -55,14 +111,29 @@ public abstract class ScaledGraphics implements Graphics {
         }
     }
 
+    /**
+     * Escala un punto en el eje de coordenadas x.
+     * @param x la coordenada a reescalar.
+     * @return la coordenada reescalada.
+     */
     private int scaleInAxisX(int x) {
         return canvasWidth_ * x / canvasLogicWidth_;
     }
 
+    /**
+     * Escala un punto en el eje de coordenadas y.
+     * @param y la coordenada a reescalar.
+     * @return la coordenada reescalada.
+     */
     private int scaleInAxisY(int y) {
         return canvasHeight_ * y / canvasLogicHeight_;
     }
 
+    /**
+     * Escala un rectángulo utilizando los métodos auxiliares de reescalado de cada eje.
+     * @param rect el rectángulo a reescalar.
+     * @return el rectángulo reescalado.
+     */
     public Rect scaleRect(Rect rect) {
         Rect r = new Rect(0, 0, 0,0);
         int newX1 = scaleInAxisX(rect.x1);
