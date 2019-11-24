@@ -40,6 +40,7 @@ public abstract class ScaledGraphics implements Graphics {
     @Override
     public void fillRect(Rect rect, int color) {
         rect = scaleRect(rect);
+        if (rect.y2 > canvasPosY_ + canvasHeight_) rect.y2 = canvasPosY_ + canvasHeight_;
         fillScaledRect(rect, color);
     }
 

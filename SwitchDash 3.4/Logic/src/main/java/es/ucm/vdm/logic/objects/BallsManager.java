@@ -144,10 +144,12 @@ public class BallsManager extends GameObject {
         Graphics g = game_.getGraphics();
 
         for(Ball b: balls){
-            sprite_.setFrameRow(b.color_);
-            y_ = (int)b.y_;
-            updateDstRect();
-            sprite_.draw(g, dstRect_);
+            if(b.y_ > -h_){
+                sprite_.setFrameRow(b.color_);
+                y_ = (int)b.y_;
+                updateDstRect();
+                sprite_.draw(g, dstRect_);
+            }
         }
     }
 }
