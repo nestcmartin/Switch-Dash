@@ -1,0 +1,15 @@
+Hemos incluido soporte para teclado, tanto en Android como en PC.
+Sin embargo, por limitaciones de la lógica, sólo es notable en PC; dado
+que la tecla para cambiar elcolor del jugador es la barra espaciadora,
+no puede demostrarse esta funcionalidad en Androir. Sin embargo, si eliminamos
+esa condición y hacemos el cambio de color extensivo a cualquier tecla,
+podrá comprobarse que en Android funciona correctamente.
+
+Hemos incluido soporte de audio, tanto en Android como en PC. 
+Tanto en los menús como en el juego sonarán dos melodías diferentes,
+que pueden silencairse con el botón indicado para tal efecto en los menús.
+La idea original era incluir también efectos de sonido, pero no hemos
+conseguido hacer que funcionen satisfactoriamente en ambas plataformas,
+por lo que hemos decidido dejar sólo la música.
+
+Para una explicación más detallada ver la memoria y el JavaDoc.
