@@ -29,7 +29,7 @@ public class AndroidSound implements Sound, MediaPlayer.OnCompletionListener {
             isPrepared_ = true;
             mediaPlayer_.setOnCompletionListener(this);
         } catch (Exception e) {
-            throw new RuntimeException("Couldn't load music");
+            throw new RuntimeException("No pudo cargarse el reproductor de música.");
         }
     }
 

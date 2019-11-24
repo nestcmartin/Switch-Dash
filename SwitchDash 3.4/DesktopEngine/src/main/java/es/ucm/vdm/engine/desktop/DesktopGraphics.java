@@ -178,6 +178,7 @@ public class DesktopGraphics extends ScaledGraphics {
                 graphics_ = strategy_.getDrawGraphics();
                 break;
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
