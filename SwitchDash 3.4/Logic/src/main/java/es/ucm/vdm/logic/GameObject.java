@@ -64,5 +64,4 @@ public class GameObject {
         sprite_.setFrameCol(col);
         sprite_.setFrameRow(row);
     }
-
 }

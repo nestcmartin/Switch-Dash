@@ -6,7 +6,6 @@ import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.ScaledGraphics;
-import es.ucm.vdm.engine.utils.AudioManager;
 import es.ucm.vdm.engine.utils.PixmapManager;
 import es.ucm.vdm.engine.utils.Sprite;
 import es.ucm.vdm.logic.objects.Arrows;
@@ -17,11 +16,19 @@ import es.ucm.vdm.logic.GameObject;
 import es.ucm.vdm.logic.GameState;
 import es.ucm.vdm.logic.objects.PulsatingSprite;
 
+/**
+ * Estado del juego que contiene las instrucciones sobre como jugar.
+ */
 public class HowToPlayState extends GameState {
 
     private Button goToMenuButton_;
     private Button soundButton_;
 
+    /**
+     * Constructora de clase.
+     * Inicializa todos los elementos necesarios para el estado.
+     * @param game referencia al juego de Game que gestiona el bucle.
+     */
     public HowToPlayState(Game game) {
         super(game);
         ScaledGraphics g = game_.getGraphics();
@@ -69,13 +76,12 @@ public class HowToPlayState extends GameState {
         screenFader_.startFadeIn(true);
     }
 
+    /**
+     * Procesa el input de teclado y ratón del usuario y
+     * ejecuta acciones dependiendo del evento en concreto.
+     */
     @Override
-    public void update(double deltaTime) {
-        handleInput();
-        super.update(deltaTime);
-    }
-
-    private void handleInput() {
+    protected void handleInput() {
 
         List<Input.KeyEvent> keyEvents = game_.getInput().getKeyEvents();
         List<Input.TouchEvent> touchEvents = game_.getInput().getTouchEvents();

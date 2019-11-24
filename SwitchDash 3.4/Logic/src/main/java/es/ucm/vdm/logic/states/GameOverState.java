@@ -18,11 +18,20 @@ import es.ucm.vdm.logic.GameObject;
 import es.ucm.vdm.logic.GameState;
 import es.ucm.vdm.logic.objects.PulsatingSprite;
 
+/**
+ * Estado del fin del juego
+ */
 public class GameOverState extends GameState {
 
     private Button howToPlayButton_;
     private Button soundButton_;
 
+    /**
+     * Constructora de clase.
+     * Inicializa todos los elementos necesarios para el estado.
+     * @param game referencia al juego de Game que gestiona el bucle.
+     * @param score puntuación obtenida en el estado anterior MainGameState.
+     */
     public GameOverState(Game game, int score) {
         super(game);
 
@@ -122,12 +131,7 @@ public class GameOverState extends GameState {
     }
 
     @Override
-    public void update(double deltaTime) {
-        handleInput();
-        super.update(deltaTime);
-    }
-
-    private void handleInput() {
+    protected void handleInput() {
 
         List<Input.KeyEvent> keyEvents = game_.getInput().getKeyEvents();
         List<Input.TouchEvent> touchEvents = game_.getInput().getTouchEvents();
@@ -166,5 +170,4 @@ public class GameOverState extends GameState {
         if (gameMusic_.isPlaying()) gameMusic_.stop();
         if (!menuMusic_.isPlaying()) menuMusic_.play(true);
     }
-
 }

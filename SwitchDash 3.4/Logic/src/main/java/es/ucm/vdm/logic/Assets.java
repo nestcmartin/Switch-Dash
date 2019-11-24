@@ -43,6 +43,4 @@ public class Assets {
             "menu.wav",
             "game.wav"
     };
-
-
 }

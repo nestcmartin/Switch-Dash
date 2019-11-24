@@ -6,7 +6,6 @@ import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.ScaledGraphics;
-import es.ucm.vdm.engine.utils.AudioManager;
 import es.ucm.vdm.engine.utils.PixmapManager;
 import es.ucm.vdm.engine.utils.Sprite;
 import es.ucm.vdm.logic.objects.Arrows;
@@ -19,6 +18,9 @@ import es.ucm.vdm.logic.objects.ParticleEmitter;
 import es.ucm.vdm.logic.objects.Player;
 import es.ucm.vdm.logic.objects.ScoreBoard;
 
+/**
+ * Estado principal del juego, es el estado del gameplay.
+ */
 public class MainGameState extends GameState {
 
     private boolean gameOver = false;
@@ -36,7 +38,11 @@ public class MainGameState extends GameState {
     private int correctBalls_ = 0;
     private float timeToSwitchState = 1;
 
-
+    /**
+     * Constructora de clase.
+     * Inicializa todos los elementos necesarios para el estado.
+     * @param game referencia al juego de Game que gestiona el bucle.
+     */
     public MainGameState(Game game) {
         super(game);
         ScaledGraphics g = game_.getGraphics();
@@ -85,19 +91,22 @@ public class MainGameState extends GameState {
         screenFader_.startFadeIn(true);
     }
 
+    /**
+     * Procesa input y luego actualiza la lista de GameObjects.
+     * Se encarga de la lógica del gameplay.
+     * @param deltaTime tiempo transcurrido desde la última actualización.
+     */
     @Override
     public void update(double deltaTime) {
-        handleInput();
-
-        // Update gameObjects
+        // Procesa el input y actualiza del GameObjects
         super.update(deltaTime);
 
         if(!gameOver) {
             if (ballsManager_.getCurrentBallY() >= player_.getY()) {
-                // Emmit particles
+                // Emite particulas
                 particleEmitter_.burst(15, ballsManager_.getCurrentBallColor());
 
-                // Correct color
+                // Color correcto
                 if (player_.getColor() == ballsManager_.getCurrentBallColor()) {
                     ballsManager_.correctBall();
                     scoreBoard_.incrementScore();
@@ -109,7 +118,7 @@ public class MainGameState extends GameState {
                         background_.updateColor();
                     }
                 }
-                // Incorrect color
+                // Color incorrecto
                 else
                     gameOver();
             }
@@ -119,18 +128,33 @@ public class MainGameState extends GameState {
         }
     }
 
+
+    /**
+     * Método para que se llame a switchState sólo una vez
+     * Hace el cambio de escena a GameOverState con fading.
+     */
     private void tryToSwitchState(){
         if(timeToSwitchState <= 0 && !screenFader_.isFading() && !isSwitching) {
             switchStateWithFading(new GameOverState(game_, scoreBoard_.getScore()));
         }
     }
 
+
+    /**
+     * Se llama cuando el jugador ha perdido y se pone fin al gameplay.
+     */
     private void gameOver(){
         gameOver = true;
         player_.die();
     }
 
-    private void handleInput() {
+    /**
+     * Procesa el input de teclado y ratón del usuario y
+     * ejecuta acciones dependiendo del evento en concreto.
+     * Deja de procesar el input una vez el jugador haya perdido.
+     */
+    @Override
+    protected void handleInput() {
         List<Input.KeyEvent> keyEvents = game_.getInput().getKeyEvents();
         List<Input.TouchEvent> touchEvents = game_.getInput().getTouchEvents();
 

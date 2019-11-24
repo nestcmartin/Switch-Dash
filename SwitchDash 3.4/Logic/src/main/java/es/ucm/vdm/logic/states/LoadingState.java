@@ -9,12 +9,25 @@ import es.ucm.vdm.engine.utils.AudioManager;
 import es.ucm.vdm.engine.utils.PixmapManager;
 import es.ucm.vdm.logic.Assets;
 
+/**
+ * Estado inicial del juego.
+ * Es el estado que se encarga de cargar todos los recursos necesarios antes de pasar a MenuState.
+ */
 public class LoadingState extends State {
 
+    /**
+     * Constructora de clase.
+     * @param game referencia al juego de Game que gestiona el bucle.
+     */
     public LoadingState(Game game) {
         super(game);
     }
 
+    /**
+     * En este caso este método solo se ejecuta una vez para carga los recursos y cuando finaliza
+     * se procede al cambio de estado a MenuState.
+     * @param deltaTime tiempo transcurrido desde la última actualización.
+     */
     @Override
     public void update(double deltaTime) {
         ScaledGraphics g = game_.getGraphics();
@@ -38,17 +51,11 @@ public class LoadingState extends State {
     }
 
     @Override
-    public void pause() {
-
-    }
+    public void pause() {}
 
     @Override
-    public void resume() {
-
-    }
+    public void resume() {}
 
     @Override
-    public void dispose() {
-
-    }
+    public void dispose() {}
 }
