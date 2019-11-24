@@ -9,6 +9,12 @@ import es.ucm.vdm.engine.utils.Sprite;
 import es.ucm.vdm.logic.Assets;
 import es.ucm.vdm.logic.GameObject;
 
+
+/**
+ * GameObject que se encarga de renderizar el fondo del juego.
+ * Pinta dos colores planos, primero pinta toda la pantalla de un color,
+ * y luego pinta una franja vertical con el color que le corresponde al primer color.
+ */
 public class Background extends GameObject {
 
     private Rect canvasBackGroundRect_ = new Rect();
@@ -26,8 +32,12 @@ public class Background extends GameObject {
             0x75706b
     };
 
-    public Background(Game g) {
-        super(g);
+    /**
+     * Constructora de clase.
+     * @param game referencia al juego de Game que gestiona el bucle.
+     */
+    public Background(Game game) {
+        super(game);
 
         sprite_ = new Sprite(PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.BACKGROUNDS.ordinal()]), 1, 9);
 

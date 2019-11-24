@@ -5,6 +5,11 @@ import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.utils.Sprite;
 import es.ucm.vdm.logic.GameObject;
 
+
+/**
+ * GameObject que sirve para las transiciones entre escenas.
+ * Hace transiciones del sprite entre opaco y transparente.
+ */
 public class ScreenFader extends GameObject {
 
     private float fadeTime_;
@@ -12,14 +17,23 @@ public class ScreenFader extends GameObject {
     private float alpha_;
     boolean fadeIn_;
 
-    public ScreenFader(Game g, Sprite s, float fadeTime) {
-        super(g, s, 0, 0, g.getGraphics().getCanvasLogicWidth(), g.getGraphics().getCanvasLogicHeight());
+    /**
+     * Constructora de clase
+     * @param game referencia al juego de Game que gestiona el bucle
+     * @param sprite sprite del GameObject
+     * @param fadeTime duración del fade (en segundos)
+     */
+    public ScreenFader(Game game, Sprite sprite, float fadeTime) {
+        super(game, sprite, 0, 0, game.getGraphics().getCanvasLogicWidth(), game.getGraphics().getCanvasLogicHeight());
         fadeTime_ = fadeTime;
         currentFadeTime_ = 0;
         alpha_ = 0;
         fadeIn_ = true;
     }
 
+    /**
+     * @return true si está realizando un fade, false en caso contrario
+     */
     public boolean isFading(){ return currentFadeTime_ > 0; }
 
     public void startFadeIn(boolean fadeIn){
@@ -27,6 +41,10 @@ public class ScreenFader extends GameObject {
         fadeIn_ = fadeIn;
     }
 
+    /**
+     * Actualiza el timer y el alpha del fade
+     * @param deltaTime tiempo transcurrido desde la última actualización.
+     */
     @Override
     public void update(double deltaTime) {
         if(currentFadeTime_ >= 0){

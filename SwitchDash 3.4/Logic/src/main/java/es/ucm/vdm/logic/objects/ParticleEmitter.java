@@ -12,11 +12,27 @@ import es.ucm.vdm.engine.utils.Rect;
 import es.ucm.vdm.engine.utils.Sprite;
 import es.ucm.vdm.logic.GameObject;
 
+
+/**
+ * GameObject que se encarga del sistema de partículas que se usa cuando se destruye una bola
+ */
 public class ParticleEmitter extends GameObject {
 
+    /**
+     * Clase auxiliar para las partículas
+     */
     class Particle{
         public Particle(){}
 
+        /**
+         * @param x coordenada x de la partícula en la pantalla
+         * @param y coordenada y de la partícula en la pantalla
+         * @param size tamaño de la partícula en la pantalla
+         * @param speedX velocidad en el eje x de la partícula
+         * @param speedY velocidad en el eje y de la partícula
+         * @param color color de la partícula (0 o 1)
+         * @param age edad de la particula
+         */
         public void setParams(int x, int y, int size, float speedX, float speedY, int color, float age) {
             x_ = x;
             y_ = y;
@@ -47,17 +63,29 @@ public class ParticleEmitter extends GameObject {
     }
 
     private int gravity_;
-    private float startAge_;
+    private float maxAge_;
     private int xSpeed_;
     private int ySpeed_;
     protected List<Particle> particles_ = new ArrayList<>();
     protected List<Particle> deadParticles_ = new ArrayList<>();
     private Pool<Particle> particlesPool_;
 
-
-    public ParticleEmitter(Game g, Sprite s, int x, int y, int w, int h, float startAge, int gravity, int xSpeed, int ySpeed) {
-        super(g, s, x, y, w, h);
-        startAge_ = startAge;
+     /**
+     * Constructora de clase.
+     * @param game referencia al juego de Game que gestiona el bucle.
+     * @param sprite sprite del GameObject
+     * @param x coordenada x del GameObject en pantalla
+     * @param y coordenada y del GameObject en pantalla
+     * @param w ancho del GameObject con el que se debe renderizar
+     * @param h alto del GameObject con el que se debe renderizar
+     * @param maxAge edad máxima de las partículas (en segundos)
+     * @param gravity gravidad que se aplicará a las partículas
+     * @param xSpeed velocidad inicial de las partículas en el eje x
+     * @param ySpeed velocidad inicial de las partículas en el eje y
+     */
+    public ParticleEmitter(Game game, Sprite sprite, int x, int y, int w, int h, float maxAge, int gravity, int xSpeed, int ySpeed) {
+        super(game, sprite, x, y, w, h);
+        maxAge_ = maxAge;
         gravity_ = gravity;
         xSpeed_ = xSpeed;
         ySpeed_ = ySpeed;
@@ -72,6 +100,14 @@ public class ParticleEmitter extends GameObject {
         particlesPool_ = new Pool<Particle>(factory, 100);
     }
 
+
+    /**
+     * Emite una ráfaga de partículas en la dirección y velocidad inicial especificados
+     * en la constructora. Varia ligeramente la velocidad y el tamaño inicial de cada
+     * partícula para darles variedad.
+     * @param nParticles número de partículas deseadas en la ráfaga
+     * @param color color de las partículas (0 o 1)
+     */
     public void burst(int nParticles, int color){
         for(int i = 0; i < nParticles; i++){
             Particle p = particlesPool_.newObject();
@@ -79,20 +115,26 @@ public class ParticleEmitter extends GameObject {
                     Random.randomInt(40, 80),
                     Random.randomInt(-xSpeed_, xSpeed_),
                     Random.randomInt(-ySpeed_, -ySpeed_/4),
-                    color, startAge_);
+                    color, 0);
             particles_.add(p);
         }
     }
 
+
+    /**
+     * Actualiza todas las partículas, les aplica gravedad, actualiza su velocidad y edad.
+     * Si una partícula supera la edad máxima, la partícula muere y vuelve al pool.
+     * @param deltaTime tiempo transcurrido desde la última actualización.
+     */
     @Override
     public void update(double deltaTime) {
         for(Particle p: particles_) {
             p.speedY_ -= gravity_ * deltaTime;
             p.x_ += p.speedX_ * deltaTime;
             p.y_ += p.speedY_ * deltaTime;
-            p.age_ -= deltaTime;
+            p.age_ += deltaTime;
             p.updateRect();
-            if(p.age_ < 0)
+            if(p.age_ > maxAge_)
                 deadParticles_.add(p);
         }
 
@@ -104,6 +146,13 @@ public class ParticleEmitter extends GameObject {
         }
     }
 
+    /**
+     * Renderiza todas las partículas en pantalla utilizando el mismo sprite,
+     * cambiando el color de cada una a su color correcto.
+     * Utiliza su edad como alpha, siendo que 0 es nada transparente y
+     * maxAge es totalmente transparente.
+     * @param deltaTime tiempo transcurrido desde la última actualización.
+     */
     @Override
     public void render(double deltaTime) {
         Graphics g = game_.getGraphics();
@@ -111,7 +160,7 @@ public class ParticleEmitter extends GameObject {
         for(Particle p: particles_){
             if(p.age_ > 0){
                 sprite_.setFrameRow(p.color_);
-                sprite_.draw(g, p.dstRect_, p.age_/startAge_);
+                sprite_.draw(g, p.dstRect_, (maxAge_ - p.age_)/maxAge_);
             }
         }
     }

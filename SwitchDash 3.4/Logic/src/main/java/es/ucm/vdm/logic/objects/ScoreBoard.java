@@ -6,6 +6,10 @@ import es.ucm.vdm.engine.utils.Sprite;
 import es.ucm.vdm.logic.FontMapper;
 import es.ucm.vdm.logic.GameObject;
 
+
+/**
+ * GameObject que se encarga de renderizar la puntuación del juego
+ */
 public class ScoreBoard extends GameObject {
 
     private GameObject centenas_;
@@ -14,8 +18,14 @@ public class ScoreBoard extends GameObject {
 
     private int score_ = 0;
 
-    public ScoreBoard(Game g, int fontW, int fontH) {
-        super(g);
+    /**
+     * Constructora de clase
+     * @param game referencia al juego de Game que gestiona el bucle
+     * @param fontW ancho al que se tiene que renderizar un caracter del marcador
+     * @param fontH alto al que se tiene que renderizar un caracter del marcador
+     */
+    public ScoreBoard(Game game, int fontW, int fontH) {
+        super(game);
 
         Sprite centenas = FontMapper.getInstance().getSprite(String.valueOf(0));
         Sprite decenas = FontMapper.getInstance().getSprite(String.valueOf(0));
@@ -33,6 +43,11 @@ public class ScoreBoard extends GameObject {
         unidades_.update(deltaTime);
     }
 
+
+    /**
+     * Renderiza solamente los números necesarios para el marcador
+     * @param deltaTime tiempo transcurrido desde la última actualización.
+     */
     @Override
     public void render(double deltaTime) {
         unidades_.render(deltaTime);
@@ -42,10 +57,16 @@ public class ScoreBoard extends GameObject {
             centenas_.render(deltaTime);
     }
 
+    /**
+     * @return la puntuación actual de la partida
+     */
     public int getScore() {
         return score_;
     }
 
+    /**
+     * Incrementa el marcador en 1 y actualiza los sprites correspondientes.
+     */
     public void incrementScore() {
         score_++;
 
