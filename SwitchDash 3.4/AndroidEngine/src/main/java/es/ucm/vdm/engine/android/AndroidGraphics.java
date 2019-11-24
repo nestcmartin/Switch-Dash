@@ -23,8 +23,8 @@ public class AndroidGraphics extends ScaledGraphics {
     private Canvas canvas_;
     private Paint paint_;
 
-    android.graphics.Rect srcRect_;
-    android.graphics.Rect dstRect_;
+    private android.graphics.Rect srcRect_;
+    private android.graphics.Rect dstRect_;
 
     /**
      * Constructora de clase.
