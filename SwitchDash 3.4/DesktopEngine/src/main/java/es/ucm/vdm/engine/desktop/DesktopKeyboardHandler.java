@@ -11,6 +11,10 @@ import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.utils.Pool;
 import es.ucm.vdm.engine.utils.PoolObjectFactory;
 
+/**
+ * Implementación para Desktop del gestor de eventos de teclado.
+ * Implementa KeyListener de java.
+ */
 public class DesktopKeyboardHandler implements KeyListener {
 
     private boolean[] pressedKeys_ = new boolean[128];
@@ -18,6 +22,10 @@ public class DesktopKeyboardHandler implements KeyListener {
     private List<Input.KeyEvent> keyEventsBuffer_ = new ArrayList<>();
     private List<Input.KeyEvent> keyEvents_ = new ArrayList<>();
 
+    /**
+     * Constructora de clase.
+     * @param window la ventana de JFrame.
+     */
     public DesktopKeyboardHandler(JFrame window) {
         PoolObjectFactory<Input.KeyEvent> factory = new PoolObjectFactory<Input.KeyEvent>() {
             @Override
@@ -29,11 +37,13 @@ public class DesktopKeyboardHandler implements KeyListener {
         window.addKeyListener(this);
     }
 
-    @Override
-    public void keyTyped(KeyEvent event) {
-
-    }
-
+    /**
+     * Registra un evento de teclado cuando una tecla ha sido pulsada.
+     * Cada evento KeyEvent de java se traduce al evento genérico del gestor de input del motor.
+     * Se registran los parámetros de los eventos para su consulta directa y
+     * se almacenan los eventos en la lista de eventos.
+     * @param event el evento de teclado de java (KeyEvent).
+     */
     @Override
     public void keyPressed(KeyEvent event) {
         synchronized (this) {
@@ -50,6 +60,13 @@ public class DesktopKeyboardHandler implements KeyListener {
         }
     }
 
+    /**
+     * Registra un evento de teclado cuando una tecla ha sido soltada.
+     * Cada evento KeyEvent de java se traduce al evento genérico del gestor de input del motor.
+     * Se registran los parámetros de los eventos para su consulta directa y
+     * se almacenan los eventos en la lista de eventos.
+     * @param event el evento de teclado de java (KeyEvent).
+     */
     @Override
     public void keyReleased(KeyEvent event) {
         synchronized (this) {
@@ -66,6 +83,12 @@ public class DesktopKeyboardHandler implements KeyListener {
         }
     }
 
+    /**
+     * Comprueba si una tecla está pulsada,
+     * de entre las 127 disponibles en la tabla ascii.
+     * @param keyCode código de la tecla [0-127]
+     * @return true si la tecla está pulsada, false en caso contrario.
+     */
     public boolean isKeyPressed(int keyCode) {
         if (keyCode < 0 || keyCode > 127) {
             return false;
@@ -73,6 +96,11 @@ public class DesktopKeyboardHandler implements KeyListener {
         return pressedKeys_[keyCode];
     }
 
+    /**
+     * Devuelve todos los eventos de teclado registrados en el frame actual.
+     * Libera todos los eventos de teclado  registrados en el frame anterior.
+     * @return la lista de todos los eventos de teclado en el último frame.
+     */
     public List<Input.KeyEvent> getKeyEvents() {
         synchronized (this) {
             for (int i = 0; i < keyEvents_.size(); i++) {
@@ -84,4 +112,7 @@ public class DesktopKeyboardHandler implements KeyListener {
             return keyEvents_;
         }
     }
+
+    @Override
+    public void keyTyped(KeyEvent event) {}
 }

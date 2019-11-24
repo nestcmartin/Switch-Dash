@@ -12,6 +12,10 @@ import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.utils.Pool;
 import es.ucm.vdm.engine.utils.PoolObjectFactory;
 
+/**
+ * Implementación para Desktop del gestor de eventos de ratón.
+ * Implementa MouseListener y MouseMotionListener de java.
+ */
 public class DesktopMouseHandler implements MouseListener, MouseMotionListener {
 
     private static final int MAX_TOUCHPOINTS = 10;
@@ -25,6 +29,11 @@ public class DesktopMouseHandler implements MouseListener, MouseMotionListener {
     private List<Input.TouchEvent> touchEvents_ = new ArrayList<Input.TouchEvent>();
     private List<Input.TouchEvent> touchEventsBuffer_ = new ArrayList<Input.TouchEvent>();
 
+    /**
+     * Constructora de clase.
+     * Se añade a si mismo como MouseListener a la ventana de JFrame.
+     * @param window la ventana de JFrame.
+     */
     DesktopMouseHandler(JFrame window) {
         PoolObjectFactory<Input.TouchEvent> factory = new PoolObjectFactory<Input.TouchEvent>() {
             @Override
@@ -36,6 +45,11 @@ public class DesktopMouseHandler implements MouseListener, MouseMotionListener {
         window.addMouseListener(this);
     }
 
+    /**
+     * Comprueba si el botón del ratón con el id indicado está pulsado.
+     * @param buttonId id del botón del ratón que se quiere consultar.
+     * @return true si el botón está pulsado, false en caso contrario.
+     */
     public boolean isTouchDown(int buttonId) {
         synchronized (this) {
             if (buttonId < 0 || buttonId >= MAX_TOUCHPOINTS)
@@ -45,6 +59,11 @@ public class DesktopMouseHandler implements MouseListener, MouseMotionListener {
         }
     }
 
+    /**
+     * Devuelve la coordenada x del botón del ratón con el id indicado.
+     * @param buttonId id del botón del ratón que se quiere consultar.
+     * @return la coordenada x si el botón está pulsado, -1 en caso contrario.
+     */
     public int getTouchX(int buttonId) {
         synchronized (this) {
             if (buttonId < 0 || buttonId >= MAX_TOUCHPOINTS)
@@ -54,6 +73,11 @@ public class DesktopMouseHandler implements MouseListener, MouseMotionListener {
         }
     }
 
+    /**
+     * Devuelve la coordenada y del botón del ratón con el id indicado.
+     * @param buttonId id del botón del ratón que se quiere consultar.
+     * @return la coordenada y si el botón está pulsado, -1 en caso contrario.
+     */
     public int getTouchY(int buttonId) {
         synchronized (this) {
             if (buttonId < 0 || buttonId >= MAX_TOUCHPOINTS)
@@ -63,6 +87,11 @@ public class DesktopMouseHandler implements MouseListener, MouseMotionListener {
         }
     }
 
+    /**
+     * Devuelve todos los eventos de ratón registrados en el frame actual.
+     * Libera todos los eventos de ratón  registrados en el frame anterior.
+     * @return la lista de todos los eventos de ratón en el último frame.
+     */
     public List<Input.TouchEvent> getTouchEvents() {
         synchronized (this) {
             int len = touchEvents_.size();
@@ -88,6 +117,13 @@ public class DesktopMouseHandler implements MouseListener, MouseMotionListener {
     public void mouseExited(MouseEvent mouseEvent) {
     }
 
+    /**
+     * Registra un evento de ratón cuando un botón ha sido pulsado.
+     * Cada evento MouseEvent de java se traduce al evento genérico del gestor de input del motor.
+     * Se registran los parámetros de los eventos para su consulta directa y
+     * se almacenan los eventos en la lista de eventos.
+     * @param mouseEvent el evento de ratón de java (MouseEvent).
+     */
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
         synchronized (this) {
@@ -103,6 +139,13 @@ public class DesktopMouseHandler implements MouseListener, MouseMotionListener {
         }
     }
 
+    /**
+     * Registra un evento de ratón cuando un botón ha sido soltado.
+     * Cada evento MouseEvent de java se traduce al evento genérico del gestor de input del motor.
+     * Se registran los parámetros de los eventos para su consulta directa y
+     * se almacenan los eventos en la lista de eventos.
+     * @param mouseEvent el evento de ratón de java (MouseEvent).
+     */
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
         synchronized (this) {
@@ -118,6 +161,13 @@ public class DesktopMouseHandler implements MouseListener, MouseMotionListener {
         }
     }
 
+    /**
+     * Registra un evento de ratón cuando este se ha movido mientras estaba pulsado.
+     * Cada evento MouseEvent de java se traduce al evento genérico del gestor de input del motor.
+     * Se registran los parámetros de los eventos para su consulta directa y
+     * se almacenan los eventos en la lista de eventos.
+     * @param mouseEvent el evento de ratón de java (MouseEvent).
+     */
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
         synchronized (this) {

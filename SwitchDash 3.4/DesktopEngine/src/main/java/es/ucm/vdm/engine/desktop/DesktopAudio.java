@@ -10,19 +10,29 @@ import javax.sound.sampled.LineUnavailableException;
 import es.ucm.vdm.engine.Audio;
 import es.ucm.vdm.engine.Sound;
 
+/**
+ * Implementación para Desktop del gestor de audio.
+ */
 public class DesktopAudio implements Audio {
 
-    public DesktopAudio() {
-    }
+    /**
+     * Constructora de clase.
+     */
+    public DesktopAudio() {}
 
+    /**
+     * Devuelve un objeto de tipo DesktopSound.
+     * @param fileName el nombre y extensión del archivo de sonido fuente.
+     * @return un objeto de tipo DesktopSound.
+     */
     @Override
-    public Sound newSound(String filename) {
+    public Sound newSound(String fileName) {
 
         Clip clip = null;
         boolean prepared = false;
 
         try {
-            File file = new File("assets/" + filename);
+            File file = new File("assets/" + fileName);
             AudioInputStream audioInput = AudioSystem.getAudioInputStream(file);
             clip = AudioSystem.getClip();
             try {
@@ -37,5 +47,4 @@ public class DesktopAudio implements Audio {
 
         return new DesktopSound(clip);
     }
-
 }

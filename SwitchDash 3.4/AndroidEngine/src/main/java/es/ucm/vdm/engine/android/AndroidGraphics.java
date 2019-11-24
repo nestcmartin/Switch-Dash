@@ -43,7 +43,7 @@ public class AndroidGraphics extends ScaledGraphics {
     }
 
     /**
-     * Devuelve un nuevo objeto de tipo AndroidPixmap.
+     * Crea y devuelve un nuevo objeto de tipo AndroidPixmap.
      * @param fileName el nombre y extensión del archivo de imagen fuente.
      * @return el objeto de tipo AndroidPixmap.
      */
