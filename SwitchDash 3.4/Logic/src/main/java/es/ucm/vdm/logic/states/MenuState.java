@@ -6,7 +6,6 @@ import es.ucm.vdm.engine.Game;
 import es.ucm.vdm.engine.Graphics;
 import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.ScaledGraphics;
-import es.ucm.vdm.engine.utils.AudioManager;
 import es.ucm.vdm.engine.utils.PixmapManager;
 import es.ucm.vdm.engine.utils.Sprite;
 import es.ucm.vdm.logic.objects.Arrows;
@@ -17,11 +16,21 @@ import es.ucm.vdm.logic.GameObject;
 import es.ucm.vdm.logic.GameState;
 import es.ucm.vdm.logic.objects.PulsatingSprite;
 
+
+/**
+ * Estado del menú del juego
+ */
 public class MenuState extends GameState {
 
     private Button howToPlayButton_;
     private Button soundButton_;
 
+    /**
+     * Constructora de clase.
+     * Inicializa todos los elementos necesarios para el estado.
+     * @param game referencia al juego de Game que gestiona el bucle.
+     * @param fadeIn booleano que determina si la escena debe empezar con un fade o no
+     */
     public MenuState(Game game, boolean fadeIn) {
         super(game);
         ScaledGraphics g = game_.getGraphics();
@@ -64,14 +73,12 @@ public class MenuState extends GameState {
             screenFader_.startFadeIn(true);
     }
 
+    /**
+     * Procesa el input de teclado y ratón del usuario y
+     * ejecuta acciones dependiendo del evento en concreto.
+     */
     @Override
-    public void update(double deltaTime) {
-        if(!screenFader_.isFading())
-            handleInput();
-        super.update(deltaTime);
-    }
-
-    private void handleInput() {
+    protected void handleInput() {
 
         List<Input.KeyEvent> keyEvents = game_.getInput().getKeyEvents();
         List<Input.TouchEvent> touchEvents = game_.getInput().getTouchEvents();
