@@ -10,4 +10,5 @@ public class AndroidSwitchDash extends AndroidGame {
     public State getStartState() {
         return new LoadingState(this);
     }
+
 }
