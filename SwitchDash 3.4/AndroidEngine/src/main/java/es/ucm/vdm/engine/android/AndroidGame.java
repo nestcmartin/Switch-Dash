@@ -14,6 +14,9 @@ import es.ucm.vdm.engine.ScaledGraphics;
 import es.ucm.vdm.engine.State;
 import es.ucm.vdm.engine.utils.AudioManager;
 
+/**
+ * Implementación para Android del juego.
+ */
 public class AndroidGame extends Activity implements Game {
 
     private AndroidRenderView renderView_;
@@ -22,12 +25,20 @@ public class AndroidGame extends Activity implements Game {
     private AndroidAudio audio_;
     private State state_;
 
+    /**
+     * Método que se llama al iniciar la Actividad.
+     * Se establecen los parámetros de la ventana de Android.
+     * Se establece la escala de detección de input en función del tamaño del dispositivo.
+     * Se inicializan todos los sitemas del motor.
+     * @param savedInstance instancia de la Actividad de Android.
+     */
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED, WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         int frameBufferWidth = isLandscape ? 1920 : 1080;
@@ -45,6 +56,11 @@ public class AndroidGame extends Activity implements Game {
         setContentView(renderView_);
     }
 
+    /**
+     * Método que se llama al reanudar la actividad.
+     * Se llama al método de reanudación del estado actual
+     * y se reanuda la ejecución del hilo de renderizado.
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -52,6 +68,13 @@ public class AndroidGame extends Activity implements Game {
         renderView_.resume();
     }
 
+    /**
+     * Método que se llama al pausar la actividad.
+     * Se pausa la ejecución del hilo de renderizado
+     * y se llama al método de pausa del estado actual.
+     * Si se va a cerrar la actividad, se llama al método
+     * de liberación de recursos del estado actual.
+     */
     @Override
     public void onPause() {
         super.onPause();
@@ -64,6 +87,10 @@ public class AndroidGame extends Activity implements Game {
         }
     }
 
+    /**
+     * Método que se llama al detener la actividad.
+     * Se utiliza para detener la reproducción de todos los sonidos de la aplicación.
+     */
     @Override
     protected void onStop() {
         super.onStop();
@@ -71,19 +98,37 @@ public class AndroidGame extends Activity implements Game {
     }
 
 
+    /**
+     * @return el gestor de input del juego.
+     */
+    @Override
     public Input getInput() {
         return input_;
     }
 
+    /**
+     * @return el gestor de audio del juego.
+     */
     @Override
     public Audio getAudio() {
         return audio_;
     }
 
+    /**
+     * @return el gestor gráfico del juego.
+     */
+    @Override
     public ScaledGraphics getGraphics() {
         return graphics_;
     }
 
+    /**
+     * Gestiona el cambio de un estado a otro.
+     * Pausa el estado actual y lo libera, para luego
+     * inicializar el nuevo estado y establecerlo como el actual.
+     * @param state el nuevo estado del juego.
+     */
+    @Override
     public void setState(State state) {
         if (state == null) {
             throw new IllegalArgumentException("State must not be null");
@@ -96,10 +141,20 @@ public class AndroidGame extends Activity implements Game {
         this.state_ = state;
     }
 
+    /**
+     * @return el estado actual del juego.
+     */
+    @Override
     public State getCurrentState() {
         return state_;
     }
 
+    /**
+     * Método a implementar por las aplicaciones finales.
+     * Normalmente este estado define el punto de entrada al juego.
+     * @return el estado inicial del juego.
+     */
+    @Override
     public State getStartState() {
         return null;
     }

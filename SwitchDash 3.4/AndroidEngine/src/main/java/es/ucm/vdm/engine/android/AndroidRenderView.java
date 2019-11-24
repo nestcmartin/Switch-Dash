@@ -5,7 +5,11 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.WindowManager;
 
+/**
+ * Gestor de la ventana de Android y del bucle principal de juego en Android.
+ */
 public class AndroidRenderView extends SurfaceView implements Runnable {
 
     private AndroidGame game_;
@@ -14,6 +18,11 @@ public class AndroidRenderView extends SurfaceView implements Runnable {
     private SurfaceHolder holder_;
     private volatile boolean running_ = false;
 
+    /**
+     * Constructora de clase.
+     * @param game referencia al juego de Android que gestiona el bucle.
+     * @param frameBuffer la superficie de renderizado de la ventana.
+     */
     public AndroidRenderView(AndroidGame game, Bitmap frameBuffer) {
         super(game);
         this.game_ = game;
@@ -21,13 +30,11 @@ public class AndroidRenderView extends SurfaceView implements Runnable {
         this.holder_ = getHolder();
     }
 
-    public void resume() {
-        running_ = true;
-        renderThread_ = new Thread(this);
-        game_.getGraphics().scaleCanvas();
-        renderThread_.start();
-    }
-
+    /**
+     * Método que gestiona el bucle principal de juego.
+     * Calcula el delta time y se encarga de actualizar la lógica y el renderizado del juego.
+     * Si el dispositivo lo permite, utilizará un canvas acelerado por hardware.
+     */
     @Override
     public void run() {
         Rect dstRect = new Rect();
@@ -43,13 +50,22 @@ public class AndroidRenderView extends SurfaceView implements Runnable {
             game_.getCurrentState().update(deltaTime);
             game_.getCurrentState().render(deltaTime);
 
-            Canvas canvas = holder_.lockCanvas();
+            Canvas canvas = null;
+            if (android.os.Build.VERSION.SDK_INT >= 26){
+                canvas = holder_.lockHardwareCanvas();
+            } else {
+                canvas = holder_.lockCanvas();
+            }
+
             canvas.getClipBounds(dstRect);
             canvas.drawBitmap(frameBuffer_, null, dstRect, null);
             holder_.unlockCanvasAndPost(canvas);
         }
     }
 
+    /**
+     * Método que se llama justo antes de suspender el bucle principal.
+     */
     public void pause() {
         running_ = false;
         while(true) {
@@ -60,5 +76,15 @@ public class AndroidRenderView extends SurfaceView implements Runnable {
 
             }
         }
+    }
+
+    /**
+     * Método que se llama justo después de reanudar el bucle principal.
+     */
+    public void resume() {
+        running_ = true;
+        renderThread_ = new Thread(this);
+        game_.getGraphics().scaleCanvas();
+        renderThread_.start();
     }
 }
