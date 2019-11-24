@@ -10,6 +10,9 @@ import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.utils.Pool;
 import es.ucm.vdm.engine.utils.PoolObjectFactory;
 
+/**
+ * Implementación para Android del gestor de eventos de teclado.
+ */
 public class AndroidKeyboardHandler implements View.OnKeyListener {
 
     private boolean[] pressedKeys_ = new boolean[128];
@@ -17,6 +20,10 @@ public class AndroidKeyboardHandler implements View.OnKeyListener {
     private List<Input.KeyEvent> keyEventsBuffer_ = new ArrayList<Input.KeyEvent>();
     private List<Input.KeyEvent> keyEvents_ = new ArrayList<Input.KeyEvent>();
 
+    /**
+     * Constructora de clase.
+     * @param view la ventana de Android.
+     */
     public AndroidKeyboardHandler(View view) {
         PoolObjectFactory<Input.KeyEvent> factory = new PoolObjectFactory<Input.KeyEvent>() {
             @Override
@@ -30,6 +37,16 @@ public class AndroidKeyboardHandler implements View.OnKeyListener {
         view.requestFocus();
     }
 
+    /**
+     * Registra todos los eventos de teclado del dispositivo Android en un frame.
+     * Cada evento de Android se traduce al evento genérico del gestor de input del motor.
+     * Se registran los parámetros de los eventos para su consulta directa y
+     * se almacenan los eventos en la lista de eventos.
+     * @param v la ventana de Android.
+     * @param keyCode el código de la tecla.
+     * @param event el evento de teclado de Android.
+     * @return true si se produce un evento, false en caso contrario.
+     */
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         if (event.getAction() == android.view.KeyEvent.ACTION_MULTIPLE) {
             return false;
@@ -56,6 +73,12 @@ public class AndroidKeyboardHandler implements View.OnKeyListener {
         return false;
     }
 
+    /**
+     * Comprueba si una tecla está pulsada,
+     * de entre las 127 disponibles en Android.
+     * @param keyCode código de la tecla [0-127]
+     * @return true si la tecla está pulsada, false en caso contrario.
+     */
     public boolean isKeyPressed(int keyCode) {
         if (keyCode < 0 || keyCode > 127) {
             return false;
@@ -63,6 +86,11 @@ public class AndroidKeyboardHandler implements View.OnKeyListener {
         return pressedKeys_[keyCode];
     }
 
+    /**
+     * Devuelve todos los eventos de teclado registrados en el frame actual.
+     * Libera todos los eventos de teclado  registrados en el frame anterior.
+     * @return la lista de todos los eventos de teclado en el último frame.
+     */
     public List<Input.KeyEvent> getKeyEvents() {
         synchronized (this) {
             int len = keyEvents_.size();

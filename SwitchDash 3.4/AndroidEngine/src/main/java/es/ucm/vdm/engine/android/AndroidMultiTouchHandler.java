@@ -10,6 +10,9 @@ import es.ucm.vdm.engine.Input;
 import es.ucm.vdm.engine.utils.Pool;
 import es.ucm.vdm.engine.utils.PoolObjectFactory;
 
+/**
+ * Implementación multi-touch del gestor de eventos de interacción con la pantalla de Android.
+ */
 public class AndroidMultiTouchHandler implements AndroidTouchHandler {
 
     private static final int MAX_TOUCHPOINTS = 10;
@@ -24,6 +27,14 @@ public class AndroidMultiTouchHandler implements AndroidTouchHandler {
     private float scaleX_;
     private float scaleY_;
 
+    /**
+     * Constructora de clase.
+     * Se tiene en cuenta la densidad de píxeles del dispositivo Android para
+     * gestionar adecuadamente las posiciones de interacción con la pantalla.
+     * @param view la ventana de Android.
+     * @param scaleX el factor de escala x de la pantalla del dispositivo Android.
+     * @param scaleY el factor de escala y de la pantalla del dispositivo Android.
+     */
     public AndroidMultiTouchHandler(View view, float scaleX, float scaleY) {
         PoolObjectFactory<Input.TouchEvent> factory = new PoolObjectFactory<Input.TouchEvent>() {
             public Input.TouchEvent createObject() {
@@ -36,6 +47,16 @@ public class AndroidMultiTouchHandler implements AndroidTouchHandler {
         this.scaleY_ = scaleY;
     }
 
+    /**
+     * Registra todos los eventos de interacción con la pantalla del dispositivo Android en un frame.
+     * Cada evento de Android se traduce al evento genérico del gestor de input del motor.
+     * Se registran los parámetros de los eventos para su consulta directa y
+     * se almacenan los eventos en la lista de eventos.
+     * @param v la ventana de Android.
+     * @param event el evento táctil de Android.
+     * @return true si se registra un evento, false en caso contrario.
+     */
+    @Override
     public boolean onTouch(View v, MotionEvent event) {
         synchronized (this) {
             int action = event.getAction() & MotionEvent.ACTION_MASK;
@@ -95,6 +116,12 @@ public class AndroidMultiTouchHandler implements AndroidTouchHandler {
         }
     }
 
+    /**
+     * Consulta si se está tocando la pantalla con el dedo indicado.
+     * @param pointer el identificador del dedo que se quiere consultar.
+     * @return true si el dedo está tocando la pantalla, false en caso contario.
+     */
+    @Override
     public boolean isTouchDown(int pointer) {
         synchronized (this) {
             int index = getIndex(pointer);
@@ -105,6 +132,13 @@ public class AndroidMultiTouchHandler implements AndroidTouchHandler {
         }
     }
 
+    /**
+     * Devuelve la coordenada x en la que el dedo indicado tocó por última vez la pantalla.
+     * @param pointer el identificador del dedo que se quiere consultar.
+     * @return la coordenada x requerida si la pantalla fue tocada
+     *         en el último frame, o -1 en caso contrario.
+     */
+    @Override
     public int getTouchX(int pointer) {
         synchronized (this) {
             int index = getIndex(pointer);
@@ -114,6 +148,14 @@ public class AndroidMultiTouchHandler implements AndroidTouchHandler {
                 return touchX_[index];
         }
     }
+
+    /**
+     * Devuelve la coordenada y en la que el dedo indicado tocó por última vez la pantalla.
+     * @param pointer el identificador del dedo que se quiere consultar.
+     * @return la coordenada y requerida si la pantalla fue tocada
+     *         en el último frame, o -1 en caso contrario.
+     */
+    @Override
     public int getTouchY(int pointer) {
         synchronized (this) {
             int index = getIndex(pointer);
@@ -124,16 +166,25 @@ public class AndroidMultiTouchHandler implements AndroidTouchHandler {
         }
     }
 
-    // returns the index for a given pointerId or -1 if no index.
-    private int getIndex(int pointerId) {
+    /**
+     * Busca el índice del array en el que se almacenan los eventos del dedo indicado.
+     * @param pointer el identificador del dedo que se quiere consultar.
+     * @return el índice del array deseado.
+     */
+    private int getIndex(int pointer) {
         for (int i = 0; i < MAX_TOUCHPOINTS; i++) {
-            if (id_[i] == pointerId) {
+            if (id_[i] == pointer) {
                 return i;
             }
         }
         return -1;
     }
 
+    /**
+     * Devuelve todos los eventos de interacción con la pantalla registrados en el frame actual.
+     * Libera todos los eventos de interacción con la pantalla registrados en el frame anterior.
+     * @return la lista de todos los eventos de interacción con la pantalla en el último frame.
+     */
     public List<Input.TouchEvent> getTouchEvents() {
         synchronized (this) {
             int len = touchEvents_.size();

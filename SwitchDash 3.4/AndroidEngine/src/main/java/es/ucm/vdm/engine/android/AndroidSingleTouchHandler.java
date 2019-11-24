@@ -109,12 +109,24 @@ public class AndroidSingleTouchHandler implements AndroidTouchHandler {
         }
     }
 
+    /**
+     * Devuelve la coordenada y en la que se tocó por última vez la pantalla.
+     * @param pointer el identificador del dedo que se quiere consultar.
+     * @return la coordenada y requerida si la pantalla fue tocada
+     *         en el último frame, o -1 en caso contrario.
+     */
+    @Override
     public int getTouchY(int pointer) {
         synchronized (this) {
             return touchY_;
         }
     }
 
+    /**
+     * Devuelve todos los eventos de interacción con la pantalla registrados en el frame actual.
+     * Libera todos los eventos de interacción con la pantalla registrados en el frame anterior.
+     * @return la lista de todos los eventos de interacción con la pantalla en el último frame.
+     */
     public List<Input.TouchEvent> getTouchEvents() {
         synchronized (this) {
             int len = touchEvents_.size();
