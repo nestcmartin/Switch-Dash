@@ -68,6 +68,7 @@ public class GameState extends State {
         for (GameObject go: gameObjects_) {
             go.render(deltaTime);
         }
+        game_.getGraphics().drawBars(0x000000);
     }
 
 

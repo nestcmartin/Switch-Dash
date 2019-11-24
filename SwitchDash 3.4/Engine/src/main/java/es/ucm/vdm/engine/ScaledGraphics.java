@@ -147,4 +147,14 @@ public abstract class ScaledGraphics implements Graphics {
         r.y2 = newY2 + canvasPosY_;
         return r;
     }
+
+    /**
+     * Pinta barras negras sobre lo que está fuera del canvas lógico para que no se vea.
+     */
+    public void drawBars(int color) {
+        if (canvasPosY_ > 0) {
+            fillScaledRect(new Rect(0, 0, canvasWidth_, canvasPosY_), color);
+            fillScaledRect(new Rect(0, canvasPosY_ + canvasHeight_ , getWidth(), getHeight()), color);
+        }
+    }
 }
