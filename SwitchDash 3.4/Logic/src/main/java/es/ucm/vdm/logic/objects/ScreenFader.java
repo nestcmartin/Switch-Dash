@@ -29,10 +29,12 @@ public class ScreenFader extends GameObject {
 
     @Override
     public void update(double deltaTime) {
-        currentFadeTime_ -= deltaTime;
-        alpha_ = currentFadeTime_/ fadeTime_;
-        if(!fadeIn_)
-            alpha_ = Math.min(fadeTime_ - alpha_, 1);
+        if(currentFadeTime_ >= 0){
+            currentFadeTime_ -= deltaTime;
+            alpha_ = currentFadeTime_/ fadeTime_;
+            if(!fadeIn_)
+                alpha_ = Math.min(fadeTime_ - alpha_, 1);
+        }
     }
 
     @Override

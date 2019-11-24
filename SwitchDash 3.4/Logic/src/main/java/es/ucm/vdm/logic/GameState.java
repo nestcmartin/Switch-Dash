@@ -78,8 +78,8 @@ public class GameState extends State {
 
     protected void switchStateWithFading(GameState state){
         if(!isSwitching){
-            screenFader_.startFadeIn(false);
             isSwitching = true;
+            screenFader_.startFadeIn(false);
             newState_ = state;
         }
     }

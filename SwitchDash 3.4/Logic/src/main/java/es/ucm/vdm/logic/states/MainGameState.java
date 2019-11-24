@@ -36,6 +36,7 @@ public class MainGameState extends GameState {
     private int correctBalls_ = 0;
     private float timeToSwitchState = 1;
 
+
     public MainGameState(Game game) {
         super(game);
         ScaledGraphics g = game_.getGraphics();
@@ -86,8 +87,7 @@ public class MainGameState extends GameState {
 
     @Override
     public void update(double deltaTime) {
-        if(!gameOver)
-            handleInput();
+        handleInput();
 
         // Update gameObjects
         super.update(deltaTime);
@@ -120,7 +120,7 @@ public class MainGameState extends GameState {
     }
 
     private void tryToSwitchState(){
-        if(timeToSwitchState <= 0 && !screenFader_.isFading()) {
+        if(timeToSwitchState <= 0 && !screenFader_.isFading() && !isSwitching) {
             switchStateWithFading(new GameOverState(game_, scoreBoard_.getScore()));
         }
     }
@@ -134,18 +134,21 @@ public class MainGameState extends GameState {
         List<Input.KeyEvent> keyEvents = game_.getInput().getKeyEvents();
         List<Input.TouchEvent> touchEvents = game_.getInput().getTouchEvents();
 
-        for (int i = 0; i < keyEvents.size(); i++) {
-            Input.KeyEvent event = keyEvents.get(i);
-            if(player_.handleKeyEvent(event)){}
-        }
+        if(!gameOver) {
+            for (int i = 0; i < keyEvents.size(); i++) {
+                Input.KeyEvent event = keyEvents.get(i);
+                if (player_.handleKeyEvent(event)) {
+                }
+            }
 
-        for (int i = 0; i < touchEvents.size(); i++) {
-            Input.TouchEvent event = touchEvents.get(i);
-            if(player_.handleTouchEvent(event)){}
-            else if (soundButton_.handleTouchEvent(event)) {
-                switchSound(!SOUND);
-                if (SOUND) soundButton_.updateSpriteFrame(0, 2);
-                else soundButton_.updateSpriteFrame(0, 3);
+            for (int i = 0; i < touchEvents.size(); i++) {
+                Input.TouchEvent event = touchEvents.get(i);
+                if (player_.handleTouchEvent(event)) {
+                } else if (soundButton_.handleTouchEvent(event)) {
+                    switchSound(!SOUND);
+                    if (SOUND) soundButton_.updateSpriteFrame(0, 2);
+                    else soundButton_.updateSpriteFrame(0, 3);
+                }
             }
         }
     }
