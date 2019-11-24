@@ -7,20 +7,36 @@ import es.ucm.vdm.engine.utils.Pair;
 import es.ucm.vdm.engine.utils.PixmapManager;
 import es.ucm.vdm.engine.utils.Sprite;
 
+/**
+ * Utilidad para crear sprites a partir de la fuente del juego.
+ */
 public class FontMapper {
 
     private static final FontMapper ourInstance = new FontMapper();
+    private Pixmap fontPixmap_;
+    private HashMap<String, Pair> font_ = new HashMap<>();
+
+    /**
+     * @return la instancia única de la clase.
+     */
     public static FontMapper getInstance() {
         return ourInstance;
     }
 
-    private Pixmap fontPixmap_;
-    private HashMap<String, Pair> font_ = new HashMap<>();
-
+    /**
+     * Encuentra la fila y columna de un caracter de la fuente.
+     * @param c caracter a buscar
+     * @return la fila y columna del caracter
+     */
     public Pair getFrameLocation(String c) {
         return (font_.get(c));
     }
 
+    /**
+     * Crea un sprite a partir de un caracter.
+     * @param c el caracter que se quiere convertir en sprite.
+     * @return el sprite del caracter indicado.
+     */
     public Sprite getSprite(String c) {
         Sprite sprite = new Sprite(fontPixmap_, 7, 15);
         sprite.setFrameRow((int)font_.get(c).second());
@@ -28,6 +44,10 @@ public class FontMapper {
         return sprite;
     }
 
+    /**
+     * Constructora de la clase.
+     * Registra cada caracter de la fuente con sus coordenadas en la sprite-sheet.
+     */
     private FontMapper() {
         fontPixmap_ = PixmapManager.getInstance().getPixmap(Assets.images[Assets.ImageName.SCORE_FONT.ordinal()]);
 

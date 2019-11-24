@@ -25,6 +25,15 @@ android {
 
 }
 
+// Copia los assets
+task copyAssets (type: Copy) {
+    description 'Copy assets from the root to the assets folder'
+    from (rootDir) {
+        include 'assets/*'
+    }
+    into 'src/main'
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -36,4 +45,6 @@ dependencies {
     implementation project(path: ':AndroidEngine')
     implementation project(path: ':Engine')
     implementation project(path: ':Logic')
+
+    preBuild.dependsOn copyAssets
 }
